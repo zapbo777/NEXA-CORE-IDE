@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXA CORE - AI Development Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white">
+    <div class="min-h-screen">
+        <!-- Header -->
+        <header class="bg-black/50 border-b border-gray-800 p-4">
+            <div class="flex items-center justify-between max-w-7xl mx-auto">
+                <h1 class="text-2xl font-bold">NEXA CORE</h1>
+                <button onclick="showPayment()" class="bg-green-600 hover:bg-green-700 px-4 py-2 rounded-lg">
+                    Upgrade to Pro - $29/mo
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="max-w-7xl mx-auto p-8">
+            <div class="text-center mb-12">
+                <h2 class="text-5xl font-bold mb-4">Welcome to NEXA CORE</h2>
+                <p class="text-xl text-gray-400">AI-Powered Development Platform</p>
+            </div>
+
+            <!-- Features -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                <div class="bg-gray-800 p-6 rounded-lg">
+                    <h3 class="text-xl font-bold mb-2">🤖 AI Assistants</h3>
+                    <p>7 Professional AI entities ready to help you code</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-lg">
+                    <h3 class="text-xl font-bold mb-2">🚀 One-Click Deploy</h3>
+                    <p>Deploy to any platform instantly</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-lg">
+                    <h3 class="text-xl font-bold mb-2">💳 Secure Payments</h3>
+                    <p>Powered by Square</p>
+                </div>
+            </div>
+
+            <!-- Pricing -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
+                    <h3 class="text-xl font-bold mb-4">Free</h3>
+                    <div class="text-3xl font-bold mb-4">$0</div>
+                    <ul class="space-y-2 mb-6">
+                        <li>✓ 5 Projects</li>
+                        <li>✓ Basic AI</li>
+                        <li>✓ Community Support</li>
+                    </ul>
+                    <button class="w-full bg-gray-700 py-2 rounded-lg">Current Plan</button>
+                </div>
+                
+                <div class="bg-gradient-to-b from-blue-900/50 to-purple-900/50 p-6 rounded-lg border-2 border-blue-500">
+                    <h3 class="text-xl font-bold mb-4">Pro</h3>
+                    <div class="text-3xl font-bold mb-4">$29<span class="text-sm">/mo</span></div>
+                    <ul class="space-y-2 mb-6">
+                        <li>✓ Unlimited Projects</li>
+                        <li>✓ All AI Models</li>
+                        <li>✓ Priority Support</li>
+                        <li>✓ Custom Domains</li>
+                    </ul>
+                    <button onclick="showPayment()" class="w-full bg-blue-600 hover:bg-blue-700 py-2 rounded-lg">
+                        Get Started
+                    </button>
+                </div>
+                
+                <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
+                    <h3 class="text-xl font-bold mb-4">Enterprise</h3>
+                    <div class="text-3xl font-bold mb-4">$99<span class="text-sm">/mo</span></div>
+                    <ul class="space-y-2 mb-6">
+                        <li>✓ Everything in Pro</li>
+                        <li>✓ Dedicated Support</li>
+                        <li>✓ SLA Guarantee</li>
+                        <li>✓ Custom AI Training</li>
+                    </ul>
+                    <button onclick="showPayment()" class="w-full bg-gray-700 hover:bg-gray-600 py-2 rounded-lg">
+                        Contact Sales
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Simple payment redirect
+        function showPayment() {
+            // Replace with your Square payment link
+            window.location.href = 'https://square.link/YOUR-PAYMENT-LINK';
+            
+            // Or show alert for now
+            alert('Redirecting to Square payment... (Add your Square link here)');
+        }
+    </script>
+</body>
+</html>
