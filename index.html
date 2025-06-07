@@ -31,6 +31,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
         
         .logo {
@@ -59,6 +61,28 @@
         .logo-text p {
             font-size: 10px;
             color: #888;
+        }
+        
+        /* Language & Currency Selector */
+        .global-selectors {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .selector {
+            background: #333;
+            border: 1px solid #444;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .selector:focus {
+            outline: none;
+            border-color: #007acc;
         }
         
         /* Simple Buttons */
@@ -112,6 +136,38 @@
             font-size: 1.2rem;
             color: #ccc;
             margin-bottom: 2rem;
+        }
+        
+        /* Pricing */
+        .pricing {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .price-card {
+            background: #222;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid #333;
+        }
+        
+        .price-card.featured {
+            border-color: #007acc;
+            transform: scale(1.05);
+        }
+        
+        .price {
+            font-size: 2rem;
+            color: #007acc;
+            margin: 1rem 0;
+        }
+        
+        .currency {
+            font-size: 1rem;
+            color: #888;
         }
         
         /* Features Grid */
@@ -238,9 +294,29 @@
                     <p>by AICENTRALHUBPLAZA LLC™</p>
                 </div>
             </div>
+            
+            <!-- Language & Currency Selectors -->
+            <div class="global-selectors">
+                <select class="selector" id="languageSelect" onchange="changeLanguage()">
+                    <option value="en">🇺🇸 English</option>
+                    <option value="es">🇪🇸 Español</option>
+                    <option value="zh">🇨🇳 中文</option>
+                    <option value="ja">🇯🇵 日本語</option>
+                    <option value="hi">🇮🇳 हिन्दी</option>
+                </select>
+                
+                <select class="selector" id="currencySelect" onchange="changeCurrency()">
+                    <option value="USD">$ USD</option>
+                    <option value="EUR">€ EUR</option>
+                    <option value="GBP">£ GBP</option>
+                    <option value="JPY">¥ JPY</option>
+                    <option value="INR">₹ INR</option>
+                </select>
+            </div>
+            
             <div class="nav-buttons">
-                <button class="btn btn-secondary" onclick="openModal('login')">Login</button>
-                <button class="btn btn-primary" onclick="openModal('signup')">Sign Up</button>
+                <button class="btn btn-secondary" onclick="openModal('login')" data-translate="login">Login</button>
+                <button class="btn btn-primary" onclick="openModal('signup')" data-translate="signup">Sign Up</button>
             </div>
         </div>
     </header>
@@ -248,61 +324,109 @@
     <!-- Main Content -->
     <div class="container">
         <div class="hero">
-            <h2>Welcome to NEXA CORE™</h2>
-            <p>The Future of Humanoid Hybrid AI Development</p>
-            <p style="font-size: 14px; color: #888;">Intelligent AI Family • One-Click Deploy • Professional Development</p>
+            <h2 data-translate="welcome">Welcome to NEXA CORE™</h2>
+            <p data-translate="tagline">The Future of Humanoid Hybrid AI Development</p>
+            <p style="font-size: 14px; color: #888;" data-translate="features">Intelligent AI Family • One-Click Deploy • Professional Development</p>
             
             <div style="margin-top: 2rem;">
-                <button class="btn btn-primary" style="font-size: 18px; padding: 12px 30px;" onclick="alert('Start building with NEXA CORE™!')">
-                    Start Building
+                <button class="btn btn-primary" style="font-size: 18px; padding: 12px 30px;" onclick="startBuilding()">
+                    <span data-translate="startBuilding">Start Building</span>
                 </button>
+            </div>
+        </div>
+
+        <!-- Pricing Section -->
+        <h3 style="text-align: center; margin: 3rem 0; font-size: 2rem;" data-translate="pricing">Choose Your Plan</h3>
+        <div class="pricing">
+            <div class="price-card">
+                <h3 data-translate="free">Free</h3>
+                <div class="price">
+                    <span class="currency-symbol">$</span><span class="price-value" data-price="0">0</span>
+                    <span class="currency">/month</span>
+                </div>
+                <ul style="list-style: none; padding: 0; margin: 1rem 0;">
+                    <li>✓ 5 Projects</li>
+                    <li>✓ Basic AI</li>
+                    <li>✓ Community Support</li>
+                </ul>
+                <button class="btn btn-secondary" style="width: 100%;" data-translate="getStarted">Get Started</button>
+            </div>
+            
+            <div class="price-card featured">
+                <h3 data-translate="professional">Professional</h3>
+                <div class="price">
+                    <span class="currency-symbol">$</span><span class="price-value" data-price="29">29</span>
+                    <span class="currency">/month</span>
+                </div>
+                <ul style="list-style: none; padding: 0; margin: 1rem 0;">
+                    <li>✓ Unlimited Projects</li>
+                    <li>✓ All AI Models</li>
+                    <li>✓ Priority Support</li>
+                    <li>✓ Custom Domains</li>
+                </ul>
+                <button class="btn btn-primary" style="width: 100%;" data-translate="getStarted">Get Started</button>
+            </div>
+            
+            <div class="price-card">
+                <h3 data-translate="enterprise">Enterprise</h3>
+                <div class="price">
+                    <span class="currency-symbol">$</span><span class="price-value" data-price="99">99</span>
+                    <span class="currency">/month</span>
+                </div>
+                <ul style="list-style: none; padding: 0; margin: 1rem 0;">
+                    <li>✓ Everything in Pro</li>
+                    <li>✓ Dedicated Support</li>
+                    <li>✓ SLA Guarantee</li>
+                    <li>✓ Custom Training</li>
+                </ul>
+                <button class="btn btn-secondary" style="width: 100%;" data-translate="contactSales">Contact Sales</button>
             </div>
         </div>
 
         <!-- Features -->
         <div class="features">
             <div class="feature">
-                <h3>🤖 Humanoid AI Family</h3>
-                <p>7 Professional AI assistants with human-like intelligence ready to help you code</p>
+                <h3>🤖 <span data-translate="aiFamily">Humanoid AI Family</span></h3>
+                <p data-translate="aiFamilyDesc">7 Professional AI assistants with human-like intelligence ready to help you code</p>
             </div>
             
             <div class="feature">
-                <h3>🚀 One-Click Deploy</h3>
-                <p>Deploy your projects instantly to any platform with zero configuration</p>
+                <h3>🚀 <span data-translate="deploy">One-Click Deploy</span></h3>
+                <p data-translate="deployDesc">Deploy your projects instantly to any platform with zero configuration</p>
             </div>
             
             <div class="feature">
-                <h3>💳 Integrated Payments</h3>
-                <p>Built-in Square payment processing for your applications</p>
+                <h3>💳 <span data-translate="payments">Integrated Payments</span></h3>
+                <p data-translate="paymentsDesc">Built-in Square payment processing for your applications</p>
             </div>
         </div>
     </div>
 
     <!-- Footer -->
     <footer>
-        <p>© 2025 AICENTRALHUBPLAZA LLC™. All rights reserved.</p>
-        <p>NEXA CORE™ is a trademark of AICENTRALHUBPLAZA LLC™</p>
+        <p>© 2025 AICENTRALHUBPLAZA LLC™. <span data-translate="allRights">All rights reserved.</span></p>
+        <p>NEXA CORE™ <span data-translate="trademark">is a trademark of</span> AICENTRALHUBPLAZA LLC™</p>
     </footer>
 
     <!-- Login Modal -->
     <div id="loginModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Login</h2>
+                <h2 data-translate="login">Login</h2>
                 <span class="close" onclick="closeModal('login')">&times;</span>
             </div>
             <form onsubmit="handleLogin(event)">
                 <div class="form-group">
-                    <label>Email</label>
+                    <label data-translate="email">Email</label>
                     <input type="email" required>
                 </div>
                 <div class="form-group">
-                    <label>Password</label>
+                    <label data-translate="password">Password</label>
                     <input type="password" required>
                 </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
+                <button type="submit" class="btn btn-primary" style="width: 100%;" data-translate="login">Login</button>
                 <p style="text-align: center; margin-top: 1rem; font-size: 14px;">
-                    <a href="#" onclick="openModal('reset'); closeModal('login'); return false;" style="color: #007acc;">Forgot password?</a>
+                    <a href="#" onclick="openModal('reset'); closeModal('login'); return false;" style="color: #007acc;" data-translate="forgotPassword">Forgot password?</a>
                 </p>
             </form>
         </div>
@@ -312,23 +436,23 @@
     <div id="signupModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Create Account</h2>
+                <h2 data-translate="createAccount">Create Account</h2>
                 <span class="close" onclick="closeModal('signup')">&times;</span>
             </div>
             <form onsubmit="handleSignup(event)">
                 <div class="form-group">
-                    <label>Full Name</label>
+                    <label data-translate="fullName">Full Name</label>
                     <input type="text" required>
                 </div>
                 <div class="form-group">
-                    <label>Email</label>
+                    <label data-translate="email">Email</label>
                     <input type="email" required>
                 </div>
                 <div class="form-group">
-                    <label>Password</label>
+                    <label data-translate="password">Password</label>
                     <input type="password" required>
                 </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">Create Account</button>
+                <button type="submit" class="btn btn-primary" style="width: 100%;" data-translate="createAccount">Create Account</button>
             </form>
         </div>
     </div>
@@ -337,20 +461,233 @@
     <div id="resetModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Reset Password</h2>
+                <h2 data-translate="resetPassword">Reset Password</h2>
                 <span class="close" onclick="closeModal('reset')">&times;</span>
             </div>
             <form onsubmit="handleReset(event)">
                 <div class="form-group">
-                    <label>Email</label>
+                    <label data-translate="email">Email</label>
                     <input type="email" required>
                 </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">Send Reset Link</button>
+                <button type="submit" class="btn btn-primary" style="width: 100%;" data-translate="sendResetLink">Send Reset Link</button>
             </form>
         </div>
     </div>
 
     <script>
+        // Multi-language translations
+        const translations = {
+            en: {
+                login: "Login",
+                signup: "Sign Up",
+                welcome: "Welcome to NEXA CORE™",
+                tagline: "The Future of Humanoid Hybrid AI Development",
+                features: "Intelligent AI Family • One-Click Deploy • Professional Development",
+                startBuilding: "Start Building",
+                pricing: "Choose Your Plan",
+                free: "Free",
+                professional: "Professional",
+                enterprise: "Enterprise",
+                getStarted: "Get Started",
+                contactSales: "Contact Sales",
+                aiFamily: "Humanoid AI Family",
+                aiFamilyDesc: "7 Professional AI assistants with human-like intelligence ready to help you code",
+                deploy: "One-Click Deploy",
+                deployDesc: "Deploy your projects instantly to any platform with zero configuration",
+                payments: "Integrated Payments",
+                paymentsDesc: "Built-in Square payment processing for your applications",
+                allRights: "All rights reserved.",
+                trademark: "is a trademark of",
+                email: "Email",
+                password: "Password",
+                forgotPassword: "Forgot password?",
+                createAccount: "Create Account",
+                fullName: "Full Name",
+                resetPassword: "Reset Password",
+                sendResetLink: "Send Reset Link"
+            },
+            es: {
+                login: "Iniciar Sesión",
+                signup: "Registrarse",
+                welcome: "Bienvenido a NEXA CORE™",
+                tagline: "El Futuro del Desarrollo de IA Híbrida Humanoide",
+                features: "Familia de IA Inteligente • Despliegue con Un Clic • Desarrollo Profesional",
+                startBuilding: "Comenzar a Construir",
+                pricing: "Elige Tu Plan",
+                free: "Gratis",
+                professional: "Profesional",
+                enterprise: "Empresa",
+                getStarted: "Comenzar",
+                contactSales: "Contactar Ventas",
+                aiFamily: "Familia de IA Humanoide",
+                aiFamilyDesc: "7 asistentes de IA profesionales con inteligencia similar a la humana",
+                deploy: "Despliegue con Un Clic",
+                deployDesc: "Despliega tus proyectos instantáneamente sin configuración",
+                payments: "Pagos Integrados",
+                paymentsDesc: "Procesamiento de pagos Square integrado",
+                allRights: "Todos los derechos reservados.",
+                trademark: "es una marca registrada de",
+                email: "Correo Electrónico",
+                password: "Contraseña",
+                forgotPassword: "¿Olvidaste tu contraseña?",
+                createAccount: "Crear Cuenta",
+                fullName: "Nombre Completo",
+                resetPassword: "Restablecer Contraseña",
+                sendResetLink: "Enviar Enlace"
+            },
+            zh: {
+                login: "登录",
+                signup: "注册",
+                welcome: "欢迎使用 NEXA CORE™",
+                tagline: "人形混合AI开发的未来",
+                features: "智能AI家族 • 一键部署 • 专业开发",
+                startBuilding: "开始构建",
+                pricing: "选择您的计划",
+                free: "免费",
+                professional: "专业版",
+                enterprise: "企业版",
+                getStarted: "开始使用",
+                contactSales: "联系销售",
+                aiFamily: "人形AI家族",
+                aiFamilyDesc: "7个具有类人智能的专业AI助手",
+                deploy: "一键部署",
+                deployDesc: "立即将您的项目部署到任何平台",
+                payments: "集成支付",
+                paymentsDesc: "内置Square支付处理",
+                allRights: "版权所有。",
+                trademark: "是以下公司的商标",
+                email: "电子邮件",
+                password: "密码",
+                forgotPassword: "忘记密码？",
+                createAccount: "创建账户",
+                fullName: "全名",
+                resetPassword: "重置密码",
+                sendResetLink: "发送重置链接"
+            },
+            ja: {
+                login: "ログイン",
+                signup: "サインアップ",
+                welcome: "NEXA CORE™へようこそ",
+                tagline: "ヒューマノイドハイブリッドAI開発の未来",
+                features: "インテリジェントAIファミリー • ワンクリックデプロイ • プロフェッショナル開発",
+                startBuilding: "構築を開始",
+                pricing: "プランを選択",
+                free: "無料",
+                professional: "プロフェッショナル",
+                enterprise: "エンタープライズ",
+                getStarted: "始める",
+                contactSales: "営業に連絡",
+                aiFamily: "ヒューマノイドAIファミリー",
+                aiFamilyDesc: "人間のような知能を持つ7つのプロフェッショナルAIアシスタント",
+                deploy: "ワンクリックデプロイ",
+                deployDesc: "プロジェクトを任意のプラットフォームに即座にデプロイ",
+                payments: "統合決済",
+                paymentsDesc: "組み込みのSquare決済処理",
+                allRights: "全著作権所有。",
+                trademark: "の商標です",
+                email: "メール",
+                password: "パスワード",
+                forgotPassword: "パスワードをお忘れですか？",
+                createAccount: "アカウントを作成",
+                fullName: "フルネーム",
+                resetPassword: "パスワードをリセット",
+                sendResetLink: "リセットリンクを送信"
+            },
+            hi: {
+                login: "लॉग इन करें",
+                signup: "साइन अप करें",
+                welcome: "NEXA CORE™ में आपका स्वागत है",
+                tagline: "ह्यूमनॉइड हाइब्रिड AI विकास का भविष्य",
+                features: "बुद्धिमान AI परिवार • वन-क्लिक डिप्लॉय • पेशेवर विकास",
+                startBuilding: "निर्माण शुरू करें",
+                pricing: "अपनी योजना चुनें",
+                free: "मुफ्त",
+                professional: "पेशेवर",
+                enterprise: "उद्यम",
+                getStarted: "शुरू करें",
+                contactSales: "बिक्री से संपर्क करें",
+                aiFamily: "ह्यूमनॉइड AI परिवार",
+                aiFamilyDesc: "मानव जैसी बुद्धि के साथ 7 पेशेवर AI सहायक",
+                deploy: "वन-क्लिक डिप्लॉय",
+                deployDesc: "अपनी परियोजनाओं को तुरंत किसी भी प्लेटफॉर्म पर तैनात करें",
+                payments: "एकीकृत भुगतान",
+                paymentsDesc: "अंतर्निहित Square भुगतान प्रसंस्करण",
+                allRights: "सर्वाधिकार सुरक्षित।",
+                trademark: "का ट्रेडमार्क है",
+                email: "ईमेल",
+                password: "पासवर्ड",
+                forgotPassword: "पासवर्ड भूल गए?",
+                createAccount: "खाता बनाएं",
+                fullName: "पूरा नाम",
+                resetPassword: "पासवर्ड रीसेट करें",
+                sendResetLink: "रीसेट लिंक भेजें"
+            }
+        };
+        
+        // Currency exchange rates
+        const exchangeRates = {
+            USD: 1,
+            EUR: 0.85,
+            GBP: 0.73,
+            JPY: 110,
+            INR: 75
+        };
+        
+        // Currency symbols
+        const currencySymbols = {
+            USD: '$',
+            EUR: '€',
+            GBP: '£',
+            JPY: '¥',
+            INR: '₹'
+        };
+        
+        let currentLang = 'en';
+        let currentCurrency = 'USD';
+        
+        // Change language
+        function changeLanguage() {
+            currentLang = document.getElementById('languageSelect').value;
+            updateLanguage();
+        }
+        
+        // Update all text elements
+        function updateLanguage() {
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[currentLang] && translations[currentLang][key]) {
+                    element.textContent = translations[currentLang][key];
+                }
+            });
+        }
+        
+        // Change currency
+        function changeCurrency() {
+            currentCurrency = document.getElementById('currencySelect').value;
+            updateCurrency();
+        }
+        
+        // Update all prices
+        function updateCurrency() {
+            const rate = exchangeRates[currentCurrency];
+            const symbol = currencySymbols[currentCurrency];
+            
+            document.querySelectorAll('.currency-symbol').forEach(element => {
+                element.textContent = symbol;
+            });
+            
+            document.querySelectorAll('.price-value').forEach(element => {
+                const basePrice = parseFloat(element.getAttribute('data-price'));
+                const convertedPrice = Math.round(basePrice * rate);
+                element.textContent = convertedPrice;
+            });
+        }
+        
+        // Start building function
+        function startBuilding() {
+            alert('Welcome to NEXA CORE™! Start building amazing projects!');
+        }
+        
         // Simple Modal Functions
         function openModal(type) {
             document.getElementById(type + 'Modal').style.display = 'block';
@@ -391,10 +728,21 @@
             if (e.ctrlKey && e.altKey && e.key === 'A') {
                 if (prompt('Admin Password:') === 'admin2025') {
                     alert('Admin access granted!');
-                    // Add admin panel here
                 }
             }
         });
+        
+        // Auto-detect language on load
+        window.onload = function() {
+            const userLang = navigator.language || navigator.userLanguage;
+            const langCode = userLang.substring(0, 2);
+            
+            if (translations[langCode]) {
+                currentLang = langCode;
+                document.getElementById('languageSelect').value = langCode;
+                updateLanguage();
+            }
+        };
     </script>
 </body>
 </html>
