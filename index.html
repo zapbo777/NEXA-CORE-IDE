@@ -1,1 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXA CORE™ - Humanoid Hybrid IDE</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: #1a1a1a;
+            color: #fff;
+            line-height: 1.6;
+        }
+        
+        /* Header */
+        header {
+            background: #000;
+            padding: 1rem;
+            border-bottom: 2px solid #333;
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+        
+        .logo-circle {
+            width: 40px;
+            height: 40px;
+            background: #007acc;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+        }
+        
+        .logo-text h1 {
+            font-size: 20px;
+            color: #fff;
+        }
+        
+        .logo-text p {
+            font-size: 10px;
+            color: #888;
+        }
+        
+        /* Buttons */
+        .btn {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background: #007acc;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #005a9e;
+        }
+        
+        .btn-secondary {
+            background: #444;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #555;
+        }
+        
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 3rem 0;
+        }
+        
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #007acc;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            color: #ccc;
+            margin-bottom: 2rem;
+        }
+        
+        /* Features */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .feature {
+            background: #222;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid #333;
+        }
+        
+        .feature h3 {
+            color: #007acc;
+            margin-bottom: 1rem;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+        }
+        
+        .modal-content {
+            background: #222;
+            width: 90%;
+            max-width: 400px;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 10px;
+            border: 1px solid #444;
+        }
+        
+        .close {
+            float: right;
+            font-size: 28px;
+            cursor: pointer;
+            color: #888;
+        }
+        
+        .close:hover {
+            color: #fff;
+        }
+        
+        /* Form */
+        input[type="email"],
+        input[type="password"],
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            background: #333;
+            border: 1px solid #444;
+            border-radius: 5px;
+            color: #fff;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid #333;
+            color: #888;
+            font-size: 12px;
+        }
+        
+        /* Admin Panel */
+        #adminPanel {
+            display: none;
+            background: #111;
+            padding: 2rem;
+        }
+        
+        .admin-header {
+            color: #ff0000;
+            margin-bottom: 2rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-box {
+            background: #333;
+            padding: 1rem;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo" onclick="logoClick()">
+                <div class="logo-circle">A</div>
+                <div class="logo-text">
+                    <h1>NEXA CORE™ HUMANOID HYBRID IDE</h1>
+                    <p>by AICENTRALHUBPLAZA LLC™</p>
+                </div>
+            </div>
+            
+            <div>
+                <button class="btn btn-secondary" onclick="showLogin()">Login</button>
+                <button class="btn btn-primary" onclick="showSignup()">Sign Up</button>
+            </div>
+        </div>
+    </header>
 
+    <!-- Main Content -->
+    <div class="container" id="mainContent">
+        <div class="hero">
+            <h2>Welcome to NEXA CORE™</h2>
+            <p>The Future of Humanoid Hybrid AI Development</p>
+            <p style="font-size: 14px; color: #888;">Intelligent AI Family • One-Click Deploy • Professional Development</p>
+            
+            <div style="margin-top: 2rem;">
+                <button class="btn btn-primary" style="font-size: 18px; padding: 12px 30px;" onclick="alert('Start building with NEXA CORE™!')">
+                    Start Building
+                </button>
+            </div>
+        </div>
+
+        <!-- Features -->
+        <div class="features">
+            <div class="feature">
+                <h3>🤖 Humanoid AI Family</h3>
+                <p>7 Professional AI assistants with human-like intelligence ready to help you code</p>
+            </div>
+            
+            <div class="feature">
+                <h3>🚀 One-Click Deploy</h3>
+                <p>Deploy your projects instantly to any platform with zero configuration</p>
+            </div>
+            
+            <div class="feature">
+                <h3>💳 Integrated Payments</h3>
+                <p>Built-in Square payment processing for your applications</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Panel (Hidden) -->
+    <div id="adminPanel">
+        <div class="container">
+            <h1 class="admin-header">NEXA CORE™ Admin Panel</h1>
+            <button class="btn btn-secondary" onclick="exitAdmin()" style="float: right; margin-top: -3rem;">Exit Admin</button>
+            
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <h3 style="color: #ff6b6b;">Total Users</h3>
+                    <p style="font-size: 2rem;">1,247</p>
+                </div>
+                <div class="stat-box">
+                    <h3 style="color: #4ecdc4;">Pro Users</h3>
+                    <p style="font-size: 2rem;">89</p>
+                </div>
+                <div class="stat-box">
+                    <h3 style="color: #45b7d1;">Revenue</h3>
+                    <p style="font-size: 2rem;">$2,581</p>
+                </div>
+                <div class="stat-box">
+                    <h3 style="color: #96ceb4;">API Calls</h3>
+                    <p style="font-size: 2rem;">45.2K</p>
+                </div>
+            </div>
+            
+            <div style="background: #222; padding: 2rem; border-radius: 10px;">
+                <h2 style="color: #ff0000;">Admin Controls</h2>
+                <button class="btn btn-primary" style="margin: 5px;">User Management</button>
+                <button class="btn btn-primary" style="margin: 5px;">System Settings</button>
+                <button class="btn btn-primary" style="margin: 5px;">AI Configuration</button>
+                <button class="btn btn-primary" style="margin: 5px;">Payment Settings</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <p>© 2025 AICENTRALHUBPLAZA LLC™. All rights reserved.</p>
+        <p>NEXA CORE™ is a trademark of AICENTRALHUBPLAZA LLC™</p>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLogin()">&times;</span>
+            <h2>Login</h2>
+            <form onsubmit="handleLogin(event)">
+                <input type="email" placeholder="Email" required>
+                <input type="password" placeholder="Password" required>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Login</button>
+                <p style="text-align: center; margin-top: 1rem;">
+                    <a href="#" onclick="showReset()" style="color: #007acc;">Forgot password?</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div id="signupModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeSignup()">&times;</span>
+            <h2>Create Account</h2>
+            <form onsubmit="handleSignup(event)">
+                <input type="text" placeholder="Full Name" required>
+                <input type="email" placeholder="Email" required>
+                <input type="password" placeholder="Password" required>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Create Account</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Reset Modal -->
+    <div id="resetModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeReset()">&times;</span>
+            <h2>Reset Password</h2>
+            <form onsubmit="handleReset(event)">
+                <input type="email" placeholder="Email" required>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Send Reset Link</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Logo click counter for admin access
+        let clickCount = 0;
+        let clickTimer;
+        
+        function logoClick() {
+            clickCount++;
+            clearTimeout(clickTimer);
+            
+            if (clickCount === 5) {
+                showAdminLogin();
+                clickCount = 0;
+            }
+            
+            clickTimer = setTimeout(function() {
+                clickCount = 0;
+            }, 2000);
+        }
+        
+        // Admin functions
+        function showAdminLogin() {
+            const password = prompt('Enter admin password:');
+            if (password === 'admin2025') {
+                showAdmin();
+            } else if (password) {
+                alert('Invalid password!');
+            }
+        }
+        
+        function showAdmin() {
+            document.getElementById('mainContent').style.display = 'none';
+            document.getElementById('footer').style.display = 'none';
+            document.getElementById('adminPanel').style.display = 'block';
+        }
+        
+        function exitAdmin() {
+            document.getElementById('adminPanel').style.display = 'none';
+            document.getElementById('mainContent').style.display = 'block';
+            document.getElementById('footer').style.display = 'block';
+        }
+        
+        // Modal functions
+        function showLogin() {
+            document.getElementById('loginModal').style.display = 'block';
+        }
+        
+        function closeLogin() {
+            document.getElementById('loginModal').style.display = 'none';
+        }
+        
+        function showSignup() {
+            document.getElementById('signupModal').style.display = 'block';
+        }
+        
+        function closeSignup() {
+            document.getElementById('signupModal').style.display = 'none';
+        }
+        
+        function showReset() {
+            closeLogin();
+            document.getElementById('resetModal').style.display = 'block';
+        }
+        
+        function closeReset() {
+            document.getElementById('resetModal').style.display = 'none';
+        }
+        
+        // Form handlers
+        function handleLogin(e) {
+            e.preventDefault();
+            alert('Login successful!');
+            closeLogin();
+        }
+        
+        function handleSignup(e) {
+            e.preventDefault();
+            alert('Account created!');
+            closeSignup();
+        }
+        
+        function handleReset(e) {
+            e.preventDefault();
+            alert('Password reset link sent!');
+            closeReset();
+        }
+        
+        // Close modals when clicking outside
+        window.onclick = function(event) {
+            if (event.target.className === 'modal') {
+                event.target.style.display = 'none';
+            }
+        }
+        
+        // Keyboard shortcut for admin (Ctrl+Alt+A)
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.altKey && e.key === 'A') {
+                showAdminLogin();
+            }
+        });
+    </script>
+</body>
+</html>
