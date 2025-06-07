@@ -723,14 +723,130 @@
             }
         }
         
-        // Hidden Admin Access (Ctrl+Alt+A)
+        // Hidden Admin Access - Multiple Methods
+        
+        // Method 1: Keyboard shortcut (Ctrl+Alt+A)
         document.addEventListener('keydown', function(e) {
             if (e.ctrlKey && e.altKey && e.key === 'A') {
-                if (prompt('Admin Password:') === 'admin2025') {
-                    alert('Admin access granted!');
-                }
+                showAdminLogin();
             }
         });
+        
+        // Method 2: Click logo 5 times
+        let logoClicks = 0;
+        let logoTimer;
+        document.querySelector('.logo-circle').addEventListener('click', function() {
+            logoClicks++;
+            clearTimeout(logoTimer);
+            
+            if (logoClicks === 5) {
+                showAdminLogin();
+                logoClicks = 0;
+            } else {
+                logoTimer = setTimeout(function() {
+                    logoClicks = 0;
+                }, 2000);
+            }
+        });
+        
+        // Method 3: Type "admin" anywhere on the page
+        let typedText = '';
+        document.addEventListener('keypress', function(e) {
+            typedText += e.key;
+            if (typedText.includes('admin')) {
+                showAdminLogin();
+                typedText = '';
+            }
+            // Clear after 2 seconds
+            setTimeout(function() {
+                typedText = '';
+            }, 2000);
+        });
+        
+        // Admin login function
+        function showAdminLogin() {
+            const adminPassword = prompt('Admin Password:');
+            if (adminPassword === 'admin2025') {
+                showAdminPanel();
+            } else if (adminPassword) {
+                alert('Invalid admin password!');
+            }
+        }
+        
+        // Show admin panel
+        function showAdminPanel() {
+            // Hide normal content
+            document.querySelector('.container').style.display = 'none';
+            document.querySelector('footer').style.display = 'none';
+            
+            // Create admin panel
+            const adminPanel = document.createElement('div');
+            adminPanel.className = 'container';
+            adminPanel.innerHTML = `
+                <div style="padding: 2rem;">
+                    <div style="display: flex; justify-content: between; align-items: center; margin-bottom: 2rem;">
+                        <h1 style="color: #ff0000;">NEXA CORE™ Admin Panel</h1>
+                        <button onclick="exitAdmin()" class="btn btn-secondary" style="float: right;">Exit Admin</button>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+                        <div style="background: #333; padding: 1rem; border-radius: 5px;">
+                            <h3 style="color: #ff6b6b;">Total Users</h3>
+                            <p style="font-size: 2rem; margin: 0;">1,247</p>
+                        </div>
+                        <div style="background: #333; padding: 1rem; border-radius: 5px;">
+                            <h3 style="color: #4ecdc4;">Pro Users</h3>
+                            <p style="font-size: 2rem; margin: 0;">89</p>
+                        </div>
+                        <div style="background: #333; padding: 1rem; border-radius: 5px;">
+                            <h3 style="color: #45b7d1;">Revenue</h3>
+                            <p style="font-size: 2rem; margin: 0;">$2,581</p>
+                        </div>
+                        <div style="background: #333; padding: 1rem; border-radius: 5px;">
+                            <h3 style="color: #96ceb4;">API Calls</h3>
+                            <p style="font-size: 2rem; margin: 0;">45.2K</p>
+                        </div>
+                    </div>
+                    
+                    <div style="background: #222; padding: 2rem; border-radius: 10px; margin-bottom: 2rem;">
+                        <h2 style="color: #ff0000; margin-bottom: 1rem;">Admin Controls</h2>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                            <button class="btn btn-primary" style="width: 100%;">User Management</button>
+                            <button class="btn btn-primary" style="width: 100%;">System Settings</button>
+                            <button class="btn btn-primary" style="width: 100%;">AI Configuration</button>
+                            <button class="btn btn-primary" style="width: 100%;">Payment Settings</button>
+                            <button class="btn btn-primary" style="width: 100%;">Database Backup</button>
+                            <button class="btn btn-primary" style="width: 100%;">View Logs</button>
+                        </div>
+                    </div>
+                    
+                    <div style="background: #222; padding: 2rem; border-radius: 10px;">
+                        <h2 style="color: #ff0000; margin-bottom: 1rem;">Recent Activity</h2>
+                        <div style="font-family: monospace; font-size: 0.9rem;">
+                            <p>[2025-01-06 10:32:15] User #8742 upgraded to Pro</p>
+                            <p>[2025-01-06 10:28:43] New user registration from India</p>
+                            <p>[2025-01-06 10:15:22] Payment received: $29.00</p>
+                            <p>[2025-01-06 09:45:11] System backup completed</p>
+                            <p>[2025-01-06 09:12:33] AI model updated: Claude Opus 4</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(adminPanel);
+        }
+        
+        // Exit admin function
+        window.exitAdmin = function() {
+            // Remove admin panel
+            const adminPanels = document.querySelectorAll('.container');
+            if (adminPanels.length > 1) {
+                adminPanels[1].remove();
+            }
+            
+            // Show normal content
+            document.querySelector('.container').style.display = 'block';
+            document.querySelector('footer').style.display = 'block';
+        }
         
         // Auto-detect language on load
         window.onload = function() {
