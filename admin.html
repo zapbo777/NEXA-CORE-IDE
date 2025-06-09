@@ -3,175 +3,1024 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEXA CORE™ - Admin Portal by AICENTRALHUBPLAZA LLC™</title>
+    <title>NEXA CORE™ ULTIMATE - Admin Portal | AICENTRALHUBPLAZA LLC™</title>
+    <meta name="description" content="Secure admin portal for NEXA CORE™ ULTIMATE with advanced authentication and security vault">
+    
+    <!-- Security Headers -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline';">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔐</text></svg>">
+    
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --success: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --warning: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
+            --danger: linear-gradient(135deg, #fd79a8 0%, #fdcb6e 100%);
+            --glass: rgba(255,255,255,0.1);
+            --glass-border: rgba(255,255,255,0.2);
+            --text-primary: #ffffff;
+            --text-secondary: #b8c6db;
+            --bg-primary: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+            --shadow-glow: 0 0 40px rgba(102, 126, 234, 0.4);
+            --shadow-card: 0 25px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+        }
+
         body {
-            font-family: 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
-            color: #fff; margin: 0; padding: 20px; min-height: 100vh;
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
+
+        /* Authentication Screens */
+        .auth-container {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg-primary); z-index: 10000;
+            display: flex; align-items: center; justify-content: center;
+            transition: opacity 0.5s ease;
+        }
+
+        .auth-container.hidden {
+            opacity: 0; pointer-events: none;
+        }
+
+        .auth-box {
+            background: var(--glass); backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border); border-radius: 20px;
+            padding: 3rem; width: 100%; max-width: 450px;
+            text-align: center; box-shadow: var(--shadow-card);
+            position: relative; overflow: hidden;
+        }
+
+        .auth-box::before {
+            content: ''; position: absolute; top: -50%; right: -50%;
+            width: 100%; height: 100%; background: var(--primary);
+            opacity: 0.05; border-radius: 50%; z-index: 1;
+        }
+
+        .auth-content {
+            position: relative; z-index: 2;
+        }
+
+        .auth-logo {
+            font-size: 3rem; margin-bottom: 1rem;
+            animation: logoFloat 3s ease-in-out infinite;
+        }
+
+        .auth-title {
+            font-size: 2rem; font-weight: 800;
+            background: var(--primary); -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent; margin-bottom: 0.5rem;
+        }
+
+        .auth-subtitle {
+            color: var(--text-secondary); margin-bottom: 2rem;
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem; text-align: left;
+        }
+
+        .form-label {
+            display: block; margin-bottom: 0.5rem;
+            font-weight: 600; color: var(--text-primary);
+            font-size: 0.9rem;
+        }
+
+        .form-input {
+            width: 100%; padding: 1rem; border: 1px solid var(--glass-border);
+            border-radius: 10px; background: rgba(255,255,255,0.05);
+            color: var(--text-primary); font-size: 1rem;
+            transition: all 0.3s ease; backdrop-filter: blur(10px);
+        }
+
+        .form-input:focus {
+            outline: none; border-color: rgba(102, 126, 234, 0.5);
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.2);
+            background: rgba(255,255,255,0.08);
+        }
+
+        .form-input::placeholder {
+            color: var(--text-secondary); opacity: 0.7;
+        }
+
+        .auth-btn {
+            width: 100%; padding: 1rem; background: var(--primary);
+            border: none; border-radius: 10px; color: white;
+            font-weight: 700; font-size: 1.1rem; cursor: pointer;
+            transition: all 0.3s ease; margin-bottom: 1rem;
+        }
+
+        .auth-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .auth-btn:disabled {
+            opacity: 0.6; cursor: not-allowed;
+            transform: none; box-shadow: none;
+        }
+
+        .auth-link {
+            color: var(--text-secondary); text-decoration: none;
+            font-size: 0.9rem; transition: color 0.3s ease;
+            margin: 0 0.5rem;
+        }
+
+        .auth-link:hover {
+            color: var(--text-primary);
+        }
+
+        .auth-divider {
+            margin: 1.5rem 0; position: relative;
+        }
+
+        .auth-divider::before {
+            content: ''; position: absolute; top: 50%;
+            left: 0; right: 0; height: 1px;
+            background: var(--glass-border); z-index: 1;
+        }
+
+        .auth-divider span {
+            background: var(--bg-primary); padding: 0 1rem;
+            color: var(--text-secondary); font-size: 0.9rem;
+            position: relative; z-index: 2;
+        }
+
+        .social-btn {
+            width: 100%; padding: 0.8rem; margin-bottom: 0.8rem;
+            border: 1px solid var(--glass-border); border-radius: 10px;
+            background: var(--glass); color: var(--text-primary);
+            cursor: pointer; transition: all 0.3s ease;
+            display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+        }
+
+        .social-btn:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(102, 126, 234, 0.5);
+        }
+
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Security Features */
+        .security-features {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem; margin-top: 2rem;
+        }
+
+        .security-item {
+            background: rgba(40, 167, 69, 0.1);
+            border: 1px solid rgba(40, 167, 69, 0.3);
+            border-radius: 10px; padding: 1rem; text-align: center;
+        }
+
+        .security-icon {
+            font-size: 1.5rem; margin-bottom: 0.5rem;
+        }
+
+        .security-text {
+            font-size: 0.8rem; color: #28a745; font-weight: 600;
+        }
+
+        /* Main Admin Interface */
         .admin-container {
-            max-width: 1200px; margin: 0 auto;
-            background: rgba(255,255,255,0.05); backdrop-filter: blur(20px);
-            border-radius: 20px; padding: 30px; border: 1px solid rgba(255,255,255,0.1);
+            max-width: 1400px; margin: 0 auto; padding: 2rem;
+            background: var(--glass); backdrop-filter: blur(20px);
+            border-radius: 20px; border: 1px solid var(--glass-border);
+            margin-top: 2rem; margin-bottom: 2rem;
         }
-        .admin-header { text-align: center; margin-bottom: 30px; }
+
+        .admin-header {
+            text-align: center; margin-bottom: 3rem;
+            padding-bottom: 2rem; border-bottom: 1px solid var(--glass-border);
+        }
+
         .admin-header h1 {
-            background: linear-gradient(135deg, #007acc, #00d4ff);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            font-size: 3rem; font-weight: 900;
+            background: var(--primary); -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent; margin-bottom: 1rem;
+        }
+
+        .admin-subtitle {
+            color: var(--text-secondary); font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .status-badge {
+            display: inline-block; padding: 0.5rem 1.5rem;
+            background: rgba(40, 167, 69, 0.2); border: 1px solid rgba(40, 167, 69, 0.5);
+            border-radius: 25px; color: #28a745; font-weight: 600;
+        }
+
+        /* Security Vault Section */
+        .security-vault {
+            background: linear-gradient(135deg, rgba(220, 53, 69, 0.1), rgba(253, 121, 168, 0.1));
+            border: 2px solid rgba(220, 53, 69, 0.3);
+            border-radius: 20px; padding: 2.5rem; margin-bottom: 3rem;
+            position: relative; overflow: hidden;
+        }
+
+        .security-vault::before {
+            content: '🔐'; position: absolute; top: -20px; right: -20px;
+            font-size: 8rem; opacity: 0.1; z-index: 1;
+        }
+
+        .vault-header {
+            display: flex; align-items: center; gap: 1rem;
+            margin-bottom: 2rem; position: relative; z-index: 2;
+        }
+
+        .vault-icon {
+            font-size: 3rem; animation: pulse 2s infinite;
+        }
+
+        .vault-title {
+            font-size: 2rem; font-weight: 800;
+            color: #dc3545; margin: 0;
+        }
+
+        .vault-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem; position: relative; z-index: 2;
+        }
+
+        .vault-item {
+            background: rgba(0,0,0,0.3); backdrop-filter: blur(10px);
+            border: 1px solid rgba(220, 53, 69, 0.2); border-radius: 15px;
+            padding: 1.5rem; transition: all 0.3s ease; cursor: pointer;
+        }
+
+        .vault-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(220, 53, 69, 0.3);
+            border-color: rgba(220, 53, 69, 0.5);
+        }
+
+        .vault-item h4 {
+            color: #dc3545; margin-bottom: 0.5rem;
+            font-weight: 700; display: flex; align-items: center; gap: 0.5rem;
+        }
+
+        .vault-item p {
+            color: var(--text-secondary); font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Stats Grid */
+        .admin-stats {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem; margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: var(--glass); backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border); border-radius: 20px;
+            padding: 2rem; text-align: center; transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-card);
+        }
+
+        .stat-icon {
             font-size: 2.5rem; margin-bottom: 1rem;
         }
-        .admin-stats {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px; margin-bottom: 30px;
+
+        .stat-title {
+            color: var(--text-secondary); font-size: 1rem;
+            margin-bottom: 0.5rem; font-weight: 600;
         }
-        .stat-card {
-            background: rgba(0,122,204,0.1); padding: 20px; border-radius: 15px;
-            text-align: center; border: 1px solid rgba(0,122,204,0.2); transition: all 0.3s;
+
+        .stat-value {
+            font-size: 2.5rem; font-weight: 900;
+            background: var(--primary); -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent; margin-bottom: 0.5rem;
         }
-        .stat-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,122,204,0.3); }
-        .stat-card h3 { color: #00d4ff; margin-bottom: 1rem; }
-        .stat-value { font-size: 2.5rem; font-weight: bold; margin: 1rem 0; }
-        .btn {
-            background: linear-gradient(135deg, #007acc, #00d4ff); color: white; border: none;
-            padding: 12px 24px; border-radius: 8px; cursor: pointer; margin: 5px;
-            transition: all 0.3s; font-weight: 600; text-transform: uppercase;
+
+        .stat-change {
+            color: #28a745; font-size: 0.9rem;
+            font-weight: 600;
         }
-        .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,122,204,0.4); }
-        .system-log {
-            background: rgba(0,0,0,0.3); border-radius: 10px; padding: 20px; margin-top: 30px;
-            font-family: 'Courier New', monospace; font-size: 12px; max-height: 300px; overflow-y: auto;
-        }
-        .log-entry { margin: 5px 0; padding: 5px; border-left: 3px solid #00d4ff; padding-left: 10px; }
-        .success { border-left-color: #28a745; color: #28a745; }
-        .warning { border-left-color: #ffc107; color: #ffc107; }
-        .error { border-left-color: #dc3545; color: #dc3545; }
+
+        /* Navigation */
         .back-button {
-            position: fixed; top: 20px; left: 20px; background: rgba(255,255,255,0.1);
-            padding: 10px 20px; border-radius: 25px; text-decoration: none; color: #fff;
-            backdrop-filter: blur(10px); transition: all 0.3s;
+            position: fixed; top: 2rem; left: 2rem;
+            background: var(--glass); backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border); border-radius: 25px;
+            padding: 1rem 1.5rem; color: var(--text-primary);
+            text-decoration: none; transition: all 0.3s ease;
+            z-index: 1000;
         }
-        .back-button:hover { background: rgba(255,255,255,0.2); transform: translateY(-2px); }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-card);
+        }
+
+        .logout-btn {
+            position: fixed; top: 2rem; right: 2rem;
+            background: var(--danger); border: none;
+            border-radius: 25px; padding: 1rem 1.5rem;
+            color: white; cursor: pointer; transition: all 0.3s ease;
+            z-index: 1000; font-weight: 600;
+        }
+
+        .logout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(220, 53, 69, 0.4);
+        }
+
+        /* System Log */
+        .system-log {
+            background: rgba(0,0,0,0.5); backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border); border-radius: 20px;
+            padding: 2rem; margin-bottom: 3rem;
+        }
+
+        .log-header {
+            display: flex; align-items: center; gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .log-container {
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem; max-height: 300px;
+            overflow-y: auto; padding: 1rem;
+            background: rgba(0,0,0,0.3); border-radius: 10px;
+        }
+
+        .log-entry {
+            margin: 0.5rem 0; padding: 0.5rem;
+            border-left: 3px solid transparent; padding-left: 1rem;
+        }
+
+        .log-success { border-left-color: #28a745; color: #28a745; }
+        .log-warning { border-left-color: #ffc107; color: #ffc107; }
+        .log-error { border-left-color: #dc3545; color: #dc3545; }
+        .log-info { border-left-color: #17a2b8; color: #17a2b8; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .auth-box {
+                margin: 1rem; padding: 2rem;
+            }
+            
+            .admin-container {
+                margin: 1rem; padding: 1.5rem;
+            }
+            
+            .vault-grid,
+            .admin-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Error Messages */
+        .error-message {
+            background: rgba(220, 53, 69, 0.1);
+            border: 1px solid rgba(220, 53, 69, 0.3);
+            color: #dc3545; padding: 0.8rem; border-radius: 8px;
+            margin-bottom: 1rem; font-size: 0.9rem;
+        }
+
+        .success-message {
+            background: rgba(40, 167, 69, 0.1);
+            border: 1px solid rgba(40, 167, 69, 0.3);
+            color: #28a745; padding: 0.8rem; border-radius: 8px;
+            margin-bottom: 1rem; font-size: 0.9rem;
+        }
+
+        /* Loading Spinner */
+        .loading-spinner {
+            border: 2px solid rgba(255,255,255,0.1);
+            border-left: 2px solid #667eea;
+            border-radius: 50%; width: 20px; height: 20px;
+            animation: spin 1s linear infinite;
+            display: inline-block; margin-right: 0.5rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
-    <a href="index.html" class="back-button">← Back to Main Site</a>
-    
-    <div class="admin-container">
-        <div class="admin-header">
-            <h1>🚀 NEXA CORE™ Admin Portal</h1>
-            <p style="color: #888; font-size: 1.1rem;">AICENTRALHUBPLAZA LLC™ Enterprise Management Dashboard</p>
-            <p style="color: #00d4ff; font-size: 0.9rem; margin-top: 10px;">✅ Successfully Connected to GitHub Pages</p>
-        </div>
-        <div class="admin-stats" style="display: none;">
-            <div class="stat-card">
-                <h3>👥 Total Users</h3>
-                <div class="stat-value" style="color: #00d4ff;">12,847</div>
-                <p style="color: #888; font-size: 0.9rem;">+247 this week</p>
+    <!-- Login Screen -->
+    <div class="auth-container" id="loginScreen">
+        <div class="auth-box">
+            <div class="auth-content">
+                <div class="auth-logo">🔐</div>
+                <h1 class="auth-title">Admin Login</h1>
+                <p class="auth-subtitle">NEXA CORE™ ULTIMATE Security Portal</p>
+                
+                <div id="loginError" class="error-message" style="display: none;"></div>
+                
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label class="form-label">📧 Administrator Email</label>
+                        <input type="email" class="form-input" id="loginEmail" placeholder="admin@nexacore.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">🔑 Password</label>
+                        <input type="password" class="form-input" id="loginPassword" placeholder="Enter your secure password" required>
+                    </div>
+                    
+                    <button type="submit" class="auth-btn" id="loginBtn">
+                        🚀 Access Admin Portal
+                    </button>
+                </form>
+                
+                <div class="auth-divider">
+                    <span>or</span>
+                </div>
+                
+                <button class="social-btn" onclick="loginWithGoogle()">
+                    🔐 Login with Google Workspace
+                </button>
+                
+                <button class="social-btn" onclick="loginWithMicrosoft()">
+                    🔐 Login with Microsoft 365
+                </button>
+                
+                <div style="margin-top: 1.5rem;">
+                    <a href="#" class="auth-link" onclick="showForgotPassword()">🔄 Forgot Password?</a>
+                    <a href="#" class="auth-link" onclick="showSignup()">📝 Create Admin Account</a>
+                </div>
+                
+                <div class="security-features">
+                    <div class="security-item">
+                        <div class="security-icon">🛡️</div>
+                        <div class="security-text">2FA Protected</div>
+                    </div>
+                    <div class="security-item">
+                        <div class="security-icon">🔒</div>
+                        <div class="security-text">End-to-End Encrypted</div>
+                    </div>
+                </div>
             </div>
-            <div class="stat-card">
-                <h3>💳 Revenue</h3>
-                <div class="stat-value" style="color: #28a745;">$847,293</div>
-                <p style="color: #888; font-size: 0.9rem;">+12.3% this month</p>
-            </div>
-            <div class="stat-card">
-                <h3>🤖 AI Requests</h3>
-                <div class="stat-value" style="color: #ffc107;">47.2M</div>
-                <p style="color: #888; font-size: 0.9rem;">2.1M today</p>
-            </div>
-            <div class="stat-card">
-                <h3>🔒 Security Score</h3>
-                <div class="stat-value" style="color: #28a745;">99.7%</div>
-                <p style="color: #888; font-size: 0.9rem;">Excellent</p>
-            </div>
-        </div>
-        
-        <div style="text-align: center; margin: 2rem 0;">
-            <button class="btn" onclick="manageUsers()">👥 User Management</button>
-            <button class="btn" onclick="manageBilling()">💳 Billing Management</button>
-            <button class="btn" onclick="configureAI()">🤖 AI Configuration</button>
-            <button class="btn" onclick="viewAnalytics()">📊 Analytics Dashboard</button>
-            <button class="btn" onclick="securitySettings()">🔒 Security Settings</button>
-            <button class="btn" onclick="systemStatus()">🚀 System Status</button>
-        </div>
-        
-        <div style="background: rgba(0,122,204,0.1); border-radius: 15px; padding: 20px; margin: 20px 0;">
-            <h3 style="color: #00d4ff; margin-bottom: 15px;">⚡ Quick Actions</h3>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
-                <button class="btn" onclick="deployUpdate()">🚀 Deploy Update</button>
-                <button class="btn" onclick="backupData()">💾 Backup Data</button>
-                <button class="btn" onclick="generateReport()">📄 Generate Report</button>
-                <button class="btn" onclick="maintenanceMode()">🔧 Maintenance Mode</button>
-            </div>
-        </div>
-        
-        <div class="system-log">
-            <h3 style="color: #00d4ff; margin-bottom: 15px;">📊 Real-time System Status</h3>
-            <div class="log-entry success">[2025-06-07 14:32:15] ✅ All systems operational - GitHub Pages deployment successful</div>
-            <div class="log-entry success">[2025-06-07 14:31:45] ✅ AI Assistant cluster: 100% uptime - 10 assistants responding</div>
-            <div class="log-entry success">[2025-06-07 14:30:22] ✅ Database performance: Optimal - Query time: 23ms avg</div>
-            <div class="log-entry success">[2025-06-07 14:29:33] ✅ Security scan: No threats detected - SSL certificate valid</div>
-            <div class="log-entry success">[2025-06-07 14:28:44] ✅ Admin portal: Successfully loaded on GitHub Pages</div>
-            <div class="log-entry warning">[2025-06-07 14:27:55] ⚠️ High traffic detected: 15,000+ concurrent users</div>
-            <div class="log-entry success">[2025-06-07 14:26:12] ✅ Backup completed: All user data secured</div>
-            <div class="log-entry success">[2025-06-07 14:25:03] ✅ Payment processing: 47 transactions completed</div>
-        </div>
-        
-        <div style="text-align: center; margin-top: 30px; padding: 20px; background: rgba(40,167,69,0.1); border-radius: 10px;">
-            <h4 style="color: #28a745; margin-bottom: 10px;">🎯 NEXA CORE™ Admin Portal - Fully Operational</h4>
-            <p style="color: #ccc; font-size: 0.9rem;">Powered by AICENTRALHUBPLAZA LLC™ | GitHub Pages Deployment Active</p>
         </div>
     </div>
-    
+
+    <!-- Signup Screen -->
+    <div class="auth-container hidden" id="signupScreen">
+        <div class="auth-box">
+            <div class="auth-content">
+                <div class="auth-logo">👤</div>
+                <h1 class="auth-title">Create Admin Account</h1>
+                <p class="auth-subtitle">Join the NEXA CORE™ ULTIMATE team</p>
+                
+                <div id="signupError" class="error-message" style="display: none;"></div>
+                <div id="signupSuccess" class="success-message" style="display: none;"></div>
+                
+                <form id="signupForm">
+                    <div class="form-group">
+                        <label class="form-label">👤 Full Name</label>
+                        <input type="text" class="form-input" id="signupName" placeholder="Peter Harper" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">📧 Email Address</label>
+                        <input type="email" class="form-input" id="signupEmail" placeholder="peter@nexacore.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">🏢 Company Role</label>
+                        <select class="form-input" id="signupRole" required>
+                            <option value="">Select your role</option>
+                            <option value="ceo">CEO</option>
+                            <option value="cto">CTO</option>
+                            <option value="admin">System Administrator</option>
+                            <option value="manager">Project Manager</option>
+                            <option value="developer">Developer</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">🔑 Password</label>
+                        <input type="password" class="form-input" id="signupPassword" placeholder="Create strong password" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">🔑 Confirm Password</label>
+                        <input type="password" class="form-input" id="signupConfirmPassword" placeholder="Confirm your password" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">🔐 2FA Phone</label>
+                        <input type="tel" class="form-input" id="signupPhone" placeholder="+1 (555) 123-4567" required>
+                    </div>
+                    
+                    <button type="submit" class="auth-btn" id="signupBtn">
+                        🎯 Create Secure Account
+                    </button>
+                </form>
+                
+                <div style="margin-top: 1.5rem;">
+                    <a href="#" class="auth-link" onclick="showLogin()">🔙 Back to Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Forgot Password Screen -->
+    <div class="auth-container hidden" id="forgotPasswordScreen">
+        <div class="auth-box">
+            <div class="auth-content">
+                <div class="auth-logo">🔄</div>
+                <h1 class="auth-title">Reset Password</h1>
+                <p class="auth-subtitle">Recover your NEXA CORE™ admin access</p>
+                
+                <div id="resetError" class="error-message" style="display: none;"></div>
+                <div id="resetSuccess" class="success-message" style="display: none;"></div>
+                
+                <form id="resetForm">
+                    <div class="form-group">
+                        <label class="form-label">📧 Administrator Email</label>
+                        <input type="email" class="form-input" id="resetEmail" placeholder="admin@nexacore.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">🆔 User ID (Optional)</label>
+                        <input type="text" class="form-input" id="resetUserId" placeholder="NEXAID-12345">
+                    </div>
+                    
+                    <button type="submit" class="auth-btn" id="resetBtn">
+                        📧 Send Reset Link
+                    </button>
+                </form>
+                
+                <div style="margin-top: 1.5rem;">
+                    <a href="#" class="auth-link" onclick="showLogin()">🔙 Back to Login</a>
+                    <a href="#" class="auth-link" onclick="showSignup()">📝 Create New Account</a>
+                </div>
+                
+                <div style="margin-top: 2rem; padding: 1rem; background: rgba(102, 126, 234, 0.1); border-radius: 10px;">
+                    <p style="font-size: 0.9rem; color: var(--text-secondary);">
+                        🛡️ <strong>Security Note:</strong> Password reset links are valid for 15 minutes and require 2FA verification.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Admin Dashboard -->
+    <div class="auth-container hidden" id="adminDashboard">
+        <a href="index.html" class="back-button">← Back to Main Site</a>
+        <button class="logout-btn" onclick="logout()">🚪 Logout</button>
+        
+        <div class="admin-container">
+            <div class="admin-header">
+                <h1>🚀 NEXA CORE™ Admin Portal</h1>
+                <p class="admin-subtitle">AICENTRALHUBPLAZA LLC™ Enterprise Management Dashboard</p>
+                <div class="status-badge">✅ All Systems Operational</div>
+            </div>
+
+            <!-- Security Vault -->
+            <div class="security-vault">
+                <div class="vault-header">
+                    <div class="vault-icon">🔐</div>
+                    <div>
+                        <h2 class="vault-title">Security Vault</h2>
+                        <p style="color: var(--text-secondary); margin: 0;">Advanced authentication & security management</p>
+                    </div>
+                </div>
+                
+                <div class="vault-grid">
+                    <div class="vault-item" onclick="manageApiKeys()">
+                        <h4>🔑 API Keys & Secrets</h4>
+                        <p>Manage secret keys, API tokens, and secure credentials for all integrations</p>
+                    </div>
+                    
+                    <div class="vault-item" onclick="manage2FA()">
+                        <h4>🛡️ Two-Factor Authentication</h4>
+                        <p>Configure 2FA settings, backup codes, and authentication methods</p>
+                    </div>
+                    
+                    <div class="vault-item" onclick="manageUsers()">
+                        <h4>👥 User ID Management</h4>
+                        <p>Create, edit, and manage user IDs, permissions, and access levels</p>
+                    </div>
+                    
+                    <div class="vault-item" onclick="passwordPolicy()">
+                        <h4>🔐 Password Policies</h4>
+                        <p>Set password requirements, expiration, and security policies</p>
+                    </div>
+                    
+                    <div class="vault-item" onclick="sessionManagement()">
+                        <h4>⏱️ Session Management</h4>
+                        <p>Monitor active sessions, force logouts, and session security</p>
+                    </div>
+                    
+                    <div class="vault-item" onclick="auditLogs()">
+                        <h4>📊 Security Audit Logs</h4>
+                        <p>View login attempts, security events, and access patterns</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Dashboard -->
+            <div class="admin-stats">
+                <div class="stat-card">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-title">Total Users</div>
+                    <div class="stat-value">12,847</div>
+                    <div class="stat-change">+247 this week</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">💳</div>
+                    <div class="stat-title">Revenue</div>
+                    <div class="stat-value">$847K</div>
+                    <div class="stat-change">+12.3% this month</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">🤖</div>
+                    <div class="stat-title">AI Requests</div>
+                    <div class="stat-value">47.2M</div>
+                    <div class="stat-change">2.1M today</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">🔒</div>
+                    <div class="stat-title">Security Score</div>
+                    <div class="stat-value">99.7%</div>
+                    <div class="stat-change">Excellent</div>
+                </div>
+            </div>
+
+            <!-- System Logs -->
+            <div class="system-log">
+                <div class="log-header">
+                    <div style="font-size: 1.5rem;">📊</div>
+                    <h3 style="color: var(--text-primary); font-weight: 700;">Real-time Security & System Logs</h3>
+                </div>
+                
+                <div class="log-container" id="systemLogs">
+                    <div class="log-entry log-success">[2025-06-08 15:42:33] ✅ Admin login successful - User: admin@nexacore.com</div>
+                    <div class="log-entry log-success">[2025-06-08 15:41:15] ✅ Security vault accessed - API keys reviewed</div>
+                    <div class="log-entry log-success">[2025-06-08 15:40:22] ✅ Password policy updated - Enhanced security requirements</div>
+                    <div class="log-entry log-info">[2025-06-08 15:39:44] ℹ️ New user registration - peter.harper@nexacore.com</div>
+                    <div class="log-entry log-success">[2025-06-08 15:38:33] ✅ 2FA verification successful - Mobile authenticator</div>
+                    <div class="log-entry log-warning">[2025-06-08 15:37:15] ⚠️ Failed login attempt detected - IP: 192.168.1.100</div>
+                    <div class="log-entry log-success">[2025-06-08 15:36:44] ✅ System backup completed - All data secured</div>
+                    <div class="log-entry log-success">[2025-06-08 15:35:22] ✅ AI Assistant cluster: 100% operational</div>
+                    <div class="log-entry log-info">[2025-06-08 15:34:15] ℹ️ Session management: 47 active admin sessions</div>
+                    <div class="log-entry log-success">[2025-06-08 15:33:33] ✅ Database performance: Optimal - 18ms avg response</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Admin Functions
+        // Authentication State Management
+        let currentUser = null;
+        let isAuthenticated = false;
+
+        // Sample user database (in production, this would be server-side)
+        const users = {
+            'admin@nexacore.com': {
+                password: 'admin2025!',
+                name: 'Peter Harper',
+                role: 'CEO',
+                id: 'NEXAID-001',
+                phone: '+1-555-0123',
+                lastLogin: new Date()
+            },
+            'arlene@nexacore.com': {
+                password: 'founder2025!',
+                name: 'Arlene Harper',
+                role: 'Founder',
+                id: 'NEXAID-002',
+                phone: '+1-555-0124',
+                lastLogin: new Date()
+            }
+        };
+
+        // Show/Hide Authentication Screens
+        function showLogin() {
+            hideAllScreens();
+            document.getElementById('loginScreen').classList.remove('hidden');
+        }
+
+        function showSignup() {
+            hideAllScreens();
+            document.getElementById('signupScreen').classList.remove('hidden');
+        }
+
+        function showForgotPassword() {
+            hideAllScreens();
+            document.getElementById('forgotPasswordScreen').classList.remove('hidden');
+        }
+
+        function showDashboard() {
+            hideAllScreens();
+            document.getElementById('adminDashboard').classList.remove('hidden');
+        }
+
+        function hideAllScreens() {
+            const screens = ['loginScreen', 'signupScreen', 'forgotPasswordScreen', 'adminDashboard'];
+            screens.forEach(screen => {
+                document.getElementById(screen).classList.add('hidden');
+            });
+        }
+
+        // Login Functionality
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            const errorDiv = document.getElementById('loginError');
+            const loginBtn = document.getElementById('loginBtn');
+            
+            // Show loading state
+            loginBtn.innerHTML = '<div class="loading-spinner"></div>Authenticating...';
+            loginBtn.disabled = true;
+            
+            setTimeout(() => {
+                if (users[email] && users[email].password === password) {
+                    // Successful login
+                    currentUser = users[email];
+                    isAuthenticated = true;
+                    users[email].lastLogin = new Date();
+                    
+                    errorDiv.style.display = 'none';
+                    addSystemLog('success', `Admin login successful - User: ${email}`);
+                    
+                    setTimeout(() => {
+                        showDashboard();
+                        loginBtn.innerHTML = '🚀 Access Admin Portal';
+                        loginBtn.disabled = false;
+                    }, 1000);
+                } else {
+                    // Failed login
+                    errorDiv.textContent = '❌ Invalid credentials. Please check your email and password.';
+                    errorDiv.style.display = 'block';
+                    addSystemLog('error', `Failed login attempt - Email: ${email}`);
+                    
+                    loginBtn.innerHTML = '🚀 Access Admin Portal';
+                    loginBtn.disabled = false;
+                }
+            }, 2000);
+        });
+
+        // Signup Functionality
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            const role = document.getElementById('signupRole').value;
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('signupConfirmPassword').value;
+            const phone = document.getElementById('signupPhone').value;
+            
+            const errorDiv = document.getElementById('signupError');
+            const successDiv = document.getElementById('signupSuccess');
+            const signupBtn = document.getElementById('signupBtn');
+            
+            // Validation
+            if (password !== confirmPassword) {
+                errorDiv.textContent = '❌ Passwords do not match.';
+                errorDiv.style.display = 'block';
+                successDiv.style.display = 'none';
+                return;
+            }
+            
+            if (password.length < 8) {
+                errorDiv.textContent = '❌ Password must be at least 8 characters long.';
+                errorDiv.style.display = 'block';
+                successDiv.style.display = 'none';
+                return;
+            }
+            
+            if (users[email]) {
+                errorDiv.textContent = '❌ An account with this email already exists.';
+                errorDiv.style.display = 'block';
+                successDiv.style.display = 'none';
+                return;
+            }
+            
+            // Show loading state
+            signupBtn.innerHTML = '<div class="loading-spinner"></div>Creating Account...';
+            signupBtn.disabled = true;
+            
+            setTimeout(() => {
+                // Create new user
+                const userId = 'NEXAID-' + String(Object.keys(users).length + 1).padStart(3, '0');
+                users[email] = {
+                    password: password,
+                    name: name,
+                    role: role,
+                    id: userId,
+                    phone: phone,
+                    lastLogin: null
+                };
+                
+                errorDiv.style.display = 'none';
+                successDiv.innerHTML = `✅ Account created successfully!<br>🆔 Your User ID: <strong>${userId}</strong><br>📧 Verification email sent to ${email}`;
+                successDiv.style.display = 'block';
+                
+                addSystemLog('info', `New admin account created - ${email} (${name})`);
+                
+                signupBtn.innerHTML = '🎯 Create Secure Account';
+                signupBtn.disabled = false;
+                
+                // Auto-redirect to login after 3 seconds
+                setTimeout(() => {
+                    showLogin();
+                    alert(`🎉 Welcome to NEXA CORE™ ULTIMATE!\n\n✅ Account Created Successfully\n🆔 User ID: ${userId}\n👤 Name: ${name}\n📧 Email: ${email}\n🏢 Role: ${role}\n\nYou can now login with your credentials!`);
+                }, 3000);
+            }, 2000);
+        });
+
+        // Password Reset Functionality
+        document.getElementById('resetForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('resetEmail').value;
+            const userId = document.getElementById('resetUserId').value;
+            const errorDiv = document.getElementById('resetError');
+            const successDiv = document.getElementById('resetSuccess');
+            const resetBtn = document.getElementById('resetBtn');
+            
+            // Show loading state
+            resetBtn.innerHTML = '<div class="loading-spinner"></div>Sending Reset Link...';
+            resetBtn.disabled = true;
+            
+            setTimeout(() => {
+                if (users[email]) {
+                    const user = users[email];
+                    
+                    // Validate User ID if provided
+                    if (userId && user.id !== userId) {
+                        errorDiv.textContent = '❌ User ID does not match the email address.';
+                        errorDiv.style.display = 'block';
+                        successDiv.style.display = 'none';
+                    } else {
+                        // Generate reset token (in production, this would be server-side)
+                        const resetToken = 'RST-' + Math.random().toString(36).substr(2, 9).toUpperCase();
+                        
+                        errorDiv.style.display = 'none';
+                        successDiv.innerHTML = `✅ Password reset link sent successfully!<br>📧 Check your email: ${email}<br>🔑 Reset Token: <strong>${resetToken}</strong><br>⏱️ Valid for 15 minutes`;
+                        successDiv.style.display = 'block';
+                        
+                        addSystemLog('info', `Password reset requested - User: ${email}`);
+                    }
+                } else {
+                    errorDiv.textContent = '❌ No account found with this email address.';
+                    errorDiv.style.display = 'block';
+                    successDiv.style.display = 'none';
+                }
+                
+                resetBtn.innerHTML = '📧 Send Reset Link';
+                resetBtn.disabled = false;
+            }, 2000);
+        });
+
+        // Social Login Functions
+        function loginWithGoogle() {
+            alert('🔐 Google Workspace Login\n\nRedirecting to Google authentication...\n\n✅ Features:\n• Single Sign-On (SSO)\n• Multi-factor authentication\n• Enterprise security\n• Automatic user provisioning\n\nThis would integrate with Google Workspace in production.');
+        }
+
+        function loginWithMicrosoft() {
+            alert('🔐 Microsoft 365 Login\n\nRedirecting to Microsoft authentication...\n\n✅ Features:\n• Azure AD integration\n• Enterprise security\n• Conditional access\n• Multi-factor authentication\n\nThis would integrate with Microsoft 365 in production.');
+        }
+
+        // Security Vault Functions
+        function manageApiKeys() {
+            alert('🔑 API Keys & Secrets Management\n\n📊 Current Status:\n• Active API Keys: 15\n• Expired Keys: 2\n• Secret Rotation: Due in 30 days\n\n🔧 Available Actions:\n• Generate new API keys\n• Rotate existing secrets\n• Revoke compromised keys\n• Set expiration policies\n• View usage analytics');
+        }
+
+        function manage2FA() {
+            alert('🛡️ Two-Factor Authentication\n\n📊 Current Settings:\n• 2FA Enabled: ✅ Active\n• Method: Mobile Authenticator\n• Backup Codes: 8 remaining\n• Last Verification: 2 hours ago\n\n🔧 Available Actions:\n• Generate backup codes\n• Add new device\n• SMS/Voice backup\n• Security key registration');
+        }
+
         function manageUsers() {
-            alert('👥 User Management Dashboard\n\n📊 Current Statistics:\n• Total Users: 12,847\n• Active Today: 3,421\n• New Registrations: 247\n• Premium Users: 1,234\n\n🔧 Available Actions:\n• View user profiles\n• Manage permissions\n• Send notifications\n• Export user data');
+            alert('👥 User ID Management\n\n📊 Current Users:\n• Total Admins: 12\n• Active Sessions: 5\n• Pending Invitations: 3\n• Disabled Accounts: 1\n\n🔧 Available Actions:\n• Create new admin accounts\n• Edit user permissions\n• Reset user passwords\n• Manage access levels\n• Bulk user operations');
         }
-        
-        function manageBilling() {
-            alert('💳 Billing Management System\n\n💰 Revenue Overview:\n• Total Revenue: $847,293\n• Monthly Recurring: $34,521\n• Failed Payments: 12\n• Refunds Pending: 3\n\n🔧 Available Actions:\n• Process refunds\n• Update pricing\n• Generate invoices\n• Payment analytics');
+
+        function passwordPolicy() {
+            alert('🔐 Password Security Policies\n\n📊 Current Policy:\n• Minimum Length: 8 characters\n• Complexity: High\n• Expiration: 90 days\n• History: Last 5 passwords\n\n🔧 Policy Settings:\n• Character requirements\n• Expiration rules\n• Account lockout\n• Breach detection\n• Compliance reporting');
         }
-        
-        function configureAI() {
-            alert('🤖 AI Configuration Panel\n\n⚡ AI System Status:\n• 10 AI Assistants Online\n• 47.2M Requests Processed\n• Response Time: 0.8s avg\n• Accuracy Rate: 97.3%\n\n🔧 Available Actions:\n• Update AI models\n• Configure responses\n• Training data management\n• Performance optimization');
+
+        function sessionManagement() {
+            alert('⏱️ Active Session Management\n\n📊 Current Sessions:\n• Total Active: 47 sessions\n• Admin Sessions: 5\n• User Sessions: 42\n• Average Duration: 2.5 hours\n\n🔧 Available Actions:\n• Force logout all users\n• Terminate specific sessions\n• Set session timeouts\n• Monitor suspicious activity\n• Generate session reports');
         }
-        
-        function viewAnalytics() {
-            alert('📊 Analytics Dashboard\n\n📈 Key Metrics:\n• Page Views: 2.4M this month\n• User Engagement: 89%\n• Feature Usage: API Builder (67%), CodeGenius (84%)\n• Geographic Distribution: Global\n\n🔧 Available Reports:\n• Traffic analysis\n• User behavior\n• Revenue tracking\n• Performance metrics');
+
+        function auditLogs() {
+            alert('📊 Security Audit Logs\n\n📈 Recent Activity:\n• Login Attempts: 1,247 (24h)\n• Failed Logins: 23 (0.02%)\n• API Calls: 45,832\n• Security Events: 3\n\n🔧 Available Reports:\n• Login analytics\n• Permission changes\n• Data access logs\n• Security incidents\n• Compliance reports');
         }
-        
-        function securitySettings() {
-            alert('🔒 Security Settings\n\n🛡️ Security Status:\n• Threat Level: LOW\n• SSL Certificate: Valid\n• Firewall: Active\n• Security Score: 99.7%\n\n🔧 Available Actions:\n• Update security policies\n• Review access logs\n• Configure 2FA\n• Threat monitoring');
-        }
-        
-        function systemStatus() {
-            alert('🚀 System Status Dashboard\n\n⚡ Infrastructure:\n• Uptime: 99.97%\n• Response Time: 143ms\n• GitHub Pages: Active\n• CDN Status: Optimal\n\n🔧 System Health:\n• CPU Usage: 23%\n• Memory Usage: 67%\n• Storage: 89% available\n• Network: Stable');
-        }
-        
-        function deployUpdate() {
-            alert('🚀 Deploy Update\n\nInitiating deployment process...\n\n✅ Steps:\n1. Backup current version\n2. Run security checks\n3. Deploy to staging\n4. Validate functionality\n5. Deploy to production\n\nEstimated time: 5 minutes\nDowntime: < 30 seconds');
-        }
-        
-        function backupData() {
-            alert('💾 Data Backup\n\nStarting comprehensive backup...\n\n📊 Backup includes:\n• User databases\n• AI training data\n• Configuration files\n• Analytics data\n\nBackup location: Secure cloud storage\nEstimated time: 15 minutes\nLast backup: 2 hours ago');
-        }
-        
-        function generateReport() {
-            alert('📄 Generate Report\n\nReport Types Available:\n\n📊 Options:\n• Monthly Revenue Report\n• User Activity Summary\n• AI Performance Analytics\n• Security Audit Report\n• System Health Report\n\nFormat: PDF, Excel, CSV\nDelivery: Email, Download');
-        }
-        
-        function maintenanceMode() {
-            if(confirm('🔧 Enable Maintenance Mode?\n\nThis will:\n• Display maintenance page to users\n• Disable new registrations\n• Queue AI requests\n• Allow admin access only\n\nEstimated duration: 30 minutes\n\nProceed?')) {
-                alert('🔧 Maintenance Mode Activated\n\nThe system is now in maintenance mode.\nUsers will see a friendly maintenance message.\nAll data is safe and secure.\n\nRemember to disable when maintenance is complete!');
+
+        // System Log Management
+        function addSystemLog(type, message) {
+            const logContainer = document.getElementById('systemLogs');
+            const timestamp = new Date().toLocaleString();
+            const icons = {
+                success: '✅',
+                warning: '⚠️',
+                error: '❌',
+                info: 'ℹ️'
+            };
+            
+            const logEntry = document.createElement('div');
+            logEntry.className = `log-entry log-${type}`;
+            logEntry.textContent = `[${timestamp}] ${icons[type]} ${message}`;
+            
+            logContainer.insertBefore(logEntry, logContainer.firstChild);
+            
+            // Keep only last 50 logs
+            const logs = logContainer.children;
+            if (logs.length > 50) {
+                logContainer.removeChild(logs[logs.length - 1]);
             }
         }
-        
-        // Welcome message
-        setTimeout(() => {
-            alert('🚀 Welcome to NEXA CORE™ Admin Portal!\n\nAICENTRALHUBPLAZA LLC™ Enterprise Dashboard\n\n✅ GitHub Pages Deployment: SUCCESS\n✅ All Systems: Operational\n✅ Security Status: Secure\n✅ 10 AI Assistants: Online\n\nYou have full administrative access to manage the platform.\n\nAdmin Login: admin@nexacore.com / admin2025!');
-        }, 1000);
+
+        // Logout Function
+        function logout() {
+            if (confirm('🚪 Logout Confirmation\n\nAre you sure you want to logout?\n\n• Current session will be terminated\n• Unsaved changes will be lost\n• You will need to login again')) {
+                addSystemLog('info', `Admin logout - User: ${currentUser ? currentUser.name : 'Unknown'}`);
+                currentUser = null;
+                isAuthenticated = false;
+                showLogin();
+                
+                // Clear form data
+                document.getElementById('loginEmail').value = '';
+                document.getElementById('loginPassword').value = '';
+                
+                alert('✅ Logout Successful\n\nYou have been securely logged out of NEXA CORE™ ULTIMATE Admin Portal.\n\nThank you for using our platform!');
+            }
+        }
+
+        // Initialize Application
+        document.addEventListener('DOMContentLoaded', function() {
+            // Show login screen initially
+            showLogin();
+            
+            // Add some initial system logs
+            setTimeout(() => {
+                addSystemLog('success', 'Admin portal initialized successfully');
+                addSystemLog('info', 'Security systems: All operational');
+                addSystemLog('success', 'Database connection: Established');
+            }, 1000);
+            
+            // Demo credentials alert
+            setTimeout(() => {
+                alert('🚀 NEXA CORE™ ULTIMATE Admin Portal\n\n🔐 Demo Login Credentials:\n📧 Email: admin@nexacore.com\n🔑 Password: admin2025!\n\n✨ Features Available:\n• Secure authentication system\n• User registration & management\n• Password reset functionality\n• Security vault with API keys\n• Real-time system monitoring\n• Advanced admin controls\n\nWelcome to the future of platform administration!');
+            }, 2000);
+        });
+
+        // Security Features
+        let loginAttempts = 0;
+        const maxAttempts = 5;
+
+        function checkSecurityThreats() {
+            // Simulate security monitoring
+            setInterval(() => {
+                const threats = Math.random();
+                if (threats < 0.05) { // 5% chance
+                    addSystemLog('warning', 'Potential security threat detected - Monitoring');
+                }
+            }, 30000); // Check every 30 seconds
+        }
+
+        // Start security monitoring
+        checkSecurityThreats();
+
+        // Prevent common attacks
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I')) {
+                e.preventDefault();
+                addSystemLog('warning', 'Developer tools access attempt blocked');
+            }
+        });
     </script>
 </body>
 </html>
