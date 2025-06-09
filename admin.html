@@ -1,590 +1,4 @@
-<!-- Security Section -->
-                    <section id="security" class="content-section">
-                        <div class="section-header">
-                            <h2 class="section-title">Security Management</h2>
-                            <p class="section-subtitle">Monitor and configure platform security settings</p>
-                        </div>
-
-                        <div class="admin-grid">
-                            <div class="admin-card">
-                                <div class="card-header">
-                                    <div class="card-icon">🛡️</div>
-                                    <div class="card-title">Security Status</div>
-                                </div>
-                                <div class="card-content">
-                                    <p><strong>Security Score:</strong> <span style="color: var(--success);">98/100</span></p>
-                                    <p><strong>SSL Certificate:</strong> <span style="color: var(--success);">Valid</span></p>
-                                    <p><strong>2FA Enabled:</strong> <span style="color: var(--success);">Yes</span></p>
-                                    <p><strong>Last Security Scan:</strong> 2 hours ago</p>
-                                </div>
-                            </div>
-
-                            <div class="admin-card">
-                                <div class="card-header">
-                                    <div class="card-icon">🔐</div>
-                                    <div class="card-title">Access Control</div>
-                                </div>
-                                <div class="card-content">
-                                    <p><strong>Active Admin Sessions:</strong> 1</p>
-                                    <p><strong>Failed Login Attempts:</strong> 0 (24h)</p>
-                                    <p><strong>Admin Accounts:</strong> <span id="adminCount">1</span></p>
-                                    <p><strong>Current Admin ID:</strong> <span id="currentAdminId">NEXA-ADMIN-001</span></p>
-                                </div>
-                            </div>
-
-                            <div class="admin-card">
-                                <div class="card-header">
-                                    <div class="card-icon">🔑</div>
-                                    <div class="card-title">Admin Management</div>
-                                </div>
-                                <div class="card-content">
-                                    <p><strong>Password Reset:</strong> Available</p>
-                                    <p><strong>ID Generation:</strong> Available</p>
-                                    <p><strong>Access Codes:</strong> Active</p>
-                                    <button class="form-btn secondary" style="margin-top: 1rem;" onclick="showAdminManagement()">⚙️ Manage Admins</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Admin Credentials Management -->
-                        <div class="admin-card" style="margin-top: 2rem;">
-                            <h3 style="margin-bottom: 1.5rem; color: var(--text-primary);">🔑 Admin Credentials Management</h3>
-                            
-                            <div style="margin-bottom: 2rem; padding: 1rem; background: rgba(245, 158, 11, 0.1); border-radius: 10px; border: 1px solid rgba(245, 158, 11, 0.3);">
-                                <p style="color: var(--warning); font-weight: 600; margin-bottom: 0.5rem;">⚠️ Security Notice</p>
-                                <p style="color: var(--text-secondary); font-size: 0.9rem;">
-                                    Changing admin credentials will immediately log out all admin sessions. 
-                                    Make sure to save the new credentials securely.
-                                </p>
-                            </div>
-
-                            <form id="adminCredentialsForm">
-                                <div class="form-group">
-                                    <label class="form-label">Current Admin Username</label>
-                                    <input type="text" class="form-input" id="currentUsername" placeholder="Enter current username" required>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label class="form-label">Current Admin Password</label>
-                                    <div class="password-input-container">
-                                        <input type="password" class="form-input" id="currentAdminPassword" placeholder="Enter current password" required>
-                                        <button type="button" class="password-toggle" onclick="togglePassword('currentAdminPassword')">👁️</button>
-                                    </div>
-                                </div>
-
-                                <hr style="border: 1px solid var(--glass-border); margin: 2rem 0;">
-
-                                <div class="form-group">
-                                    <label class="form-label">New Admin Username</label>
-                                    <input type="text" class="form-input" id="newAdminUsername" placeholder="Enter new username" required>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label class="form-label">New Admin Password</label>
-                                    <div class="password-input-container">
-                                        <input type="password" class="form-input" id="newAdminPassword" placeholder="Enter new password" required>
-                                        <button type="button" class="password-toggle" onclick="togglePassword('newAdminPassword')">👁️</button>
-                                    </div>
-                                    <div class="strength-meter">
-                                        <div id="newAdminStrengthBar" class="strength-bar"></div>
-                                    </div>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label class="form-label">Confirm New Password</label>
-                                    <div class="password-input-container">
-                                        <input type="password" class="form-input" id="confirmAdminPassword" placeholder="Confirm new password" required>
-                                        <button type="button" class="password-toggle" onclick="togglePassword('confirmAdminPassword')">👁️</button>
-                                    </div>
-                                </div>
-
-                                <div style="display: flex; gap: 1rem;">
-                                    <button type="submit" class="form-btn" style="flex: 1;">🔄 Update Credentials</button>
-                                    <button type="button" class="form-btn" style="flex: 1; background: rgba(239, 68, 68, 0.2); border: 1px solid rgba(239, 68, 68, 0.5); color: var(--error);" onclick="resetToDefaults()">
-                                        🔧 Reset to Defaults
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-
-                        <!-- Admin ID Management -->
-                        <div class="admin-card" style="margin-top: 2rem;">
-                            <h3 style="margin-bottom: 1.5rem; color: var(--text-primary);">🆔 Admin ID Management</h3>
-                            <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
-                                Generate a new unique admin identifier for enhanced security tracking and audit logs.
-                            </p>
-                            
-                            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
-                                <label class="form-label" style="margin: 0;">Current Admin ID:</label>
-                                <code style="background: rgba(0,0,0,0.5); padding: 0.5rem 1rem; border-radius: 5px; color: var(--success); font-family: 'Courier New', monospace;" id="displayAdminId">
-                                    NEXA-ADMIN-001
-                                </code>
-                            </div>
-
-                            <button type="button" class="form-btn secondary" onclick="generateNewAdminId()">
-                                🔄 Generate New Admin ID
-                            </button>
-                        </div>
-                    </section>
-                </div>
-            </main>
-        </div>
-    </div>
-
-    <!-- Home Link -->
-    <a href="index.html" class="home-link" title="Back to Main Platform">🏠</a>
-
-    <script>
-        // Admin credentials storage (in production, this would be backend-authenticated)
-        let adminCredentials = {
-            username: 'admin',
-            password: 'nexacore2025',
-            id: 'NEXA-ADMIN-001',
-            email: 'admin@aicentralhubplaza.com'
-        };
-
-        // Admin users database
-        let adminUsers = [
-            {
-                id: 'NEXA-ADMIN-001',
-                username: 'admin',
-                password: 'nexacore2025',
-                email: 'admin@aicentralhubplaza.com',
-                name: 'System Administrator',
-                created: new Date().toISOString(),
-                lastLogin: null
-            }
-        ];
-
-        // API keys storage
-        let apiKeys = [];
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            initializeAdmin();
-        });
-
-        function initializeAdmin() {
-            // Form event listeners
-            document.getElementById('adminLoginForm').addEventListener('submit', handleAdminLogin);
-            document.getElementById('passwordResetForm').addEventListener('submit', handlePasswordReset);
-            document.getElementById('adminSignupForm').addEventListener('submit', handleAdminSignup);
-            document.getElementById('apiKeyForm').addEventListener('submit', handleAddApiKey);
-            document.getElementById('adminCredentialsForm').addEventListener('submit', handleAdminCredentialsUpdate);
-
-            // Password strength checkers
-            document.getElementById('signupPassword').addEventListener('input', () => checkPasswordStrength('signupPassword', 'adminStrengthBar'));
-            document.getElementById('newAdminPassword').addEventListener('input', () => checkPasswordStrength('newAdminPassword', 'newAdminStrengthBar'));
-
-            // Load initial data
-            loadApiKeys();
-            updateAdminDisplay();
-        }
-
-        // Authentication Functions
-        function handleAdminLogin(e) {
-            e.preventDefault();
-            
-            const username = document.getElementById('adminUsername').value;
-            const password = document.getElementById('adminPassword').value;
-
-            // Find admin user
-            const admin = adminUsers.find(u => u.username === username && u.password === password);
-
-            if (admin) {
-                admin.lastLogin = new Date().toISOString();
-                adminCredentials = admin;
-                
-                showLoginAlert('success', `🎉 Welcome back, ${admin.name}! Accessing admin dashboard...`);
-                
-                setTimeout(() => {
-                    document.getElementById('adminLogin').style.display = 'none';
-                    document.getElementById('adminDashboard').style.display = 'block';
-                    updateAdminDisplay();
-                }, 1500);
-            } else {
-                showLoginAlert('error', '❌ Invalid admin credentials. Please check your username and password.');
-            }
-        }
-
-        function handlePasswordReset(e) {
-            e.preventDefault();
-            
-            const email = document.getElementById('resetEmail').value;
-            const admin = adminUsers.find(u => u.email === email);
-
-            if (admin) {
-                showLoginAlert('success', '📧 Password reset link sent to your email! Check your inbox.');
-                setTimeout(() => {
-                    showLogin();
-                }, 2000);
-            } else {
-                showLoginAlert('error', '❌ No admin account found with this email address.');
-            }
-        }
-
-        function handleAdminSignup(e) {
-            e.preventDefault();
-            
-            const name = document.getElementById('signupName').value;
-            const email = document.getElementById('signupEmail').value;
-            const username = document.getElementById('signupUsername').value;
-            const password = document.getElementById('signupPassword').value;
-            const confirmPassword = document.getElementById('confirmSignupPassword').value;
-            const accessCode = document.getElementById('accessCode').value;
-
-            // Validation
-            if (password !== confirmPassword) {
-                showLoginAlert('error', '❌ Passwords do not match!');
-                return;
-            }
-
-            if (password.length < 12) {
-                showLoginAlert('error', '❌ Admin password must be at least 12 characters long!');
-                return;
-            }
-
-            // Check access code (in production, this would be verified server-side)
-            if (accessCode !== 'NEXA-ADMIN-2025') {
-                showLoginAlert('error', '❌ Invalid admin access code. Contact AICENTRALHUBPLAZA LLC™ for access.');
-                return;
-            }
-
-            // Check if admin already exists
-            if (adminUsers.find(u => u.email === email || u.username === username)) {
-                showLoginAlert('error', '❌ Admin with this email or username already exists!');
-                return;
-            }
-
-            // Create new admin
-            const newAdmin = {
-                id: 'NEXA-ADMIN-' + Date.now().toString(36).toUpperCase(),
-                name,
-                email,
-                username,
-                password,
-                created: new Date().toISOString(),
-                lastLogin: null
-            };
-
-            adminUsers.push(newAdmin);
-            
-            showLoginAlert('success', `🎉 Admin account created successfully! Welcome, ${name}!`);
-            
-            setTimeout(() => {
-                showLogin();
-                // Auto-fill login form
-                document.getElementById('adminUsername').value = username;
-            }, 2000);
-        }
-
-        function handleAdminCredentialsUpdate(e) {
-            e.preventDefault();
-            
-            const currentUsername = document.getElementById('currentUsername').value;
-            const currentPassword = document.getElementById('currentAdminPassword').value;
-            const newUsername = document.getElementById('newAdminUsername').value;
-            const newPassword = document.getElementById('newAdminPassword').value;
-            const confirmPassword = document.getElementById('confirmAdminPassword').value;
-
-            // Verify current credentials
-            if (currentUsername !== adminCredentials.username || currentPassword !== adminCredentials.password) {
-                showAlert('adminAlert', 'error', '❌ Current credentials are incorrect!');
-                return;
-            }
-
-            // Validate new password
-            if (newPassword !== confirmPassword) {
-                showAlert('adminAlert', 'error', '❌ New passwords do not match!');
-                return;
-            }
-
-            if (newPassword.length < 12) {
-                showAlert('adminAlert', 'error', '❌ New password must be at least 12 characters long!');
-                return;
-            }
-
-            // Update credentials
-            const adminIndex = adminUsers.findIndex(u => u.id === adminCredentials.id);
-            if (adminIndex !== -1) {
-                adminUsers[adminIndex].username = newUsername;
-                adminUsers[adminIndex].password = newPassword;
-                adminCredentials.username = newUsername;
-                adminCredentials.password = newPassword;
-            }
-
-            showAlert('adminAlert', 'success', '🔄 Admin credentials updated successfully! You will be logged out in 3 seconds for security.');
-            
-            // Auto logout after credential change
-            setTimeout(() => {
-                adminLogout();
-            }, 3000);
-
-            // Clear form
-            document.getElementById('adminCredentialsForm').reset();
-        }
-
-        // Form Display Functions
-        function showLogin() {
-            document.getElementById('adminLoginForm').style.display = 'block';
-            document.getElementById('passwordResetForm').style.display = 'none';
-            document.getElementById('adminSignupForm').style.display = 'none';
-            hideLoginAlert();
-        }
-
-        function showPasswordReset() {
-            document.getElementById('adminLoginForm').style.display = 'none';
-            document.getElementById('passwordResetForm').style.display = 'block';
-            document.getElementById('adminSignupForm').style.display = 'none';
-            hideLoginAlert();
-        }
-
-        function showSignup() {
-            document.getElementById('adminLoginForm').style.display = 'none';
-            document.getElementById('passwordResetForm').style.display = 'none';
-            document.getElementById('adminSignupForm').style.display = 'block';
-            hideLoginAlert();
-        }
-
-        function adminLogout() {
-            document.getElementById('adminLogin').style.display = 'flex';
-            document.getElementById('adminDashboard').style.display = 'none';
-            
-            // Reset all forms
-            document.querySelectorAll('form').forEach(form => form.reset());
-            showLogin();
-            
-            showLoginAlert('success', '👋 Successfully logged out. See you soon!');
-        }
-
-        // Password Functions
-        function togglePassword(inputId) {
-            const input = document.getElementById(inputId);
-            const button = input.nextElementSibling;
-            
-            if (input.type === 'password') {
-                input.type = 'text';
-                button.textContent = '🙈';
-            } else {
-                input.type = 'password';
-                button.textContent = '👁️';
-            }
-        }
-
-        function checkPasswordStrength(inputId, barId) {
-            const password = document.getElementById(inputId).value;
-            const strengthBar = document.getElementById(barId);
-            
-            let strength = 0;
-            if (password.length >= 12) strength++;
-            if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength++;
-            if (/\d/.test(password)) strength++;
-            if (/[^a-zA-Z0-9]/.test(password)) strength++;
-            if (password.length >= 16) strength++;
-
-            const width = (strength / 5) * 100;
-            strengthBar.style.width = width + '%';
-
-            strengthBar.className = 'strength-bar';
-            if (strength <= 2) {
-                strengthBar.classList.add('strength-weak');
-            } else if (strength <= 3) {
-                strengthBar.classList.add('strength-medium');
-            } else {
-                strengthBar.classList.add('strength-strong');
-            }
-        }
-
-        function resetToDefaults() {
-            if (confirm('⚠️ Are you sure you want to reset admin credentials to defaults?\n\nUsername: admin\nPassword: nexacore2025\n\nThis action cannot be undone!')) {
-                const adminIndex = adminUsers.findIndex(u => u.id === adminCredentials.id);
-                if (adminIndex !== -1) {
-                    adminUsers[adminIndex].username = 'admin';
-                    adminUsers[adminIndex].password = 'nexacore2025';
-                }
-                
-                adminCredentials.username = 'admin';
-                adminCredentials.password = 'nexacore2025';
-                
-                document.getElementById('adminCredentialsForm').reset();
-                
-                showAlert('adminAlert', 'warning', '🔧 Admin credentials reset to defaults! You will be logged out in 3 seconds.');
-                
-                setTimeout(() => {
-                    adminLogout();
-                }, 3000);
-            }
-        }
-
-        function generateNewAdminId() {
-            if (confirm('🆔 Generate a new Admin ID?\n\nThis will create a unique identifier for enhanced security tracking.')) {
-                const timestamp = Date.now().toString(36).toUpperCase();
-                const random = Math.random().toString(36).substr(2, 4).toUpperCase();
-                const newId = `NEXA-ADMIN-${timestamp}-${random}`;
-                
-                adminCredentials.id = newId;
-                const adminIndex = adminUsers.findIndex(u => u.username === adminCredentials.username);
-                if (adminIndex !== -1) {
-                    adminUsers[adminIndex].id = newId;
-                }
-                
-                updateAdminDisplay();
-                showAlert('adminAlert', 'success', `🆔 New Admin ID generated: ${newId}`);
-            }
-        }
-
-        // Display Functions
-        function updateAdminDisplay() {
-            document.getElementById('currentAdminId').textContent = adminCredentials.id;
-            document.getElementById('displayAdminId').textContent = adminCredentials.id;
-            document.getElementById('adminCount').textContent = adminUsers.length;
-        }
-
-        function showAdminManagement() {
-            showAlert('adminAlert', 'success', `👨‍💼 Admin Management: ${adminUsers.length} admin accounts, Current ID: ${adminCredentials.id}`);
-        }
-
-        // Section Navigation
-        function showSection(sectionId) {
-            // Hide all sections
-            document.querySelectorAll('.content-section').forEach(section => {
-                section.classList.remove('active');
-            });
-            
-            // Show selected section
-            document.getElementById(sectionId).classList.add('active');
-            
-            // Update sidebar navigation
-            document.querySelectorAll('.sidebar-nav a').forEach(link => {
-                link.classList.remove('active');
-            });
-            event.target.classList.add('active');
-        }
-
-        // API Key Functions
-        function handleAddApiKey(e) {
-            e.preventDefault();
-            
-            const serviceName = document.getElementById('serviceName').value;
-            const environment = document.getElementById('environment').value;
-            const apiKey = document.getElementById('apiKey').value;
-            const notes = document.getElementById('apiNotes').value;
-            
-            // Create new API key entry
-            const newApiKey = {
-                id: apiKeys.length + 1,
-                service: serviceName,
-                environment: environment,
-                key: maskApiKey(apiKey),
-                actualKey: apiKey,
-                notes: notes,
-                status: 'active',
-                lastUsed: 'Just added',
-                created: new Date().toISOString()
-            };
-            
-            apiKeys.push(newApiKey);
-            loadApiKeys();
-            
-            showAlert('adminAlert', 'success', `🔐 ${serviceName} API key added to vault successfully!`);
-            document.getElementById('apiKeyForm').reset();
-        }
-
-        function loadApiKeys() {
-            const apiKeysList = document.getElementById('apiKeysList');
-            
-            if (apiKeys.length === 0) {
-                apiKeysList.innerHTML = `
-                    <div style="text-align: center; padding: 3rem; color: var(--text-secondary);">
-                        <div style="font-size: 3rem; margin-bottom: 1rem;">🔐</div>
-                        <h4 style="color: var(--text-primary); margin-bottom: 0.5rem;">Secret Vault is Empty</h4>
-                        <p>Add your first API key using the secure form above.</p>
-                        <p style="font-size: 0.9rem; margin-top: 1rem;">💡 Tip: Start with Azure OpenAI for your humanoid hybrid AI services</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            apiKeysList.innerHTML = '';
-            
-            apiKeys.forEach(apiKey => {
-                const statusColor = apiKey.status === 'active' ? 'var(--success)' : 
-                                  apiKey.status === 'warning' ? 'var(--warning)' : 'var(--error)';
-                
-                const apiKeyHtml = `
-                    <div class="api-key-item">
-                        <div class="api-key-info">
-                            <h4>${apiKey.service} (${apiKey.environment})</h4>
-                            ${apiKey.notes ? `<p style="font-size: 0.8rem; color: var(--text-secondary); margin: 0.3rem 0;">${apiKey.notes}</p>` : ''}
-                            <div class="api-key-value">${apiKey.key}</div>
-                            <p>Status: <span style="color: ${statusColor};">${apiKey.status}</span> • Last used: ${apiKey.lastUsed}</p>
-                        </div>
-                        <div class="api-key-actions">
-                            <button class="btn-small btn-test" onclick="testApiKey(${apiKey.id})">Test</button>
-                            <button class="btn-small btn-edit" onclick="editApiKey(${apiKey.id})">Edit</button>
-                            <button class="btn-small btn-delete" onclick="deleteApiKey(${apiKey.id})">Delete</button>
-                        </div>
-                    </div>
-                `;
-                apiKeysList.innerHTML += apiKeyHtml;
-            });
-        }
-
-        function maskApiKey(key) {
-            if (key.length <= 8) {
-                return '***...***';
-            }
-            return key.substring(0, 8) + '***...***' + key.substring(key.length - 6);
-        }
-
-        function testApiKey(id) {
-            const apiKey = apiKeys.find(key => key.id === id);
-            showAlert('adminAlert', 'success', `🧪 Testing ${apiKey.service} API key... Connection successful!`);
-        }
-
-        function editApiKey(id) {
-            showAlert('adminAlert', 'warning', `✏️ Edit functionality coming soon for API key ID: ${id}`);
-        }
-
-        function deleteApiKey(id) {
-            if (confirm('Are you sure you want to delete this API key?')) {
-                apiKeys = apiKeys.filter(key => key.id !== id);
-                loadApiKeys();
-                showAlert('adminAlert', 'success', '🗑️ API key deleted successfully!');
-            }
-        }
-
-        // Alert Functions
-        function showLoginAlert(type, message) {
-            const alert = document.getElementById('loginAlert');
-            alert.className = `alert ${type}`;
-            alert.textContent = message;
-            alert.style.display = 'block';
-            
-            setTimeout(hideLoginAlert, 5000);
-        }
-
-        function hideLoginAlert() {
-            document.getElementById('loginAlert').style.display = 'none';
-        }
-
-        function showAlert(elementId, type, message) {
-            const alert = document.getElementById(elementId);
-            alert.className = `alert ${type}`;
-            alert.textContent = message;
-            alert.style.display = 'block';
-            
-            setTimeout(() => {
-                alert.style.display = 'none';
-            }, 5000);
-        }
-
-        console.log('🔐 NEXA CORE™ Admin Dashboard Loaded');
-        console.log('🚀 Ready for secure administration');
-        console.log('Admin Access Code: NEXA-ADMIN-2025');
-    </script>
-</body>
-</html><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -1096,6 +510,194 @@
             background: rgba(255,255,255,0.05);
         }
 
+        /* Chatbot Styles */
+        .chatbot-container {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 9999;
+        }
+
+        .chatbot-toggle {
+            width: 70px;
+            height: 70px;
+            background: var(--primary);
+            border-radius: 50%;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-card);
+            position: relative;
+        }
+
+        .chatbot-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .chatbot-toggle.has-message {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(102, 126, 234, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(102, 126, 234, 0); }
+        }
+
+        .chatbot-window {
+            position: absolute;
+            bottom: 90px;
+            right: 0;
+            width: 400px;
+            height: 500px;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: var(--shadow-card);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chatbot-header {
+            background: rgba(0,0,0,0.3);
+            padding: 1rem;
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: between;
+        }
+
+        .chatbot-header h3 {
+            margin: 0;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            flex: 1;
+        }
+
+        .chatbot-close {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 0.5rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .chatbot-close:hover {
+            background: rgba(255,255,255,0.1);
+            color: var(--text-primary);
+        }
+
+        .chatbot-messages {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .chatbot-message {
+            max-width: 80%;
+            padding: 0.8rem 1rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .chatbot-message.bot {
+            background: rgba(102, 126, 234, 0.2);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            color: var(--text-primary);
+            align-self: flex-start;
+        }
+
+        .chatbot-message.user {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            align-self: flex-end;
+        }
+
+        .chatbot-input-container {
+            padding: 1rem;
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .chatbot-input {
+            flex: 1;
+            padding: 0.8rem;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+        }
+
+        .chatbot-input:focus {
+            outline: none;
+            border-color: rgba(102, 126, 234, 0.8);
+        }
+
+        .chatbot-send {
+            padding: 0.8rem 1rem;
+            background: var(--primary);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .chatbot-send:hover {
+            transform: translateY(-1px);
+        }
+
+        .chatbot-send:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        .typing-dots {
+            display: flex;
+            gap: 2px;
+        }
+
+        .typing-dot {
+            width: 4px;
+            height: 4px;
+            background: var(--text-secondary);
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-10px); }
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .admin-sidebar {
@@ -1114,6 +716,16 @@
             
             .header-content {
                 padding: 0 1rem;
+            }
+
+            .chatbot-window {
+                width: 320px;
+                height: 400px;
+            }
+
+            .chatbot-container {
+                bottom: 1rem;
+                right: 1rem;
             }
         }
 
@@ -1500,3 +1112,780 @@
                             </div>
                         </div>
                     </section>
+
+                    <!-- AI Learning Center Section -->
+                    <section id="ai-learning" class="content-section">
+                        <div class="section-header">
+                            <h2 class="section-title">AI Learning Center</h2>
+                            <p class="section-subtitle">Train and optimize your AI assistants</p>
+                        </div>
+
+                        <div class="admin-grid">
+                            <div class="admin-card">
+                                <div class="card-header">
+                                    <div class="card-icon">🧠</div>
+                                    <div class="card-title">Training Status</div>
+                                </div>
+                                <div class="card-content">
+                                    <p><strong>Active Models:</strong> 10</p>
+                                    <p><strong>Training Jobs:</strong> 3 running</p>
+                                    <p><strong>Model Accuracy:</strong> 97.8%</p>
+                                    <p><strong>Last Update:</strong> 2 hours ago</p>
+                                </div>
+                            </div>
+
+                            <div class="admin-card">
+                                <div class="card-header">
+                                    <div class="card-icon">📚</div>
+                                    <div class="card-title">Knowledge Base</div>
+                                </div>
+                                <div class="card-content">
+                                    <p><strong>Documents:</strong> 15,847</p>
+                                    <p><strong>Categories:</strong> 247</p>
+                                    <p><strong>Last Sync:</strong> 30 minutes ago</p>
+                                    <button class="form-btn secondary" style="margin-top: 1rem;">📖 Manage Knowledge</button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Analytics Section -->
+                    <section id="analytics" class="content-section">
+                        <div class="section-header">
+                            <h2 class="section-title">Analytics & Reports</h2>
+                            <p class="section-subtitle">Platform performance and usage analytics</p>
+                        </div>
+
+                        <div class="admin-grid">
+                            <div class="admin-card">
+                                <div class="card-header">
+                                    <div class="card-icon">📈</div>
+                                    <div class="card-title">Usage Metrics</div>
+                                </div>
+                                <div class="card-content">
+                                    <p><strong>Total Requests:</strong> 1.2M this month</p>
+                                    <p><strong>Active Users:</strong> 15,847</p>
+                                    <p><strong>Response Time:</strong> 0.3s avg</p>
+                                    <p><strong>Uptime:</strong> 99.97%</p>
+                                </div>
+                            </div>
+
+                            <div class="admin-card">
+                                <div class="card-header">
+                                    <div class="card-icon">💰</div>
+                                    <div class="card-title">Revenue Analytics</div>
+                                </div>
+                                <div class="card-content">
+                                    <p><strong>Monthly Revenue:</strong> $47,892</p>
+                                    <p><strong>Growth Rate:</strong> +23.5%</p>
+                                    <p><strong>Top Plan:</strong> Professional</p>
+                                    <p><strong>Conversion Rate:</strong> 12.4%</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Settings Section -->
+                    <section id="settings" class="content-section">
+                        <div class="section-header">
+                            <h2 class="section-title">Platform Settings</h2>
+                            <p class="section-subtitle">Configure global platform settings</p>
+                        </div>
+
+                        <div class="admin-grid">
+                            <div class="admin-card">
+                                <div class="card-header">
+                                    <div class="card-icon">⚙️</div>
+                                    <div class="card-title">General Settings</div>
+                                </div>
+                                <div class="card-content">
+                                    <p><strong>Platform Name:</strong> NEXA CORE™ ULTIMATE</p>
+                                    <p><strong>Version:</strong> 2.1.0</p>
+                                    <p><strong>Environment:</strong> Production</p>
+                                    <p><strong>Maintenance Mode:</strong> Disabled</p>
+                                    <button class="form-btn secondary" style="margin-top: 1rem;">⚙️ Configure</button>
+                                </div>
+                            </div>
+
+                            <div class="admin-card">
+                                <div class="card-header">
+                                    <div class="card-icon">🔔</div>
+                                    <div class="card-title">Notifications</div>
+                                </div>
+                                <div class="card-content">
+                                    <p><strong>Email Alerts:</strong> Enabled</p>
+                                    <p><strong>SMS Alerts:</strong> Enabled</p>
+                                    <p><strong>Slack Integration:</strong> Active</p>
+                                    <p><strong>Alert Level:</strong> Critical Only</p>
+                                    <button class="form-btn secondary" style="margin-top: 1rem;">🔔 Configure</button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Security Section -->
+                    <section id="security" class="content-section">
+                        <div class="section-header">
+                            <h2 class="section-title">Security Management</h2>
+                            <p class="section-subtitle">Monitor and configure platform security settings</p>
+                        </div>
+
+                        <div class="admin-grid">
+                            <div class="admin-card">
+                                <div class="card-header">
+                                    <div class="card-icon">🛡️</div>
+                                    <div class="card-title">Security Status</div>
+                                </div>
+                                <div class="card-content">
+                                    <p><strong>Security Score:</strong> <span style="color: var(--success);">98/100</span></p>
+                                    <p><strong>SSL Certificate:</strong> <span style="color: var(--success);">Valid</span></p>
+                                    <p><strong>2FA Enabled:</strong> <span style="color: var(--success);">Yes</span></p>
+                                    <p><strong>Last Security Scan:</strong> 2 hours ago</p>
+                                </div>
+                            </div>
+
+                            <div class="admin-card">
+                                <div class="card-header">
+                                    <div class="card-icon">🔐</div>
+                                    <div class="card-title">Access Control</div>
+                                </div>
+                                <div class="card-content">
+                                    <p><strong>Active Admin Sessions:</strong> 1</p>
+                                    <p><strong>Failed Login Attempts:</strong> 0 (24h)</p>
+                                    <p><strong>Admin Accounts:</strong> <span id="adminCount">1</span></p>
+                                    <p><strong>Current Admin ID:</strong> <span id="currentAdminId">NEXA-ADMIN-001</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Admin Assistant Chatbot -->
+    <div class="chatbot-container" id="chatbotContainer" style="display: none;">
+        <div class="chatbot-window" id="chatbotWindow">
+            <div class="chatbot-header">
+                <h3>🤖 NEXA Admin Assistant</h3>
+                <button class="chatbot-close" onclick="toggleChatbot()">✕</button>
+            </div>
+            
+            <div class="chatbot-messages" id="chatbotMessages">
+                <div class="chatbot-message bot">
+                    👋 Hello! I'm your NEXA CORE™ Admin Assistant. I'm here to help you manage your platform. 
+                    
+                    I can assist with:
+                    • Platform status and monitoring
+                    • User management queries
+                    • API key vault operations
+                    • Security settings
+                    • AI team performance
+                    • Analytics insights
+                    
+                    What would you like help with today?
+                </div>
+            </div>
+            
+            <div class="chatbot-input-container">
+                <input 
+                    type="text" 
+                    class="chatbot-input" 
+                    id="chatbotInput" 
+                    placeholder="Ask me about admin tasks..."
+                    onkeypress="handleChatKeyPress(event)"
+                >
+                <button class="chatbot-send" id="chatbotSend" onclick="sendChatMessage()">📤</button>
+            </div>
+        </div>
+        
+        <button class="chatbot-toggle" id="chatbotToggle" onclick="toggleChatbot()">
+            🤖
+        </button>
+    </div>
+
+    <!-- Home Link -->
+    <a href="index.html" class="home-link" title="Back to Main Platform">🏠</a>
+
+    <script>
+        // Admin credentials storage (in production, this would be backend-authenticated)
+        let adminCredentials = {
+            username: 'admin',
+            password: 'nexacore2025',
+            id: 'NEXA-ADMIN-001',
+            email: 'admin@aicentralhubplaza.com'
+        };
+
+        // Admin users database
+        let adminUsers = [
+            {
+                id: 'NEXA-ADMIN-001',
+                username: 'admin',
+                password: 'nexacore2025',
+                email: 'admin@aicentralhubplaza.com',
+                name: 'System Administrator',
+                created: new Date().toISOString(),
+                lastLogin: null
+            }
+        ];
+
+        // API keys storage
+        let apiKeys = [];
+
+        // Chatbot state
+        let chatbotOpen = false;
+        let chatHistory = [];
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeAdmin();
+            initializeChatbot();
+        });
+
+        function initializeAdmin() {
+            // Form event listeners
+            document.getElementById('adminLoginForm').addEventListener('submit', handleAdminLogin);
+            document.getElementById('passwordResetForm').addEventListener('submit', handlePasswordReset);
+            document.getElementById('adminSignupForm').addEventListener('submit', handleAdminSignup);
+            document.getElementById('apiKeyForm').addEventListener('submit', handleAddApiKey);
+
+            // Password strength checkers
+            document.getElementById('signupPassword').addEventListener('input', () => checkPasswordStrength('signupPassword', 'adminStrengthBar'));
+
+            // Load initial data
+            loadApiKeys();
+            updateAdminDisplay();
+        }
+
+        function initializeChatbot() {
+            // Show chatbot container only when logged in
+            const chatbotContainer = document.getElementById('chatbotContainer');
+            if (document.getElementById('adminDashboard').style.display === 'block') {
+                chatbotContainer.style.display = 'block';
+            }
+        }
+
+        // Authentication Functions
+        function handleAdminLogin(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('adminUsername').value;
+            const password = document.getElementById('adminPassword').value;
+
+            // Find admin user
+            const admin = adminUsers.find(u => u.username === username && u.password === password);
+
+            if (admin) {
+                admin.lastLogin = new Date().toISOString();
+                adminCredentials = admin;
+                
+                showLoginAlert('success', `🎉 Welcome back, ${admin.name}! Accessing admin dashboard...`);
+                
+                setTimeout(() => {
+                    document.getElementById('adminLogin').style.display = 'none';
+                    document.getElementById('adminDashboard').style.display = 'block';
+                    document.getElementById('chatbotContainer').style.display = 'block';
+                    updateAdminDisplay();
+                    
+                    // Show welcome message in chatbot
+                    setTimeout(() => {
+                        addChatMessage('bot', `Welcome back, ${admin.name}! 🎉 Your admin dashboard is ready. How can I assist you today?`);
+                        document.getElementById('chatbotToggle').classList.add('has-message');
+                    }, 2000);
+                }, 1500);
+            } else {
+                showLoginAlert('error', '❌ Invalid admin credentials. Please check your username and password.');
+            }
+        }
+
+        function handlePasswordReset(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('resetEmail').value;
+            const admin = adminUsers.find(u => u.email === email);
+
+            if (admin) {
+                showLoginAlert('success', '📧 Password reset link sent to your email! Check your inbox.');
+                setTimeout(() => {
+                    showLogin();
+                }, 2000);
+            } else {
+                showLoginAlert('error', '❌ No admin account found with this email address.');
+            }
+        }
+
+        function handleAdminSignup(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            const username = document.getElementById('signupUsername').value;
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('confirmSignupPassword').value;
+            const accessCode = document.getElementById('accessCode').value;
+
+            // Validation
+            if (password !== confirmPassword) {
+                showLoginAlert('error', '❌ Passwords do not match!');
+                return;
+            }
+
+            if (password.length < 12) {
+                showLoginAlert('error', '❌ Admin password must be at least 12 characters long!');
+                return;
+            }
+
+            // Check access code (in production, this would be verified server-side)
+            if (accessCode !== 'NEXA-ADMIN-2025') {
+                showLoginAlert('error', '❌ Invalid admin access code. Contact AICENTRALHUBPLAZA LLC™ for access.');
+                return;
+            }
+
+            // Check if admin already exists
+            if (adminUsers.find(u => u.email === email || u.username === username)) {
+                showLoginAlert('error', '❌ Admin with this email or username already exists!');
+                return;
+            }
+
+            // Create new admin
+            const newAdmin = {
+                id: 'NEXA-ADMIN-' + Date.now().toString(36).toUpperCase(),
+                name,
+                email,
+                username,
+                password,
+                created: new Date().toISOString(),
+                lastLogin: null
+            };
+
+            adminUsers.push(newAdmin);
+            
+            showLoginAlert('success', `🎉 Admin account created successfully! Welcome, ${name}!`);
+            
+            setTimeout(() => {
+                showLogin();
+                // Auto-fill login form
+                document.getElementById('adminUsername').value = username;
+            }, 2000);
+        }
+
+        // Chatbot Functions
+        function toggleChatbot() {
+            const chatbotWindow = document.getElementById('chatbotWindow');
+            const chatbotToggle = document.getElementById('chatbotToggle');
+            
+            chatbotOpen = !chatbotOpen;
+            
+            if (chatbotOpen) {
+                chatbotWindow.style.display = 'flex';
+                chatbotToggle.classList.remove('has-message');
+                document.getElementById('chatbotInput').focus();
+            } else {
+                chatbotWindow.style.display = 'none';
+            }
+        }
+
+        function addChatMessage(sender, message) {
+            const messagesContainer = document.getElementById('chatbotMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `chatbot-message ${sender}`;
+            messageDiv.textContent = message;
+            
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            
+            // Store in chat history
+            chatHistory.push({ sender, message, timestamp: new Date() });
+        }
+
+        function showTypingIndicator() {
+            const messagesContainer = document.getElementById('chatbotMessages');
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'chatbot-message bot typing-indicator';
+            typingDiv.id = 'typingIndicator';
+            typingDiv.innerHTML = `
+                <span>NEXA Assistant is typing</span>
+                <div class="typing-dots">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                </div>
+            `;
+            
+            messagesContainer.appendChild(typingDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function hideTypingIndicator() {
+            const typingIndicator = document.getElementById('typingIndicator');
+            if (typingIndicator) {
+                typingIndicator.remove();
+            }
+        }
+
+        function handleChatKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendChatMessage();
+            }
+        }
+
+        function sendChatMessage() {
+            const input = document.getElementById('chatbotInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            // Add user message
+            addChatMessage('user', message);
+            input.value = '';
+            
+            // Show typing indicator
+            showTypingIndicator();
+            
+            // Simulate AI response delay
+            setTimeout(() => {
+                hideTypingIndicator();
+                const response = generateChatbotResponse(message);
+                addChatMessage('bot', response);
+            }, 1000 + Math.random() * 2000);
+        }
+
+        function generateChatbotResponse(userMessage) {
+            const message = userMessage.toLowerCase();
+            
+            // Platform status queries
+            if (message.includes('status') || message.includes('health')) {
+                return "🚀 Platform Status: All systems operational! We have 1,247 active users, 10 AI assistants online, and 99.97% uptime. Security score is 98/100. Everything looks great!";
+            }
+            
+            // User management
+            if (message.includes('user') && (message.includes('count') || message.includes('how many'))) {
+                return "👥 Currently, we have 1,247 active users online. No new user registrations yet, but the platform is ready for signups. Would you like me to show you the user management section?";
+            }
+            
+            // API keys
+            if (message.includes('api') || message.includes('key')) {
+                return "🔑 API Key Vault: Your secret vault is secure and ready. You can add new API keys for services like Azure OpenAI, Anthropic Claude, Stripe, and more. Currently " + apiKeys.length + " keys stored. Would you like to add a new API key?";
+            }
+            
+            // Security
+            if (message.includes('security') || message.includes('secure')) {
+                return "🛡️ Security Status: Excellent! Security score is 98/100, SSL certificate is valid, 2FA is enabled, and there have been 0 failed login attempts in the last 24 hours. Your platform is highly secure!";
+            }
+            
+            // AI team
+            if (message.includes('ai') && (message.includes('team') || message.includes('assistant'))) {
+                return "🤖 AI Team Status: All 10 humanoid hybrid AI assistants are active and performing excellently! CodeGenius (98.9% success), DesignMaster (99.2% success), and SecurityGuard are all operational with professional mode enforced.";
+            }
+            
+            // Analytics
+            if (message.includes('analytic') || message.includes('metric') || message.includes('performance')) {
+                return "📈 Platform Analytics: This month we've processed 1.2M requests with an average response time of 0.3s. Monthly revenue is $47,892 (+23.5% growth). The Professional plan is most popular with a 12.4% conversion rate.";
+            }
+            
+            // Help with specific tasks
+            if (message.includes('help') || message.includes('how')) {
+                return "💡 I can help you with: Platform monitoring, user management, API key vault operations, security settings, AI team performance, and analytics insights. Just ask me about any specific admin task or use the navigation to explore different sections!";
+            }
+            
+            // Navigation help
+            if (message.includes('navigate') || message.includes('go to') || message.includes('show me')) {
+                return "🧭 Navigation Help: Use the sidebar to access different sections - Dashboard for overview, API Key Vault for credentials, Users for user management, AI Team for assistant monitoring, Analytics for metrics, Settings for configuration, and Security for safety controls.";
+            }
+            
+            // Default responses
+            const defaultResponses = [
+                "I'm here to help with your NEXA CORE™ admin tasks! Can you be more specific about what you need assistance with?",
+                "As your admin assistant, I can help with platform monitoring, user management, security, and more. What would you like to know?",
+                "Great question! Could you provide more details so I can give you the most helpful information?",
+                "I'm ready to assist with your admin duties. Try asking about platform status, users, security, or AI team performance!",
+                "Let me help you manage your NEXA CORE™ platform efficiently. What specific area would you like to explore?"
+            ];
+            
+            return defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
+        }
+
+        // Form Display Functions
+        function showLogin() {
+            document.getElementById('adminLoginForm').style.display = 'block';
+            document.getElementById('passwordResetForm').style.display = 'none';
+            document.getElementById('adminSignupForm').style.display = 'none';
+            hideLoginAlert();
+        }
+
+        function showPasswordReset() {
+            document.getElementById('adminLoginForm').style.display = 'none';
+            document.getElementById('passwordResetForm').style.display = 'block';
+            document.getElementById('adminSignupForm').style.display = 'none';
+            hideLoginAlert();
+        }
+
+        function showSignup() {
+            document.getElementById('adminLoginForm').style.display = 'none';
+            document.getElementById('passwordResetForm').style.display = 'none';
+            document.getElementById('adminSignupForm').style.display = 'block';
+            hideLoginAlert();
+        }
+
+        function adminLogout() {
+            document.getElementById('adminLogin').style.display = 'flex';
+            document.getElementById('adminDashboard').style.display = 'none';
+            document.getElementById('chatbotContainer').style.display = 'none';
+            
+            // Reset all forms and chatbot
+            document.querySelectorAll('form').forEach(form => form.reset());
+            chatHistory = [];
+            chatbotOpen = false;
+            document.getElementById('chatbotWindow').style.display = 'none';
+            document.getElementById('chatbotMessages').innerHTML = `
+                <div class="chatbot-message bot">
+                    👋 Hello! I'm your NEXA CORE™ Admin Assistant. I'm here to help you manage your platform. 
+                    
+                    I can assist with:
+                    • Platform status and monitoring
+                    • User management queries
+                    • API key vault operations
+                    • Security settings
+                    • AI team performance
+                    • Analytics insights
+                    
+                    What would you like help with today?
+                </div>
+            `;
+            
+            showLogin();
+            showLoginAlert('success', '👋 Successfully logged out. See you soon!');
+        }
+
+        // Password Functions
+        function togglePassword(inputId) {
+            const input = document.getElementById(inputId);
+            const button = input.nextElementSibling;
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                button.textContent = '🙈';
+            } else {
+                input.type = 'password';
+                button.textContent = '👁️';
+            }
+        }
+
+        function checkPasswordStrength(inputId, barId) {
+            const password = document.getElementById(inputId).value;
+            const strengthBar = document.getElementById(barId);
+            
+            let strength = 0;
+            if (password.length >= 12) strength++;
+            if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength++;
+            if (/\d/.test(password)) strength++;
+            if (/[^a-zA-Z0-9]/.test(password)) strength++;
+            if (password.length >= 16) strength++;
+
+            const width = (strength / 5) * 100;
+            strengthBar.style.width = width + '%';
+
+            strengthBar.className = 'strength-bar';
+            if (strength <= 2) {
+                strengthBar.classList.add('strength-weak');
+            } else if (strength <= 3) {
+                strengthBar.classList.add('strength-medium');
+            } else {
+                strengthBar.classList.add('strength-strong');
+            }
+        }
+
+        // Display Functions
+        function updateAdminDisplay() {
+            document.getElementById('currentAdminId').textContent = adminCredentials.id;
+            document.getElementById('adminCount').textContent = adminUsers.length;
+        }
+
+        // Section Navigation
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Update sidebar navigation
+            document.querySelectorAll('.sidebar-nav a').forEach(link => {
+                link.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Notify chatbot about section change
+            if (chatbotOpen) {
+                setTimeout(() => {
+                    let sectionName = sectionId.replace('-', ' ');
+                    sectionName = sectionName.charAt(0).toUpperCase() + sectionName.slice(1);
+                    addChatMessage('bot', `📍 You're now viewing the ${sectionName} section. Need help with anything here?`);
+                }, 500);
+            }
+        }
+
+        // API Key Functions
+        function handleAddApiKey(e) {
+            e.preventDefault();
+            
+            const serviceName = document.getElementById('serviceName').value;
+            const environment = document.getElementById('environment').value;
+            const apiKey = document.getElementById('apiKey').value;
+            const notes = document.getElementById('apiNotes').value;
+            
+            // Create new API key entry
+            const newApiKey = {
+                id: apiKeys.length + 1,
+                service: serviceName,
+                environment: environment,
+                key: maskApiKey(apiKey),
+                actualKey: apiKey,
+                notes: notes,
+                status: 'active',
+                lastUsed: 'Just added',
+                created: new Date().toISOString()
+            };
+            
+            apiKeys.push(newApiKey);
+            loadApiKeys();
+            
+            showAlert('adminAlert', 'success', `🔐 ${serviceName} API key added to vault successfully!`);
+            document.getElementById('apiKeyForm').reset();
+
+            // Notify chatbot
+            if (chatbotOpen) {
+                setTimeout(() => {
+                    addChatMessage('bot', `🔑 Great! I see you just added a new ${serviceName} API key to the vault. Your secrets are secure!`);
+                }, 1000);
+            }
+        }
+
+        function loadApiKeys() {
+            const apiKeysList = document.getElementById('apiKeysList');
+            
+            if (apiKeys.length === 0) {
+                apiKeysList.innerHTML = `
+                    <div style="text-align: center; padding: 3rem; color: var(--text-secondary);">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">🔐</div>
+                        <h4 style="color: var(--text-primary); margin-bottom: 0.5rem;">Secret Vault is Empty</h4>
+                        <p>Add your first API key using the secure form above.</p>
+                        <p style="font-size: 0.9rem; margin-top: 1rem;">💡 Tip: Start with Azure OpenAI for your humanoid hybrid AI services</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            apiKeysList.innerHTML = '';
+            
+            apiKeys.forEach(apiKey => {
+                const statusColor = apiKey.status === 'active' ? 'var(--success)' : 
+                                  apiKey.status === 'warning' ? 'var(--warning)' : 'var(--error)';
+                
+                const apiKeyHtml = `
+                    <div class="api-key-item">
+                        <div class="api-key-info">
+                            <h4>${apiKey.service} (${apiKey.environment})</h4>
+                            ${apiKey.notes ? `<p style="font-size: 0.8rem; color: var(--text-secondary); margin: 0.3rem 0;">${apiKey.notes}</p>` : ''}
+                            <div class="api-key-value">${apiKey.key}</div>
+                            <p>Status: <span style="color: ${statusColor};">${apiKey.status}</span> • Last used: ${apiKey.lastUsed}</p>
+                        </div>
+                        <div class="api-key-actions">
+                            <button class="btn-small btn-test" onclick="testApiKey(${apiKey.id})">Test</button>
+                            <button class="btn-small btn-edit" onclick="editApiKey(${apiKey.id})">Edit</button>
+                            <button class="btn-small btn-delete" onclick="deleteApiKey(${apiKey.id})">Delete</button>
+                        </div>
+                    </div>
+                `;
+                apiKeysList.innerHTML += apiKeyHtml;
+            });
+        }
+
+        function maskApiKey(key) {
+            if (key.length <= 8) {
+                return '***...***';
+            }
+            return key.substring(0, 8) + '***...***' + key.substring(key.length - 6);
+        }
+
+        function testApiKey(id) {
+            const apiKey = apiKeys.find(key => key.id === id);
+            showAlert('adminAlert', 'success', `🧪 Testing ${apiKey.service} API key... Connection successful!`);
+            
+            if (chatbotOpen) {
+                setTimeout(() => {
+                    addChatMessage('bot', `✅ API key test for ${apiKey.service} completed successfully! Connection is working perfectly.`);
+                }, 1000);
+            }
+        }
+
+        function editApiKey(id) {
+            showAlert('adminAlert', 'warning', `✏️ Edit functionality coming soon for API key ID: ${id}`);
+        }
+
+        function deleteApiKey(id) {
+            if (confirm('Are you sure you want to delete this API key?')) {
+                const apiKey = apiKeys.find(key => key.id === id);
+                const serviceName = apiKey.service;
+                
+                apiKeys = apiKeys.filter(key => key.id !== id);
+                loadApiKeys();
+                showAlert('adminAlert', 'success', '🗑️ API key deleted successfully!');
+                
+                if (chatbotOpen) {
+                    setTimeout(() => {
+                        addChatMessage('bot', `🗑️ ${serviceName} API key has been securely removed from your vault.`);
+                    }, 1000);
+                }
+            }
+        }
+
+        // Alert Functions
+        function showLoginAlert(type, message) {
+            const alert = document.getElementById('loginAlert');
+            alert.className = `alert ${type}`;
+            alert.textContent = message;
+            alert.style.display = 'block';
+            
+            setTimeout(hideLoginAlert, 5000);
+        }
+
+        function hideLoginAlert() {
+            document.getElementById('loginAlert').style.display = 'none';
+        }
+
+        function showAlert(elementId, type, message) {
+            const alert = document.getElementById(elementId);
+            alert.className = `alert ${type}`;
+            alert.textContent = message;
+            alert.style.display = 'block';
+            
+            setTimeout(() => {
+                alert.style.display = 'none';
+            }, 5000);
+        }
+
+        // Enhanced chatbot with admin context
+        function addAdminContextToChatbot() {
+            // This function can be called to provide real-time admin data to chatbot
+            const context = {
+                totalUsers: 1247,
+                activeAI: 10,
+                apiKeys: apiKeys.length,
+                securityScore: 98,
+                uptime: 99.97,
+                currentAdmin: adminCredentials.name
+            };
+            
+            return context;
+        }
+
+        console.log('🔐 NEXA CORE™ Admin Dashboard with AI Assistant Loaded');
+        console.log('🚀 Ready for secure administration');
+        console.log('🤖 Admin Assistant ready to help');
+        console.log('Admin Access Code: NEXA-ADMIN-2025');
+    </script>
+</body>
+</html>
