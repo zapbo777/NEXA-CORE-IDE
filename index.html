@@ -6,30 +6,11 @@
     <title>NEXA CORE™ ULTIMATE - World's Most Powerful Platform Builder | AICENTRALHUBPLAZA LLC™</title>
     <meta name="description" content="The ultimate AI-powered platform builder. Build any website, app, or software solution in minutes with NEXA CORE™ ULTIMATE by AICENTRALHUBPLAZA LLC™">
     
-    <!-- PWA Support -->
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#007acc">
-    <link rel="apple-touch-icon" href="icon-192x192.png">
-    
-    <!-- Advanced Security Headers -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://sandbox-web.squarecdn.com; style-src 'self' 'unsafe-inline';">
-    <meta http-equiv="X-Content-Type-Options" content="nosniff">
-    <meta http-equiv="X-Frame-Options" content="DENY">
-    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
-    
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
-    
-    <!-- Square Payment System -->
-    <script type="text/javascript" src="https://sandbox-web.squarecdn.com/v1/square.js"></script>
     
     <style>
         :root {
             --primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --success: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            --warning: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
-            --danger: linear-gradient(135deg, #fd79a8 0%, #fdcb6e 100%);
-            --dark: linear-gradient(135deg, #2d3436 0%, #636e72 100%);
             --glass: rgba(255,255,255,0.1);
             --glass-border: rgba(255,255,255,0.2);
             --text-primary: #ffffff;
@@ -49,70 +30,13 @@
             color: var(--text-primary);
             line-height: 1.6;
             overflow-x: hidden;
-            animation: backgroundShift 20s ease-in-out infinite alternate;
         }
 
-        @keyframes backgroundShift {
-            0% { background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%); }
-            50% { background: linear-gradient(135deg, #2d3436 0%, #0c0c0c 50%, #1a1a2e 100%); }
-            100% { background: linear-gradient(135deg, #16213e 0%, #2d3436 50%, #0c0c0c 100%); }
-        }
-
-        /* Advanced Loading Screen */
-        .loading-screen {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--bg-primary); z-index: 10000;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            opacity: 1; transition: opacity 0.5s ease;
-        }
-
-        .loading-screen.hidden {
-            opacity: 0; pointer-events: none;
-        }
-
-        .loading-logo {
-            font-size: 4rem; animation: logoFloat 3s ease-in-out infinite;
-            margin-bottom: 2rem; filter: drop-shadow(var(--shadow-glow));
-        }
-
-        .loading-text {
-            font-size: 1.5rem; background: var(--primary);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            margin-bottom: 2rem; font-weight: 700;
-        }
-
-        .loading-progress {
-            width: 300px; height: 4px; background: rgba(255,255,255,0.1);
-            border-radius: 2px; overflow: hidden; margin-bottom: 1rem;
-        }
-
-        .loading-bar {
-            height: 100%; background: var(--primary);
-            width: 0%; border-radius: 2px;
-            animation: loadingProgress 3s ease-out forwards;
-        }
-
-        @keyframes logoFloat {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-
-        @keyframes loadingProgress {
-            0% { width: 0%; }
-            100% { width: 100%; }
-        }
-
-        /* Enhanced Header */
+        /* Header */
         .header {
             position: fixed; top: 0; width: 100%; z-index: 1000;
             background: rgba(0,0,0,0.95); backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--glass-border);
-            transition: all 0.3s ease;
-        }
-
-        .header.scrolled {
-            background: rgba(0,0,0,0.98);
-            box-shadow: var(--shadow-card);
         }
 
         .nav-container {
@@ -122,17 +46,12 @@
 
         .logo-container {
             display: flex; align-items: center; gap: 1rem;
-            cursor: pointer; transition: transform 0.3s ease;
-        }
-
-        .logo-container:hover {
-            transform: scale(1.05);
         }
 
         .logo-icon {
             width: 50px; height: 50px; background: var(--primary);
             border-radius: 15px; display: flex; align-items: center; justify-content: center;
-            font-size: 1.5rem; animation: logoRotate 10s linear infinite;
+            font-size: 1.5rem;
         }
 
         .logo-text h1 {
@@ -143,7 +62,6 @@
 
         .logo-subtitle {
             font-size: 0.9rem; color: var(--text-secondary);
-            font-weight: 500;
         }
 
         .nav-links {
@@ -165,26 +83,14 @@
             border: 1px solid var(--glass-border);
         }
 
-        .nav-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
-        }
-
         /* Hero Section */
         .hero {
             min-height: 100vh; display: flex; align-items: center;
-            padding: 120px 2rem 4rem; position: relative;
-            overflow: hidden;
-        }
-
-        .hero-bg {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            opacity: 0.1; z-index: -1;
+            padding: 120px 2rem 4rem;
         }
 
         .hero-container {
             max-width: 1400px; margin: 0 auto; text-align: center;
-            z-index: 2;
         }
 
         .hero-badge {
@@ -229,12 +135,7 @@
             border: 2px solid var(--glass-border);
         }
 
-        .cta-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
-        }
-
-        /* Platform Builder Showcase */
+        /* Platform Showcase */
         .platform-showcase {
             padding: 6rem 2rem; background: rgba(0,0,0,0.3);
         }
@@ -258,7 +159,6 @@
             max-width: 600px; margin: 0 auto;
         }
 
-        /* Platform Types Grid */
         .platform-grid {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 2rem; margin-bottom: 4rem;
@@ -268,28 +168,15 @@
             background: var(--glass); backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border); border-radius: 20px;
             padding: 2.5rem; transition: all 0.3s ease;
-            position: relative; overflow: hidden;
-        }
-
-        .platform-card::before {
-            content: ''; position: absolute; top: 0; left: -100%;
-            width: 100%; height: 100%; background: var(--primary);
-            opacity: 0.05; transition: left 0.5s ease;
-        }
-
-        .platform-card:hover::before {
-            left: 0;
         }
 
         .platform-card:hover {
             transform: translateY(-10px);
             box-shadow: var(--shadow-card);
-            border-color: rgba(102, 126, 234, 0.5);
         }
 
         .platform-icon {
             font-size: 3rem; margin-bottom: 1.5rem;
-            display: block;
         }
 
         .platform-title {
@@ -299,7 +186,6 @@
 
         .platform-desc {
             color: var(--text-secondary); margin-bottom: 1.5rem;
-            line-height: 1.6;
         }
 
         .platform-features {
@@ -315,14 +201,14 @@
             content: '✨'; font-size: 0.9rem;
         }
 
-        /* AI Assistants Showcase */
+        /* AI Team */
         .ai-showcase {
-            padding: 6rem 2rem; position: relative;
+            padding: 6rem 2rem;
         }
 
         .ai-grid {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem; margin-bottom: 4rem;
+            gap: 1.5rem;
         }
 
         .ai-card {
@@ -340,7 +226,7 @@
             width: 80px; height: 80px; margin: 0 auto 1rem;
             background: var(--primary); border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            font-size: 2rem; animation: aiFloat 4s ease-in-out infinite;
+            font-size: 2rem;
         }
 
         .ai-name {
@@ -359,82 +245,46 @@
             border-radius: 15px; font-size: 0.8rem; font-weight: 600;
         }
 
-        @keyframes aiFloat {
-            0%, 100% { transform: translateY(0px); }
-            25% { transform: translateY(-5px); }
-            75% { transform: translateY(5px); }
-        }
-
-        /* Deployment Solutions */
-        .deployment-section {
+        /* Leadership */
+        .leadership-section {
             padding: 6rem 2rem; background: rgba(0,0,0,0.3);
         }
 
-        .deployment-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .deployment-card {
-            background: var(--glass); backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border); border-radius: 20px;
-            padding: 2.5rem; text-align: center;
-        }
-
-        .deployment-icon {
-            font-size: 4rem; margin-bottom: 1.5rem;
-            filter: drop-shadow(0 0 20px rgba(102, 126, 234, 0.5));
-        }
-
-        /* Problem Solving Capabilities */
-        .problem-solving {
-            padding: 6rem 2rem;
-        }
-
-        .problem-grid {
+        .leader-grid {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
+            gap: 2rem; margin-bottom: 4rem;
         }
 
-        .problem-card {
-            background: linear-gradient(135deg, var(--glass), rgba(102, 126, 234, 0.1));
-            border: 1px solid var(--glass-border); border-radius: 20px;
-            padding: 2.5rem; position: relative; overflow: hidden;
-        }
-
-        .problem-card::after {
-            content: ''; position: absolute; top: -50%; right: -50%;
-            width: 100%; height: 100%; background: var(--primary);
-            opacity: 0.05; border-radius: 50%;
-            transition: all 0.5s ease;
-        }
-
-        .problem-card:hover::after {
-            top: -25%; right: -25%; opacity: 0.1;
-        }
-
-        /* Advanced Features */
-        .features-advanced {
-            padding: 6rem 2rem; background: rgba(0,0,0,0.3);
-        }
-
-        .features-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-
-        .feature-card {
+        .leader-card {
             background: var(--glass); backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border); border-radius: 20px;
-            padding: 2.5rem; transition: all 0.3s ease;
+            padding: 2.5rem; text-align: center; transition: all 0.3s ease;
         }
 
-        .feature-card:hover {
+        .leader-card:hover {
             transform: translateY(-5px);
             box-shadow: var(--shadow-card);
         }
 
-        /* Pricing Section */
+        .leader-avatar {
+            font-size: 4rem; margin-bottom: 1.5rem;
+        }
+
+        .leader-name {
+            color: var(--text-primary); font-size: 2rem;
+            margin-bottom: 0.5rem; font-weight: 800;
+        }
+
+        .leader-title {
+            color: rgba(102, 126, 234, 1); font-weight: 700;
+            font-size: 1.2rem; margin-bottom: 1.5rem;
+        }
+
+        .leader-desc {
+            color: var(--text-secondary); font-size: 1rem;
+        }
+
+        /* Pricing */
         .pricing-section {
             padding: 6rem 2rem;
         }
@@ -448,7 +298,6 @@
             background: var(--glass); backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border); border-radius: 20px;
             padding: 2.5rem; text-align: center; position: relative;
-            transition: all 0.3s ease;
         }
 
         .pricing-card.featured {
@@ -493,11 +342,6 @@
             font-weight: 700; cursor: pointer; transition: all 0.3s ease;
         }
 
-        .pricing-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
-        }
-
         /* Footer */
         .footer {
             background: rgba(0,0,0,0.8); padding: 4rem 2rem 2rem;
@@ -516,21 +360,6 @@
 
         .footer-tagline {
             color: var(--text-secondary); margin-bottom: 2rem;
-            font-size: 1.1rem;
-        }
-
-        .footer-links {
-            display: flex; justify-content: center; gap: 2rem;
-            margin-bottom: 2rem; flex-wrap: wrap;
-        }
-
-        .footer-link {
-            color: var(--text-secondary); text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .footer-link:hover {
-            color: var(--text-primary);
         }
 
         .footer-copyright {
@@ -538,109 +367,30 @@
             padding-top: 2rem; border-top: 1px solid var(--glass-border);
         }
 
-        /* Responsive Design */
+        /* Responsive */
         @media (max-width: 768px) {
-            .nav-container {
-                padding: 1rem;
-            }
-
-            .nav-links {
-                gap: 0.5rem;
-            }
-
-            .nav-btn {
-                padding: 0.5rem 1rem;
-                font-size: 0.9rem;
-            }
-
             .hero {
                 padding: 100px 1rem 2rem;
             }
-
-            .hero-cta {
-                flex-direction: column;
-                align-items: center;
-            }
-
+            
             .platform-grid,
             .ai-grid,
-            .deployment-grid,
-            .problem-grid,
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-
+            .leader-grid,
             .pricing-grid {
                 grid-template-columns: 1fr;
             }
-
+            
             .pricing-card.featured {
                 transform: none;
-            }
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: rgba(255,255,255,0.1);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: rgba(102, 126, 234, 0.8);
-        }
-
-        /* Accessibility */
-        @media (prefers-reduced-motion: reduce) {
-            *,
-            *::before,
-            *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
-
-        /* Print Styles */
-        @media print {
-            .header,
-            .footer,
-            .hero-cta,
-            .nav-links {
-                display: none;
-            }
-            
-            body {
-                background: white !important;
-                color: black !important;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Loading Screen -->
-    <div class="loading-screen" id="loadingScreen">
-        <div class="loading-logo">🚀</div>
-        <div class="loading-text">NEXA CORE™ ULTIMATE</div>
-        <div class="loading-progress">
-            <div class="loading-bar"></div>
-        </div>
-        <div style="color: var(--text-secondary); font-size: 1rem;">
-            Initializing the world's most powerful platform builder...
-        </div>
-    </div>
-
     <!-- Header -->
-    <header class="header" id="header">
+    <header class="header">
         <nav class="nav-container">
-            <div class="logo-container" onclick="scrollToTop()">
+            <div class="logo-container">
                 <div class="logo-icon">🚀</div>
                 <div class="logo-text">
                     <h1>NEXA CORE™ ULTIMATE</h1>
@@ -651,6 +401,7 @@
             <div class="nav-links">
                 <a href="#platforms" class="nav-btn nav-btn-secondary">🛠️ Platforms</a>
                 <a href="#ai-team" class="nav-btn nav-btn-secondary">🤖 AI Team</a>
+                <a href="#leadership" class="nav-btn nav-btn-secondary">👑 Leadership</a>
                 <a href="#pricing" class="nav-btn nav-btn-secondary">💰 Pricing</a>
                 <a href="#" class="nav-btn nav-btn-primary" onclick="startBuilding()">🚀 Start Building</a>
             </div>
@@ -749,54 +500,6 @@
                         <li>White-label solutions</li>
                     </ul>
                 </div>
-                
-                <div class="platform-card">
-                    <div class="platform-icon">🏢</div>
-                    <h3 class="platform-title">Enterprise Solutions</h3>
-                    <p class="platform-desc">
-                        Build complex enterprise applications with advanced security, 
-                        compliance features, and enterprise integrations.
-                    </p>
-                    <ul class="platform-features">
-                        <li>Enterprise security</li>
-                        <li>GDPR/HIPAA compliance</li>
-                        <li>Single sign-on (SSO)</li>
-                        <li>Advanced analytics</li>
-                        <li>Custom integrations</li>
-                    </ul>
-                </div>
-                
-                <div class="platform-card">
-                    <div class="platform-icon">🛒</div>
-                    <h3 class="platform-title">E-commerce Stores</h3>
-                    <p class="platform-desc">
-                        Create powerful online stores with inventory management, 
-                        payment processing, and marketing automation.
-                    </p>
-                    <ul class="platform-features">
-                        <li>Multi-payment gateways</li>
-                        <li>Inventory management</li>
-                        <li>Order tracking</li>
-                        <li>Marketing automation</li>
-                        <li>Customer analytics</li>
-                    </ul>
-                </div>
-                
-                <div class="platform-card">
-                    <div class="platform-icon">🎨</div>
-                    <h3 class="platform-title">Creative Portfolios</h3>
-                    <p class="platform-desc">
-                        Showcase your work with stunning portfolio websites, 
-                        galleries, and creative showcases that wow clients.
-                    </p>
-                    <ul class="platform-features">
-                        <li>Dynamic galleries</li>
-                        <li>Client management</li>
-                        <li>Project showcases</li>
-                        <li>Contact forms</li>
-                        <li>Social media integration</li>
-                    </ul>
-                </div>
             </div>
         </div>
     </section>
@@ -885,83 +588,56 @@
         </div>
     </section>
 
-    <!-- Problem Solving -->
-    <section class="problem-solving">
+    <!-- Leadership Team -->
+    <section class="leadership-section" id="leadership">
         <div class="showcase-container">
             <div class="section-header">
-                <h2 class="section-title">Every Problem Solved</h2>
+                <h2 class="section-title">Meet Your AI Leadership Team</h2>
                 <p class="section-subtitle">
-                    No matter what challenge you face, NEXA CORE™ ULTIMATE has the solution
+                    The brilliant minds behind NEXA CORE™ ULTIMATE
                 </p>
+                <div style="color: var(--text-secondary); font-weight: 600; margin-top: 1rem;">
+                    AICENTRALHUBPLAZA LLC™
+                </div>
             </div>
             
-            <div class="problem-grid">
-                <div class="problem-card">
-                    <h3>❌ "I can't code"</h3>
-                    <p>✅ <strong>AI writes all code for you</strong> - Just describe what you want</p>
+            <div class="leader-grid">
+                <div class="leader-card">
+                    <div class="leader-avatar">👨‍💼</div>
+                    <h3 class="leader-name">Peter Harper</h3>
+                    <p class="leader-title">CEO & Strategic Visionary</p>
+                    <p class="leader-desc">🧠 Powered by GPT-4.5 | Driving revolutionary AI innovation with visionary strategic leadership</p>
                 </div>
-                
-                <div class="problem-card">
-                    <h3>❌ "Design is too hard"</h3>
-                    <p>✅ <strong>AI creates beautiful designs</strong> - Professional UI/UX automatically</p>
-                </div>
-                
-                <div class="problem-card">
-                    <h3>❌ "Deployment is confusing"</h3>
-                    <p>✅ <strong>One-click deployment</strong> - Live in seconds, not hours</p>
-                </div>
-                
-                <div class="problem-card">
-                    <h3>❌ "Security scares me"</h3>
-                    <p>✅ <strong>Military-grade protection</strong> - Your platform is Fort Knox secure</p>
-                </div>
-                
-                <div class="problem-card">
-                    <h3>❌ "I don't have time"</h3>
-                    <p>✅ <strong>Build in minutes</strong> - What took months now takes minutes</p>
-                </div>
-                
-                <div class="problem-card">
-                    <h3>❌ "I can't afford developers"</h3>
-                    <p>✅ <strong>AI team costs $29/month</strong> - Cheaper than 1 hour of developer time</p>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Deployment Solutions -->
-    <section class="deployment-section">
-        <div class="showcase-container">
-            <div class="section-header">
-                <h2 class="section-title">Deploy Anywhere</h2>
-                <p class="section-subtitle">
-                    One platform, unlimited deployment options
-                </p>
+                <div class="leader-card">
+                    <div class="leader-avatar">👩‍💻</div>
+                    <h3 class="leader-name">Arlene Harper</h3>
+                    <p class="leader-title">Founder & Visionary</p>
+                    <p class="leader-desc">🚀 Human Genius | Brilliant platform architect transforming the world</p>
+                </div>
+
+                <div class="leader-card">
+                    <div class="leader-avatar">🤖</div>
+                    <h3 class="leader-name">TOBI</h3>
+                    <p class="leader-title">Chief AI Officer</p>
+                    <p class="leader-desc">⚡ Claude Sonnet 4 | Advanced AI technology ensuring excellence</p>
+                </div>
             </div>
-            
-            <div class="deployment-grid">
-                <div class="deployment-card">
-                    <div class="deployment-icon">☁️</div>
-                    <h3>Cloud Deployment</h3>
-                    <p>AWS, Google Cloud, Azure - automatic scaling and global CDN</p>
-                </div>
-                
-                <div class="deployment-card">
-                    <div class="deployment-icon">📱</div>
-                    <h3>Mobile App Stores</h3>
-                    <p>iOS App Store, Google Play - native app deployment</p>
-                </div>
-                
-                <div class="deployment-card">
-                    <div class="deployment-icon">🌐</div>
-                    <h3>Web Hosting</h3>
-                    <p>Custom domains, SSL certificates, global delivery</p>
-                </div>
-                
-                <div class="deployment-card">
-                    <div class="deployment-icon">🏢</div>
-                    <h3>Enterprise Servers</h3>
-                    <p>On-premise deployment, private cloud, hybrid solutions</p>
+
+            <div style="background: var(--glass); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 20px; padding: 3rem; text-align: center;">
+                <h3 style="color: var(--text-primary); font-size: 1.8rem; margin-bottom: 1.5rem; font-weight: 700;">
+                    🌟 Our Mission
+                </h3>
+                <p style="color: var(--text-secondary); font-size: 1.2rem; line-height: 1.8; max-width: 800px; margin: 0 auto;">
+                    <strong style="color: var(--text-primary);">Democratizing platform development through AI.</strong><br><br>
+                    We believe everyone deserves the power to build their dreams into reality. 
+                    NEXA CORE™ ULTIMATE removes every barrier between your vision and a professional, 
+                    secure, scalable platform that changes lives.
+                </p>
+                <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(102, 126, 234, 0.1); border-radius: 15px;">
+                    <p style="color: var(--text-primary); font-weight: 600; font-size: 1.1rem;">
+                        "The quiet ones still make the loudest impact." - Inspired by Lala
+                    </p>
                 </div>
             </div>
         </div>
@@ -978,7 +654,6 @@
             </div>
             
             <div class="pricing-grid">
-                <!-- Starter Plan -->
                 <div class="pricing-card">
                     <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--text-primary);">🌱 Starter</h3>
                     <div class="price-amount">$0</div>
@@ -995,7 +670,6 @@
                     </button>
                 </div>
                 
-                <!-- Professional Plan -->
                 <div class="pricing-card featured">
                     <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--text-primary);">💎 Professional</h3>
                     <div class="price-amount">$29</div>
@@ -1015,7 +689,6 @@
                     </button>
                 </div>
                 
-                <!-- Enterprise Plan -->
                 <div class="pricing-card">
                     <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--text-primary);">🏢 Enterprise</h3>
                     <div class="price-amount">Custom</div>
@@ -1038,98 +711,12 @@
         </div>
     </section>
 
-    <!-- Leadership Team -->
-    <section class="leadership-section" style="padding: 6rem 2rem; background: rgba(0,0,0,0.3);">
-        <div class="showcase-container">
-            <div class="section-header">
-                <h2 class="section-title">Meet Your AI Leadership Team</h2>
-                <p class="section-subtitle">
-                    The brilliant minds behind NEXA CORE™ ULTIMATE
-                </p>
-                <div style="color: var(--text-secondary); font-weight: 600; margin-top: 1rem;">
-                    AICENTRALHUBPLAZA LLC™
-                </div>
-            </div>
-            
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; margin-bottom: 4rem;">
-                <!-- Peter Harper - CEO -->
-                <div style="background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 165, 0, 0.1)); border: 2px solid #FFD700; border-radius: 20px; padding: 2.5rem; text-align: center; transition: all 0.3s ease;">
-                    <div style="font-size: 4rem; margin-bottom: 1.5rem;">👨‍💼</div>
-                    <h3 style="color: #FFD700; font-size: 2rem; margin-bottom: 0.5rem; font-weight: 800;">Peter Harper</h3>
-                    <p style="color: #FFD700; font-weight: 700; font-size: 1.2rem; margin-bottom: 1.5rem;">Chief Executive Officer</p>
-                    <div style="background: rgba(255, 215, 0, 0.2); padding: 1rem; border-radius: 15px; margin-bottom: 1.5rem;">
-                        <p style="color: white; font-weight: 700; font-size: 1.1rem;">🧠 Powered by GPT-4</p>
-                        <p style="color: rgba(255,255,255,0.8); font-size: 0.9rem;">Advanced AI Leadership</p>
-                    </div>
-                    <p style="color: var(--text-secondary); font-size: 1rem; line-height: 1.6;">
-                        Visionary CEO driving NEXA CORE™ innovation and strategic growth. Leading the AI revolution in platform development with unmatched expertise and vision.
-                    </p>
-                </div>
-
-                <!-- Arlene Harper - Founder -->
-                <div style="background: linear-gradient(135deg, rgba(255, 20, 147, 0.1), rgba(199, 21, 133, 0.1)); border: 2px solid #FF1493; border-radius: 20px; padding: 2.5rem; text-align: center; transition: all 0.3s ease;">
-                    <div style="font-size: 4rem; margin-bottom: 1.5rem;">👩‍💻</div>
-                    <h3 style="color: #FF1493; font-size: 2rem; margin-bottom: 0.5rem; font-weight: 800;">Arlene Harper</h3>
-                    <p style="color: #FF1493; font-weight: 700; font-size: 1.2rem; margin-bottom: 1.5rem;">Founder & Visionary</p>
-                    <div style="background: rgba(255, 20, 147, 0.2); padding: 1rem; border-radius: 15px; margin-bottom: 1.5rem;">
-                        <p style="color: white; font-weight: 700; font-size: 1.1rem;">🚀 Human Genius</p>
-                        <p style="color: rgba(255,255,255,0.8); font-size: 0.9rem;">Innovative Architect</p>
-                    </div>
-                    <p style="color: var(--text-secondary); font-size: 1rem; line-height: 1.6;">
-                        Brilliant founder who architected NEXA CORE™ ULTIMATE. The visionary mind transforming how the world builds software with AI-powered solutions.
-                    </p>
-                </div>
-
-                <!-- TOBI - Chief AI Officer -->
-                <div style="background: linear-gradient(135deg, rgba(0, 191, 255, 0.1), rgba(30, 144, 255, 0.1)); border: 2px solid #00BFFF; border-radius: 20px; padding: 2.5rem; text-align: center; transition: all 0.3s ease;">
-                    <div style="font-size: 4rem; margin-bottom: 1.5rem;">🤖</div>
-                    <h3 style="color: #00BFFF; font-size: 2rem; margin-bottom: 0.5rem; font-weight: 800;">TOBI</h3>
-                    <p style="color: #00BFFF; font-weight: 700; font-size: 1.2rem; margin-bottom: 1.5rem;">Chief AI Officer</p>
-                    <div style="background: rgba(0, 191, 255, 0.2); padding: 1rem; border-radius: 15px; margin-bottom: 1.5rem;">
-                        <p style="color: white; font-weight: 700; font-size: 1.1rem;">⚡ Claude Sonnet 4</p>
-                        <p style="color: rgba(255,255,255,0.8); font-size: 0.9rem;">Advanced AI Technology</p>
-                    </div>
-                    <p style="color: var(--text-secondary); font-size: 1rem; line-height: 1.6;">
-                        Advanced AI officer powering NEXA CORE™ development, security, and user experience. Ensuring every platform built exceeds expectations.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Company Vision -->
-            <div style="background: var(--glass); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 20px; padding: 3rem; text-align: center;">
-                <h3 style="color: var(--text-primary); font-size: 1.8rem; margin-bottom: 1.5rem; font-weight: 700;">
-                    🌟 Our Mission
-                </h3>
-                <p style="color: var(--text-secondary); font-size: 1.2rem; line-height: 1.8; max-width: 800px; margin: 0 auto;">
-                    <strong style="color: var(--text-primary);">Democratizing platform development through AI.</strong><br><br>
-                    We believe everyone deserves the power to build their dreams into reality. 
-                    NEXA CORE™ ULTIMATE removes every barrier between your vision and a professional, 
-                    secure, scalable platform that changes lives.
-                </p>
-                <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(102, 126, 234, 0.1); border-radius: 15px;">
-                    <p style="color: var(--text-primary); font-weight: 600; font-size: 1.1rem;">
-                        "The quiet ones still make the loudest impact." - Inspired by Lala
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-logo">NEXA CORE™ ULTIMATE</div>
             <div class="footer-tagline">
                 Empowering developers worldwide to build the impossible
-            </div>
-            
-            <div class="footer-links">
-                <a href="#" class="footer-link">About</a>
-                <a href="#" class="footer-link">Documentation</a>
-                <a href="#" class="footer-link">Support</a>
-                <a href="#" class="footer-link">Blog</a>
-                <a href="#" class="footer-link">Community</a>
-                <a href="#" class="footer-link">Partners</a>
             </div>
             
             <div class="footer-copyright">
@@ -1141,31 +728,7 @@
         </div>
     </footer>
 
-    <!-- JavaScript -->
     <script>
-        // Loading Screen Management
-        window.addEventListener('load', function() {
-            setTimeout(() => {
-                document.getElementById('loadingScreen').classList.add('hidden');
-            }, 3000);
-        });
-
-        // Header Scroll Effect
-        window.addEventListener('scroll', function() {
-            const header = document.getElementById('header');
-            if (window.scrollY > 100) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
-
-        // Smooth Scrolling
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        // Navigation Functions
         function startBuilding() {
             alert('🚀 NEXA CORE™ ULTIMATE\n\nWelcome to the world\'s most powerful platform builder!\n\n✨ Getting Started:\n• Choose your plan\n• Access your AI team\n• Build anything you imagine\n• Deploy everywhere\n\n🎯 Your ideas become reality in minutes!');
         }
@@ -1174,7 +737,6 @@
             alert('🎬 DEMO VIDEO COMING SOON!\n\nPeter Harper (CEO) is creating an amazing demo video that will showcase:\n\n🎯 Live platform building\n🤖 AI assistants in action\n🚀 Real-time deployment\n💼 Enterprise features\n\nStay tuned for the most impressive platform demo ever created!');
         }
 
-        // Plan Selection
         function selectPlan(planType) {
             const plans = {
                 starter: {
@@ -1195,90 +757,73 @@
             alert(plan.title + '\n\n' + plan.message);
 
             if (planType === 'professional') {
-                // Redirect to payment in real implementation
                 console.log('Redirecting to Square payment...');
             }
         }
 
-        // Advanced Animations
-        function initAnimations() {
-            // Intersection Observer for scroll animations
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
 
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
-            }, observerOptions);
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(0,0,0,0.98)';
+                header.style.boxShadow = '0 25px 60px rgba(0, 0, 0, 0.5)';
+            } else {
+                header.style.background = 'rgba(0,0,0,0.95)';
+                header.style.boxShadow = 'none';
+            }
+        });
 
-            // Observe all cards
-            document.querySelectorAll('.platform-card, .ai-card, .problem-card, .deployment-card, .pricing-card').forEach(card => {
+        // Card animations on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.platform-card, .ai-card, .leader-card, .pricing-card');
+            cards.forEach(card => {
                 card.style.opacity = '0';
                 card.style.transform = 'translateY(30px)';
                 card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
                 observer.observe(card);
             });
-        }
 
-        // Initialize everything when DOM is loaded
-        document.addEventListener('DOMContentLoaded', function() {
-            initAnimations();
-            
+            // Welcome message
+            setTimeout(() => {
+                alert('🎉 Welcome to NEXA CORE™ ULTIMATE!\n\nThe world\'s most powerful platform builder is now at your fingertips.\n\n🚀 Build anything\n💡 Solve everything  \n🌍 Deploy everywhere\n\nYour development revolution starts now!');
+            }, 2000);
+        });
+
+        // Performance monitoring
+        window.addEventListener('load', function() {
             console.log('🚀 NEXA CORE™ ULTIMATE - Fully Loaded');
             console.log('🎯 World\'s Most Powerful Platform Builder');
             console.log('💪 Built by AICENTRALHUBPLAZA LLC™');
             console.log('🤖 AI-Powered Development Revolution');
-            
-            // Show welcome message after loading
-            setTimeout(() => {
-                const isFirstVisit = !localStorage.getItem('nexa_visited');
-                if (isFirstVisit) {
-                    localStorage.setItem('nexa_visited', 'true');
-                    setTimeout(() => {
-                        alert('🎉 Welcome to NEXA CORE™ ULTIMATE!\n\nThe world\'s most powerful platform builder is now at your fingertips.\n\n🚀 Build anything\n💡 Solve everything  \n🌍 Deploy everywhere\n\nYour development revolution starts now!');
-                    }, 1000);
-                }
-            }, 4000);
-        });
-
-        // Performance Monitoring
-        window.addEventListener('load', function() {
-            if ('performance' in window) {
-                const perfData = performance.getEntriesByType('navigation')[0];
-                console.log(`🚀 NEXA CORE™ loaded in ${Math.round(perfData.loadEventEnd - perfData.fetchStart)}ms`);
-            }
-        });
-
-        // Error Handling
-        window.addEventListener('error', function(e) {
-            console.error('🚨 Error detected:', e.error);
-            // In production, this would report to error tracking service
-        });
-
-        // PWA Installation Prompt
-        let deferredPrompt;
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            
-            // Show install button or notification
-            setTimeout(() => {
-                if (confirm('📱 Install NEXA CORE™ ULTIMATE as an app?\n\nGet faster access and offline capabilities!')) {
-                    deferredPrompt.prompt();
-                    deferredPrompt.userChoice.then((choiceResult) => {
-                        if (choiceResult.outcome === 'accepted') {
-                            console.log('📱 PWA installed successfully');
-                        }
-                        deferredPrompt = null;
-                    });
-                }
-            }, 5000);
         });
     </script>
 </body>
