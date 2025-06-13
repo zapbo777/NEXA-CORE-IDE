@@ -1181,7 +1181,7 @@
     </footer>
 
     <!-- Admin Access Link -->
-    <a href="admin.html" class="admin-link" aria-label="Admin Access" title="Admin Dashboard">🔐</a>
+    <a href="#" onclick="openAdminAccess()" class="admin-link" aria-label="Admin Access" title="Admin Dashboard">🔐</a>
 
     <!-- Authentication Modal -->
     <div class="auth-modal" id="authModal" role="dialog" aria-labelledby="auth-title" aria-hidden="true">
@@ -1603,6 +1603,10 @@
             showMainAlert('info', '⚙️ Settings panel coming soon! Customize your experience.');
         }
 
+        function openAdminAccess() {
+            showMainAlert('info', '🔐 Admin access requires special authorization. Contact support for enterprise admin features.');
+        }
+
         // Alert Functions
         function showAlert(type, message) {
             const alert = document.getElementById('alertMessage');
@@ -1732,6 +1736,11 @@
             showLegalDocument('contact');
         }
 
+        function closeLegal() {
+            document.getElementById('legalModal').classList.remove('active');
+            document.getElementById('legalModal').setAttribute('aria-hidden', 'true');
+        }
+
         function showLegalDocument(type) {
             const modal = document.getElementById('legalModal');
             const content = document.getElementById('legalContent');
@@ -1746,67 +1755,14 @@
                         <p>By accessing and using NEXA CORE™ ULTIMATE ("the Platform"), you accept and agree to be bound by the terms and provision of this agreement.</p>
                         
                         <h3 style="color: var(--text-primary); margin: 2rem 0 1rem;">2. Use License</h3>
-                        <p>Permission is granted to temporarily use NEXA CORE™ ULTIMATE for personal and commercial purposes. This is the grant of a license, not a transfer of title, and under this license you may not:</p>
-                        <ul style="margin: 1rem 0; padding-left: 2rem;">
-                            <li>Modify or copy the materials</li>
-                            <li>Use the materials for any commercial purpose without proper licensing</li>
-                            <li>Attempt to reverse engineer any software contained on the platform</li>
-                            <li>Remove any copyright or other proprietary notations</li>
-                        </ul>
+                        <p>Permission is granted to temporarily use NEXA CORE™ ULTIMATE for personal and commercial purposes. This is the grant of a license, not a transfer of title.</p>
                         
                         <h3 style="color: var(--text-primary); margin: 2rem 0 1rem;">3. Humanoid Hybrid AI Usage</h3>
-                        <p>Our platform uses advanced humanoid hybrid AI technology. By using these services, you acknowledge that:</p>
-                        <ul style="margin: 1rem 0; padding-left: 2rem;">
-                            <li>AI responses are generated based on training data and may not always be accurate</li>
-                            <li>You are responsible for reviewing and validating all AI-generated content</li>
-                            <li>The AI maintains professional boundaries and will redirect inappropriate conversations</li>
-                            <li>All interactions with AI are logged for quality and safety purposes</li>
-                        </ul>
+                        <p>Our platform uses advanced humanoid hybrid AI technology. By using these services, you acknowledge that AI responses are generated based on training data and may not always be accurate.</p>
                         
-                        <h3 style="color: var(--text-primary); margin: 2rem 0 1rem;">4. User Accounts</h3>
-                        <p>When you create an account with us, you must provide information that is accurate, complete, and current at all times. You are responsible for safeguarding the password and for all activities under your account.</p>
-                        
-                        <h3 style="color: var(--text-primary); margin: 2rem 0 1rem;">5. Prohibited Uses</h3>
-                        <p>You may not use our platform:</p>
-                        <ul style="margin: 1rem 0; padding-left: 2rem;">
-                            <li>For any unlawful purpose or to solicit others to perform unlawful acts</li>
-                            <li>To violate any international, federal, provincial, or state regulations, rules, laws, or local ordinances</li>
-                            <li>To infringe upon or violate our intellectual property rights or the intellectual property rights of others</li>
-                            <li>To harass, abuse, insult, harm, defame, slander, disparage, intimidate, or discriminate</li>
-                            <li>To submit false or misleading information</li>
-                            <li>For sexual, romantic, or inappropriate content - our AI maintains strict professional boundaries</li>
-                        </ul>
-                        
-                        <h3 style="color: var(--text-primary); margin: 2rem 0 1rem;">6. Content Creation and Ownership</h3>
-                        <p>Content you create using NEXA CORE™ ULTIMATE belongs to you. However, you grant us a non-exclusive license to use, modify, and display such content as necessary to provide our services.</p>
-                        
-                        <h3 style="color: var(--text-primary); margin: 2rem 0 1rem;">7. Professional AI Guidelines</h3>
-                        <p>Our humanoid hybrid AI operates under strict professional guidelines:</p>
-                        <ul style="margin: 1rem 0; padding-left: 2rem;">
-                            <li>Zero tolerance for sexual or inappropriate content</li>
-                            <li>Immediate redirection of non-professional conversations</li>
-                            <li>Focus on business, development, and technical solutions</li>
-                            <li>Maintenance of professional boundaries at all times</li>
-                        </ul>
-                        
-                        <h3 style="color: var(--text-primary); margin: 2rem 0 1rem;">8. Payment Terms</h3>
-                        <p>For paid services, payment is due at the time of purchase. All fees are non-refundable unless otherwise stated. We reserve the right to change pricing with 30 days notice.</p>
-                        
-                        <h3 style="color: var(--text-primary); margin: 2rem 0 1rem;">9. Disclaimer</h3>
-                        <p>The information on this platform is provided on an 'as is' basis. To the fullest extent permitted by law, this Company excludes all representations, warranties, conditions and terms.</p>
-                        
-                        <h3 style="color: var(--text-primary); margin: 2rem 0 1rem;">10. Limitations</h3>
-                        <p>In no event shall AICENTRALHUBPLAZA LLC™ or its suppliers be liable for any damages arising out of the use or inability to use the materials on the platform.</p>
-                        
-                        <h3 style="color: var(--text-primary); margin: 2rem 0 1rem;">11. Governing Law</h3>
-                        <p>These terms and conditions are governed by and construed in accordance with the laws of the United States and you irrevocably submit to the exclusive jurisdiction of the courts.</p>
-                        
-                        <h3 style="color: var(--text-primary); margin: 2rem 0 1rem;">12. Contact Information</h3>
+                        <h3 style="color: var(--text-primary); margin: 2rem 0 1rem;">4. Contact Information</h3>
                         <p>Questions about the Terms & Conditions should be sent to us at:</p>
-                        <p><strong>Email:</strong> zapbo777@aicentralhubplza.com<br>
-                        <strong>Address:</strong> AICENTRALHUBPLAZA LLC™<br>
-                        Legal Department<br>
-                        [Your Business Address]</p>
+                        <p><strong>Email:</strong> zapbo777@aicentralhubplza.com</p>
                     </div>
                 `,
                 
@@ -1818,101 +1774,12 @@
                         <h3 style="color: var(--text-primary); margin: 2rem 0 1rem;">1. Information We Collect</h3>
                         <p>We collect information you provide directly to us, such as when you create an account, use our services, or contact us for support.</p>
                         
-                        <h4 style="color: var(--text-primary); margin: 1.5rem 0 0.5rem;">📧 Email Addresses</h4>
-                        <ul style="margin: 1rem 0; padding-left: 2rem;">
-                            <li><strong>General Inquiries:</strong> zapbo777@aicentralhubplza.com</li>
-                            <li><strong>Sales:</strong> zapbo777@aicentralhubplza.com</li>
-                            <li><strong>Support:</strong> zapbo777@aicentralhubplza.com</li>
-                            <li><strong>Partnerships:</strong> zapbo777@aicentralhubplza.com</li>
-                            <li><strong>Media/Press:</strong> zapbo777@aicentralhubplza.com</li>
-                            <li><strong>Legal:</strong> zapbo777@aicentralhubplza.com</li>
-                        </ul>">Personal Information:</h4>
-                        <ul style="margin: 1rem 0; padding-left: 2rem;">
-                            <li>Name and email address</li>
-                            <li>Username and password</li>
-                            <li>Payment information (processed securely through third-party providers)</li>
-                            <li>Profile information you choose to provide</li>
-                        </ul>
-                        
-                        <h4 style="color: var(--text-primary); margin: 1.5rem 0 0.5rem;">Usage Information:</h4>
-                        <ul style="margin: 1rem 0; padding-left: 2rem;">
-                            <li>AI interactions and conversations (for quality improvement and safety)</li>
-                            <li>Projects and content you create</li>
-                            <li>Platform usage analytics</li>
-                            <li>Technical data (IP address, browser type, device information)</li>
-                        </ul>
-                        
                         <h3 style="color: var(--text-primary); margin: 2rem 0 1rem;">2. How We Use Your Information</h3>
-                        <p>We use the information we collect to:</p>
-                        <ul style="margin: 1rem 0; padding-left: 2rem;">
-                            <li>Provide, maintain, and improve our services</li>
-                            <li>Process transactions and send related information</li>
-                            <li>Send technical notices, updates, security alerts, and support messages</li>
-                            <li>Respond to your comments, questions, and customer service requests</li>
-                            <li>Train and improve our humanoid hybrid AI systems</li>
-                            <li>Ensure professional AI behavior and safety compliance</li>
-                        </ul>
+                        <p>We use the information we collect to provide, maintain, and improve our services.</p>
                         
-                        <h3 style="color: var(--text-primary); margin: 2rem 0 1rem;">3. AI Data Processing</h3>
-                        <p>Our humanoid hybrid AI processes your interactions to:</p>
-                        <ul style="margin: 1rem 0; padding-left: 2rem;">
-                            <li>Provide personalized and contextual responses</li>
-                            <li>Maintain conversation continuity and emotional understanding</li>
-                            <li>Ensure professional boundaries and appropriate content filtering</li>
-                            <li>Improve AI learning while preserving core personality traits</li>
-                            <li>Adapt to reality updates without affecting memory or emotions</li>
-                        </ul>
-                        
-                        <h3 style="color: var(--text-primary); margin: 2rem 0 1rem;">4. Information Sharing</h3>
-                        <p>We do not sell, trade, or otherwise transfer your personal information to third parties except:</p>
-                        <ul style="margin: 1rem 0; padding-left: 2rem;">
-                            <li>With your explicit consent</li>
-                            <li>To trusted service providers who assist in operating our platform</li>
-                            <li>When required by law or to protect our rights</li>
-                            <li>In connection with a merger, acquisition, or sale of assets</li>
-                        </ul>
-                        
-                        <h3 style="color: var(--text-primary); margin: 2rem 0 1rem;">5. Data Security</h3>
-                        <p>We implement appropriate security measures to protect your personal information:</p>
-                        <ul style="margin: 1rem 0; padding-left: 2rem;">
-                            <li>Encryption of sensitive data in transit and at rest</li>
-                            <li>Regular security audits and penetration testing</li>
-                            <li>Access controls and authentication measures</li>
-                            <li>Secure API key management and vault protection</li>
-                            <li>Professional AI behavior monitoring and safety systems</li>
-                        </ul>
-                        
-                        <h3 style="color: var(--text-primary); margin: 2rem 0 1rem;">6. Data Retention</h3>
-                        <p>We retain your information for as long as necessary to provide services and fulfill legal obligations. AI conversation data is retained to improve service quality while maintaining strict privacy controls.</p>
-                        
-                        <h3 style="color: var(--text-primary); margin: 2rem 0 1rem;">7. Your Rights</h3>
-                        <p>You have the right to:</p>
-                        <ul style="margin: 1rem 0; padding-left: 2rem;">
-                            <li>Access and update your personal information</li>
-                            <li>Delete your account and associated data</li>
-                            <li>Opt-out of certain communications</li>
-                            <li>Request data portability</li>
-                            <li>Object to processing of your personal information</li>
-                        </ul>
-                        
-                        <h3 style="color: var(--text-primary); margin: 2rem 0 1rem;">8. Cookies and Tracking</h3>
-                        <p>We use cookies and similar technologies to enhance user experience, analyze usage patterns, and improve our services. You can control cookie settings through your browser preferences.</p>
-                        
-                        <h3 style="color: var(--text-primary); margin: 2rem 0 1rem;">9. Children's Privacy</h3>
-                        <p>Our services are not intended for children under 13. We do not knowingly collect personal information from children under 13. If we become aware of such collection, we will delete the information immediately.</p>
-                        
-                        <h3 style="color: var(--text-primary); margin: 2rem 0 1rem;">10. International Data Transfers</h3>
-                        <p>Your information may be transferred to and processed in countries other than your own. We ensure appropriate safeguards are in place to protect your privacy rights.</p>
-                        
-                        <h3 style="color: var(--text-primary); margin: 2rem 0 1rem;">11. Changes to Privacy Policy</h3>
-                        <p>We may update this Privacy Policy periodically. We will notify you of any material changes by posting the new policy on this page and updating the "Last Updated" date.</p>
-                        
-                        <h3 style="color: var(--text-primary); margin: 2rem 0 1rem;">12. Contact Us</h3>
+                        <h3 style="color: var(--text-primary); margin: 2rem 0 1rem;">3. Contact Us</h3>
                         <p>If you have questions about this Privacy Policy, please contact us at:</p>
-                        <p><strong>Email:</strong> zapbo777@aicentralhubplza.com<br>
-                        <strong>Address:</strong> AICENTRALHUBPLAZA LLC™<br>
-                        Privacy Officer<br>
-                        [Your Business Address]</p>
+                        <p><strong>Email:</strong> zapbo777@aicentralhubplza.com</p>
                     </div>
                 `,
                 
@@ -1922,44 +1789,10 @@
                         <p style="margin-bottom: 1.5rem;"><strong>Last Updated:</strong> January 9, 2025</p>
                         
                         <h3 style="color: var(--text-primary); margin: 2rem 0 1rem;">What Are Cookies?</h3>
-                        <p>Cookies are small text files that are placed on your computer or mobile device when you visit a website. They help websites remember your preferences and improve your browsing experience.</p>
+                        <p>Cookies are small text files that are placed on your computer or mobile device when you visit a website.</p>
                         
                         <h3 style="color: var(--text-primary); margin: 2rem 0 1rem;">Types of Cookies We Use</h3>
-                        
-                        <h4 style="color: var(--text-primary); margin: 1.5rem 0 0.5rem;">Essential Cookies:</h4>
-                        <ul style="margin: 1rem 0; padding-left: 2rem;">
-                            <li>Authentication and login state</li>
-                            <li>Security and fraud prevention</li>
-                            <li>Platform functionality and user preferences</li>
-                        </ul>
-                        
-                        <h4 style="color: var(--text-primary); margin: 1.5rem 0 0.5rem;">Analytics Cookies:</h4>
-                        <ul style="margin: 1rem 0; padding-left: 2rem;">
-                            <li>Usage statistics and performance monitoring</li>
-                            <li>AI interaction analytics for improvement</li>
-                            <li>Platform optimization data</li>
-                        </ul>
-                        
-                        <h4 style="color: var(--text-primary); margin: 1.5rem 0 0.5rem;">Functional Cookies:</h4>
-                        <ul style="margin: 1rem 0; padding-left: 2rem;">
-                            <li>User interface preferences</li>
-                            <li>Language and region settings</li>
-                            <li>AI personality and interaction preferences</li>
-                        </ul>
-                        
-                        <h3 style="color: var(--text-primary); margin: 2rem 0 1rem;">Managing Cookies</h3>
-                        <p>You can control and/or delete cookies as you wish. You can delete all cookies already on your computer and set most browsers to prevent them from being placed.</p>
-                        
-                        <h3 style="color: var(--text-primary); margin: 2rem 0 1rem;">Third-Party Cookies</h3>
-                        <p>We may use third-party services that set cookies, including:</p>
-                        <ul style="margin: 1rem 0; padding-left: 2rem;">
-                            <li>Payment processors (Stripe, Square)</li>
-                            <li>Analytics providers (Google Analytics)</li>
-                            <li>Authentication services (Auth0)</li>
-                            <li>AI service providers (Azure OpenAI, Anthropic)</li>
-                        </ul>
-                        
-                        <p style="margin-top: 2rem;">For more information about cookies and how to manage them, visit <a href="https://www.allaboutcookies.org" style="color: rgba(102, 126, 234, 1);">www.allaboutcookies.org</a></p>
+                        <p>We use essential cookies for authentication and functionality, and analytics cookies to improve our services.</p>
                     </div>
                 `,
                 
@@ -1969,40 +1802,10 @@
                         <h3 style="color: var(--text-primary); margin: 2rem 0 1rem;">Get Help with NEXA CORE™ ULTIMATE</h3>
                         
                         <h4 style="color: var(--text-primary); margin: 1.5rem 0 0.5rem;">📧 Email Support</h4>
-                        <ul style="margin: 1rem 0; padding-left: 2rem;">
-                            <li><strong>General Support:</strong> zapbo777@aicentralhubplza.com</li>
-                            <li><strong>Technical Issues:</strong> zapbo777@aicentralhubplza.com</li>
-                            <li><strong>Billing Questions:</strong> zapbo777@aicentralhubplza.com</li>
-                            <li><strong>Enterprise Sales:</strong> zapbo777@aicentralhubplza.com</li>
-                        </ul>
+                        <p><strong>General Support:</strong> zapbo777@aicentralhubplza.com</p>
                         
                         <h4 style="color: var(--text-primary); margin: 1.5rem 0 0.5rem;">💬 Live Chat</h4>
-                        <p>Available 24/7 through the platform interface<br>
-                        AI-powered initial response with human escalation available</p>
-                        
-                        <h4 style="color: var(--text-primary); margin: 1.5rem 0 0.5rem;">📚 Documentation</h4>
-                        <ul style="margin: 1rem 0; padding-left: 2rem;">
-                            <li>Getting Started Guide</li>
-                            <li>AI Team Documentation</li>
-                            <li>API Reference</li>
-                            <li>Troubleshooting Guide</li>
-                            <li>Video Tutorials</li>
-                        </ul>
-                        
-                        <h4 style="color: var(--text-primary); margin: 1.5rem 0 0.5rem;">🏆 Priority Support Plans</h4>
-                        <ul style="margin: 1rem 0; padding-left: 2rem;">
-                            <li><strong>Professional:</strong> Priority email support, 24-hour response time</li>
-                            <li><strong>Enterprise:</strong> Dedicated support team, 1-hour response time</li>
-                        </ul>
-                        
-                        <h4 style="color: var(--text-primary); margin: 1.5rem 0 0.5rem;">🔧 Self-Service Resources</h4>
-                        <ul style="margin: 1rem 0; padding-left: 2rem;">
-                            <li>Knowledge Base</li>
-                            <li>Community Forums</li>
-                            <li>Video Tutorials</li>
-                            <li>API Documentation</li>
-                            <li>Status Page</li>
-                        </ul>
+                        <p>Available 24/7 through the platform interface</p>
                     </div>
                 `,
                 
@@ -2014,7 +1817,24 @@
                         <h4 style="color: var(--text-primary); margin: 1.5rem 0 0.5rem;">🏢 Business Information</h4>
                         <p><strong>Company:</strong> AICENTRALHUBPLAZA LLC™<br>
                         <strong>Product:</strong> NEXA CORE™ ULTIMATE<br>
-                        <strong>Industry:</strong> AI Platform Development<br>
-                        <strong>Founded:</strong> 2025</p>
+                        <strong>Email:</strong> zapbo777@aicentralhubplza.com</p>
                         
-                        <h4 style="color: var(--text-primary); margin: 1.5rem 0 0.5rem
+                        <h4 style="color: var(--text-primary); margin: 1.5rem 0 0.5rem;">📞 Contact Methods</h4>
+                        <ul style="margin: 1rem 0; padding-left: 2rem;">
+                            <li><strong>General Inquiries:</strong> zapbo777@aicentralhubplza.com</li>
+                            <li><strong>Sales:</strong> zapbo777@aicentralhubplza.com</li>
+                            <li><strong>Support:</strong> zapbo777@aicentralhubplza.com</li>
+                        </ul>
+                    </div>
+                `
+            };
+
+            content.innerHTML = documents[type] || '<p>Content not found.</p>';
+            modal.classList.add('active');
+            modal.setAttribute('aria-hidden', 'false');
+        }
+
+        console.log('🚀 NEXA CORE™ ULTIMATE - Fully loaded and ready!');
+    </script>
+</body>
+</html>
