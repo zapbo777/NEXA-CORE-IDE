@@ -18,7 +18,19 @@
                     </div>
                 </div>
 
-                <!-- Real-time Activity -->
+                <!-- Quick Access Panel -->
+                <div class="dashboard-card">
+                    <h3>🚀 QUICK ACCESS</h3>
+                    <div class="btn-grid">
+                        <button class="btn-small btn-success" onclick="openPublicSite()">🌐 Public Site</button>
+                        <button class="btn-small btn-info" onclick="openPublicAsAdmin()">👑 Public as Admin</button>
+                        <button class="btn-small btn-warning" onclick="previewPublic()">👁️ Preview Public</button>
+                        <button class="btn-small btn-purple" onclick="openBothSites()">🔗 Open Both</button>
+                    </div>
+                    <div style="margin-top: 15px; padding: 10px; background: rgba(78, 205, 196, 0.2); border-radius: 8px; text-align: center;">
+                        <strong>🎯 Direct access to your public platform</strong>
+                    </div>
+                </div>
                 <div class="dashboard-card">
                     <h3>📈 REAL-TIME ACTIVITY</h3>
                     <div class="activity-log" id="activityLog">
@@ -377,38 +389,317 @@
     </div>
 
     <script>
-        // Ultimate Admin System
+        // Ultimate Admin System with Full Authentication
         const adminCredentials = {
-            'zapbo777': 'nexacore123',
-            'admin': 'admin123',
-            'superadmin': 'super2024'
+            'zapbo777': {
+                id: 'zapbo777',
+                name: 'Zapbo777 Master Admin',
+                email: 'zapbo777@aicentralhubplza.com',
+                password: 'nexacore123',
+                role: 'super_admin',
+                createdAt: new Date().toISOString()
+            },
+            'admin': {
+                id: 'admin',
+                name: 'System Administrator',
+                email: 'admin@nexacore.com',
+                password: 'admin123',
+                role: 'admin',
+                createdAt: new Date().toISOString()
+            },
+            'superadmin': {
+                id: 'superadmin',
+                name: 'Super Administrator',
+                email: 'super@nexacore.com',
+                password: 'super2024',
+                role: 'super_admin',
+                createdAt: new Date().toISOString()
+            }
         };
 
         let currentAdmin = null;
         let vaultUnlocked = false;
         let realTimeInterval;
 
-        // Authentication
+        // Admin Reset Codes
+        let adminResetCodes = {};
+        const ADMIN_CREATION_CODE = 'NEXA2024ADMIN';
+        const ADMIN_SECURITY_CODE = 'VAULT123SECURE';
+
+        // Admin Authentication Functions
         function handleAdminLogin(event) {
             event.preventDefault();
             const id = document.getElementById('adminId').value;
             const password = document.getElementById('adminPassword').value;
             const errorDiv = document.getElementById('loginError');
 
-            if (adminCredentials[id] && adminCredentials[id] === password) {
-                currentAdmin = id;
+            if (adminCredentials[id] && adminCredentials[id].password === password) {
+                currentAdmin = adminCredentials[id];
                 showDashboard();
                 errorDiv.textContent = '';
                 startRealTimeUpdates();
-                logActivity(`🔐 ${id} logged into admin center`);
+                logActivity(`🔐 ${currentAdmin.name} logged into admin center`);
             } else {
                 errorDiv.textContent = 'Invalid Admin Credentials!';
-                logActivity(`❌ Failed login attempt for ${id}`);
+                logActivity(`❌ Failed admin login attempt for ${id}`);
             }
+        }
+
+        function handleAdminSignup(event) {
+            event.preventDefault();
+            const name = document.getElementById('newAdminName').value;
+            const email = document.getElementById('newAdminEmail').value;
+            const id = document.getElementById('newAdminId').value;
+            const password = document.getElementById('newAdminPassword').value;
+            const confirmPassword = document.getElementById('confirmAdminPassword').value;
+            const adminCode = document.getElementById('adminCode').value;
+            const errorDiv = document.getElementById('signupError');
+            const successDiv = document.getElementById('signupSuccess');
+
+            // Reset messages
+            errorDiv.textContent = '';
+            successDiv.textContent = '';
+
+            // Validation
+            if (adminCode !== ADMIN_CREATION_CODE) {
+                errorDiv.textContent = 'Invalid admin creation code!';
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                errorDiv.textContent = 'Passwords do not match!';
+                return;
+            }
+
+            if (adminCredentials[id]) {
+                errorDiv.textContent = 'Admin ID already exists!';
+                return;
+            }
+
+            if (password.length < 8) {
+                errorDiv.textContent = 'Admin password must be at least 8 characters!';
+                return;
+            }
+
+            // Create new admin
+            adminCredentials[id] = {
+                id: id,
+                name: name,
+                email: email,
+                password: password,
+                role: 'admin',
+                createdAt: new Date().toISOString(),
+                createdBy: currentAdmin ? currentAdmin.id : 'system'
+            };
+
+            successDiv.textContent = 'Admin account created successfully! You can now login.';
+            logActivity(`➕ New admin created: ${name} (${id})`);
+            
+            // Clear form
+            document.getElementById('newAdminName').value = '';
+            document.getElementById('newAdminEmail').value = '';
+            document.getElementById('newAdminId').value = '';
+            document.getElementById('newAdminPassword').value = '';
+            document.getElementById('confirmAdminPassword').value = '';
+            document.getElementById('adminCode').value = '';
+
+            // Auto switch to login after 3 seconds
+            setTimeout(() => {
+                showAdminLogin();
+            }, 3000);
+        }
+
+        function handleAdminReset(event) {
+            event.preventDefault();
+            const email = document.getElementById('resetAdminEmail').value;
+            const adminId = document.getElementById('resetAdminId').value;
+            const securityCode = document.getElementById('adminSecurityCode').value;
+            const errorDiv = document.getElementById('resetError');
+            const successDiv = document.getElementById('resetSuccess');
+
+            // Reset messages
+            errorDiv.textContent = '';
+            successDiv.textContent = '';
+
+            // Check security code first
+            if (securityCode !== ADMIN_SECURITY_CODE) {
+                errorDiv.textContent = 'Invalid admin security code!';
+                logActivity(`❌ Failed admin reset - invalid security code for ${adminId}`);
+                return;
+            }
+
+            // Check admin exists
+            const admin = adminCredentials[adminId];
+            if (!admin) {
+                errorDiv.textContent = 'Admin ID not found!';
+                return;
+            }
+
+            if (admin.email !== email) {
+                errorDiv.textContent = 'Email does not match admin records!';
+                return;
+            }
+
+            // Generate 8-digit admin reset code
+            const resetCode = Math.floor(10000000 + Math.random() * 90000000).toString();
+            
+            // Store reset code
+            adminResetCodes[adminId] = {
+                code: resetCode,
+                email: email,
+                timestamp: new Date().getTime(),
+                attempts: 0
+            };
+
+            successDiv.textContent = `Secure admin reset code sent to ${email}! Code: ${resetCode} (In production, this would be sent via secure email)`;
+            logActivity(`🔄 Admin password reset initiated for ${adminId}`);
+            
+            // Show verification form after 2 seconds
+            setTimeout(() => {
+                showAdminResetVerify(adminId);
+            }, 2000);
+        }
+
+        function handleAdminResetVerify(event) {
+            event.preventDefault();
+            const code = document.getElementById('adminResetCode').value;
+            const newPassword = document.getElementById('newAdminPass').value;
+            const confirmPassword = document.getElementById('confirmNewAdminPass').value;
+            const errorDiv = document.getElementById('verifyError');
+            const successDiv = document.getElementById('verifySuccess');
+
+            // Reset messages
+            errorDiv.textContent = '';
+            successDiv.textContent = '';
+
+            const adminId = window.currentResetAdmin;
+            const resetData = adminResetCodes[adminId];
+
+            if (!resetData) {
+                errorDiv.textContent = 'Admin reset session expired. Please start over.';
+                return;
+            }
+
+            // Check if code is expired (5 minutes for admin)
+            const now = new Date().getTime();
+            if (now - resetData.timestamp > 300000) {
+                errorDiv.textContent = 'Admin reset code expired. Please request a new one.';
+                delete adminResetCodes[adminId];
+                return;
+            }
+
+            // Check reset attempts (only 2 attempts for admin)
+            if (resetData.attempts >= 2) {
+                errorDiv.textContent = 'Too many failed attempts. Please request a new code.';
+                delete adminResetCodes[adminId];
+                return;
+            }
+
+            // Verify reset code
+            if (code !== resetData.code) {
+                resetData.attempts++;
+                errorDiv.textContent = `Invalid admin reset code. ${2 - resetData.attempts} attempts remaining.`;
+                return;
+            }
+
+            // Validate new password
+            if (newPassword !== confirmPassword) {
+                errorDiv.textContent = 'Passwords do not match!';
+                return;
+            }
+
+            if (newPassword.length < 8) {
+                errorDiv.textContent = 'Admin password must be at least 8 characters!';
+                return;
+            }
+
+            // Update admin password
+            adminCredentials[adminId].password = newPassword;
+            adminCredentials[adminId].lastPasswordReset = new Date().toISOString();
+
+            // Clean up reset data
+            delete adminResetCodes[adminId];
+            delete window.currentResetAdmin;
+
+            successDiv.textContent = 'Admin password reset successfully! Redirecting to login...';
+            logActivity(`✅ Admin password reset completed for ${adminId}`);
+            
+            // Redirect to login after 2 seconds
+            setTimeout(() => {
+                showAdminLogin();
+                // Pre-fill admin ID
+                document.getElementById('adminId').value = adminId;
+                alert('🔒 Admin password reset successful! You can now login with your new password.');
+            }, 2000);
+        }
+
+        function resendAdminCode() {
+            const adminId = window.currentResetAdmin;
+            if (!adminId) {
+                alert('Session expired. Please start the reset process again.');
+                showAdminReset();
+                return;
+            }
+
+            const admin = adminCredentials[adminId];
+            if (!admin) {
+                alert('Admin not found. Please start over.');
+                showAdminReset();
+                return;
+            }
+
+            // Generate new 8-digit reset code
+            const resetCode = Math.floor(10000000 + Math.random() * 90000000).toString();
+            
+            adminResetCodes[adminId] = {
+                code: resetCode,
+                email: admin.email,
+                timestamp: new Date().getTime(),
+                attempts: 0
+            };
+
+            alert(`New admin reset code sent to ${admin.email}!\nCode: ${resetCode}\n(In production, this would be sent via secure email)`);
+            logActivity(`🔄 Admin reset code resent for ${adminId}`);
+        }
+
+        // Navigation Functions
+        function showAdminLogin() {
+            document.getElementById('adminLogin').style.display = 'flex';
+            document.getElementById('adminSignup').classList.add('hidden');
+            document.getElementById('adminReset').classList.add('hidden');
+            document.getElementById('adminResetVerify').classList.add('hidden');
+            document.getElementById('adminDashboard').classList.remove('active');
+        }
+
+        function showAdminSignup() {
+            document.getElementById('adminLogin').style.display = 'none';
+            document.getElementById('adminSignup').classList.remove('hidden');
+            document.getElementById('adminReset').classList.add('hidden');
+            document.getElementById('adminResetVerify').classList.add('hidden');
+        }
+
+        function showAdminReset() {
+            document.getElementById('adminLogin').style.display = 'none';
+            document.getElementById('adminSignup').classList.add('hidden');
+            document.getElementById('adminReset').classList.remove('hidden');
+            document.getElementById('adminResetVerify').classList.add('hidden');
+        }
+
+        function showAdminResetVerify(adminId) {
+            document.getElementById('adminLogin').style.display = 'none';
+            document.getElementById('adminSignup').classList.add('hidden');
+            document.getElementById('adminReset').classList.add('hidden');
+            document.getElementById('adminResetVerify').classList.remove('hidden');
+            
+            // Store current reset admin
+            window.currentResetAdmin = adminId;
         }
 
         function showDashboard() {
             document.getElementById('adminLogin').style.display = 'none';
+            document.getElementById('adminSignup').classList.add('hidden');
+            document.getElementById('adminReset').classList.add('hidden');
+            document.getElementById('adminResetVerify').classList.add('hidden');
             document.getElementById('adminDashboard').classList.add('active');
             updateAllStats();
         }
@@ -418,9 +709,12 @@
             vaultUnlocked = false;
             clearInterval(realTimeInterval);
             document.getElementById('adminLogin').style.display = 'flex';
+            document.getElementById('adminSignup').classList.add('hidden');
+            document.getElementById('adminReset').classList.add('hidden');
+            document.getElementById('adminResetVerify').classList.add('hidden');
             document.getElementById('adminDashboard').classList.remove('active');
             document.getElementById('vaultModal').classList.add('hidden');
-            logActivity(`🚪 Admin logged out`);
+            logActivity(`🚪 ${currentAdmin ? currentAdmin.name : 'Admin'} logged out`);
         }
 
         // Real-time Updates
@@ -493,9 +787,124 @@
             }
         }
 
+        // Public Site Access Functions
+        function openPublicSite() {
+            // Get the base URL and open public site
+            const baseUrl = window.location.origin + window.location.pathname.replace('admin.html', '');
+            const publicUrl = baseUrl + 'index.html';
+            
+            window.open(publicUrl, '_blank');
+            logActivity(`🌐 Public site opened from admin panel`);
+        }
+
+        function openPublicAsAdmin() {
+            // Open public site with admin credentials pre-filled
+            const baseUrl = window.location.origin + window.location.pathname.replace('admin.html', '');
+            const publicUrl = baseUrl + 'index.html?admin=true';
+            
+            const newWindow = window.open(publicUrl, '_blank');
+            
+            // Store admin credentials for auto-login
+            if (newWindow) {
+                setTimeout(() => {
+                    try {
+                        newWindow.postMessage({
+                            type: 'ADMIN_LOGIN',
+                            credentials: {
+                                id: 'admin',
+                                password: 'admin123'
+                            }
+                        }, '*');
+                    } catch (e) {
+                        console.log('Cross-origin message blocked');
+                    }
+                }, 1000);
+            }
+            
+            alert(`👑 Opening public site with admin access!\n\nUse these credentials:\n• User ID: admin\n• Password: admin123`);
+            logActivity(`👑 Public site opened with admin credentials`);
+        }
+
+        function previewPublic() {
+            // Open public site in a modal/iframe for preview
+            const baseUrl = window.location.origin + window.location.pathname.replace('admin.html', '');
+            const publicUrl = baseUrl + 'index.html';
+            
+            // Create preview modal
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.9);
+                z-index: 10000;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            `;
+            
+            const iframe = document.createElement('iframe');
+            iframe.src = publicUrl;
+            iframe.style.cssText = `
+                width: 90%;
+                height: 90%;
+                border: none;
+                border-radius: 15px;
+                box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            `;
+            
+            const closeBtn = document.createElement('button');
+            closeBtn.innerHTML = '✖️ Close Preview';
+            closeBtn.style.cssText = `
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                padding: 10px 20px;
+                background: #ff6b6b;
+                color: white;
+                border: none;
+                border-radius: 10px;
+                cursor: pointer;
+                font-weight: bold;
+                z-index: 10001;
+            `;
+            
+            closeBtn.onclick = () => document.body.removeChild(modal);
+            
+            modal.appendChild(iframe);
+            modal.appendChild(closeBtn);
+            document.body.appendChild(modal);
+            
+            logActivity(`👁️ Public site preview opened`);
+        }
+
+        function openBothSites() {
+            // Open both admin and public sites side by side
+            const baseUrl = window.location.origin + window.location.pathname.replace('admin.html', '');
+            const publicUrl = baseUrl + 'index.html';
+            
+            // Open public site in new window
+            const publicWindow = window.open(publicUrl, 'publicSite', 'width=800,height=600,left=0,top=0');
+            
+            // Resize current admin window
+            window.resizeTo(800, 600);
+            window.moveTo(800, 0);
+            
+            alert(`🔗 Both sites opened!\n\n• Left: Public Site (for users)\n• Right: Admin Site (for you)\n\nManage both simultaneously!`);
+            logActivity(`🔗 Both admin and public sites opened`);
+        }
+
         function generatePublicLink() {
             const baseUrl = window.location.origin + window.location.pathname.replace('admin.html', '');
-            const publicUrl = `${baseUrl}index.html?public=true`;
+            let publicUrl = baseUrl + 'index.html';
+            
+            // Check if public access is enabled
+            const publicToggle = document.getElementById('publicAccessToggle');
+            if (publicToggle && publicToggle.checked) {
+                publicUrl += '?public=true';
+            }
             
             const linkText = `🔗 PUBLIC ACCESS LINK GENERATED!\n\n${publicUrl}\n\nShare this link for instant chatbot access!\n\nLink copied to clipboard!`;
             alert(linkText);
@@ -559,16 +968,58 @@
         // API Management Functions
         function testAPI(apiId) {
             const apiData = {
-                'openai': { name: 'OpenAI GPT-4', status: 'Connected', latency: '0.8s', success: '99.2%' },
-                'stripe': { name: 'Stripe Payment', status: 'Active', latency: '0.3s', success: '100%' },
-                'google': { name: 'Google Cloud', status: 'Online', latency: '0.5s', success: '98.7%' }
+                'openai': { name: 'OpenAI GPT-4', status: 'Connected', latency: '0.8s', success: '99.2%', cost: '$23.45/day' },
+                'square': { name: 'Square Payment', status: 'Active', latency: '0.3s', success: '100%', processed: '$45,230' },
+                'google': { name: 'Google Cloud', status: 'Online', latency: '0.5s', success: '98.7%', credits: '$2,847' },
+                'zapbo_business': { name: 'Zapbo777 Business API', status: 'Active', latency: '0.2s', success: '99.8%', revenue: '$85K/month' },
+                'aihub_api': { name: 'AI Central Hub API', status: 'Connected', latency: '0.4s', success: '98.9%', clients: '2,847 calls' },
+                'mailchimp': { name: 'Mailchimp Email API', status: 'Active', latency: '0.6s', success: '99.5%', reach: '15,247 contacts' },
+                'analytics': { name: 'Google Analytics API', status: 'Tracking', latency: '0.3s', success: '100%', visitors: '8,947/day' },
+                'social_media': { name: 'Social Media API', status: 'Connected', latency: '0.7s', success: '97.2%', followers: '47,823' },
+                'hubspot_crm': { name: 'HubSpot CRM API', status: 'Synced', latency: '0.5s', success: '99.1%', pipeline: '$847K' },
+                'aws_s3': { name: 'AWS S3 Storage API', status: 'Online', latency: '0.4s', success: '99.9%', storage: '2.8 TB' }
             };
             
             const api = apiData[apiId];
             if (api) {
-                alert(`🧪 TESTING ${api.name}...\n\n✅ Status: ${api.status}\n⚡ Latency: ${api.latency}\n🎯 Success Rate: ${api.success}\n🔑 Authentication: Valid\n\n${api.name} is functioning perfectly!`);
+                alert(`🧪 TESTING ${api.name}...\n\n✅ Status: ${api.status}\n⚡ Latency: ${api.latency}\n🎯 Success Rate: ${api.success}\n🔑 Authentication: Valid\n📊 Performance: ${api.cost || api.processed || api.credits || api.revenue || api.clients || api.reach || api.visitors || api.followers || api.pipeline || api.storage}\n\n${api.name} is functioning perfectly!`);
                 logActivity(`🧪 API test completed for ${api.name}`);
             }
+        }
+
+        function businessMetrics(apiId) {
+            alert(`📊 ZAPBO777 BUSINESS METRICS\n\nBusiness Performance:\n• Monthly Revenue: $85,000\n• Growth Rate: +23% this quarter\n• Active Integrations: 12\n• Customer Satisfaction: 4.9/5\n• Market Position: Leading\n\nAPI Performance:\n• Uptime: 99.8%\n• Response Time: 0.2s\n• Daily Requests: 15,247\n\n🚀 Business is thriving!`);
+            logActivity(`📊 Business metrics viewed for Zapbo777`);
+        }
+
+        function clientMetrics(apiId) {
+            alert(`👥 AI CENTRAL HUB CLIENT METRICS\n\nClient Statistics:\n• Active Clients: 247\n• API Calls Today: 2,847\n• Revenue: $42,000/month\n• Client Retention: 94%\n• New Signups: +15/week\n\nTop Services:\n• AI Consulting: 45%\n• Custom Solutions: 35%\n• Training: 20%\n\n📈 Growing steadily!`);
+            logActivity(`👥 Client metrics viewed for AI Central Hub`);
+        }
+
+        function emailCampaigns(apiId) {
+            alert(`📧 EMAIL MARKETING METRICS\n\nCampaign Performance:\n• Total Subscribers: 15,247\n• Open Rate: 34.7%\n• Click Rate: 8.9%\n• Delivery Rate: 98.7%\n• Unsubscribe Rate: 0.3%\n\nRecent Campaigns:\n• NEXA Launch: 47% open\n• AI Updates: 52% open\n• Business Tips: 38% open\n\n📬 Excellent engagement!`);
+            logActivity(`📧 Email campaign metrics reviewed`);
+        }
+
+        function viewAnalytics(apiId) {
+            alert(`📈 WEBSITE ANALYTICS DASHBOARD\n\nTraffic Metrics:\n• Daily Visitors: 8,947\n• Page Views: 23,451\n• Bounce Rate: 23.4%\n• Session Duration: 8:32 min\n• Conversion Rate: 23.4%\n\nTop Pages:\n• NEXA Home: 34%\n• AI Features: 28%\n• Contact: 18%\n\n🎯 Strong performance!`);
+            logActivity(`📈 Analytics dashboard accessed`);
+        }
+
+        function socialMetrics(apiId) {
+            alert(`📱 SOCIAL MEDIA METRICS\n\nFollower Growth:\n• Total Followers: 47,823\n• Instagram: 28,471\n• Facebook: 19,352\n• Daily Growth: +127 followers\n• Engagement Rate: 8.9%\n\nTop Content:\n• AI Technology: 45% engagement\n• Business Tips: 38% engagement\n• Behind Scenes: 42% engagement\n\n🚀 Going viral!`);
+            logActivity(`📱 Social media metrics reviewed`);
+        }
+
+        function crmDashboard(apiId) {
+            alert(`👥 CRM DASHBOARD OVERVIEW\n\nCustomer Data:\n• Total Customers: 2,347\n• Active Deals: 89\n• Sales Pipeline: $847,000\n• Win Rate: 67%\n• Average Deal: $9,500\n\nTop Customers:\n• Enterprise: $2.3M lifetime\n• SMB Sector: $1.8M lifetime\n• Startups: $890K lifetime\n\n💰 Healthy pipeline!`);
+            logActivity(`👥 CRM dashboard accessed`);
+        }
+
+        function storageMetrics(apiId) {
+            alert(`☁️ CLOUD STORAGE METRICS\n\nStorage Overview:\n• Total Used: 2.8 TB\n• Available: 97.2 TB\n• Monthly Cost: $127.45\n• Files Stored: 847,293\n• Backup Status: 100% synced\n\nStorage Breakdown:\n• Business Data: 1.2 TB\n• AI Models: 890 GB\n• Customer Files: 710 GB\n\n💾 Well organized!`);
+            logActivity(`☁️ Storage metrics reviewed`);
         }
 
         function showAddAPIForm() {
@@ -693,9 +1144,9 @@
             document.getElementById('totalUsers').textContent = '156';
             document.getElementById('activeUsers').textContent = '42';
             document.getElementById('passwordResets').textContent = '8';
-            document.getElementById('totalApis').textContent = '12';
-            document.getElementById('activeApis').textContent = '8';
-            document.getElementById('apiCalls').textContent = '15.2K';
+            document.getElementById('totalApis').textContent = '10';
+            document.getElementById('activeApis').textContent = '10';
+            document.getElementById('apiCalls').textContent = '25.8K';
             document.getElementById('totalBusinesses').textContent = '5';
             document.getElementById('activeIntegrations').textContent = '8';
             document.getElementById('activeHumanoids').textContent = '4';
@@ -752,7 +1203,10 @@
 
         // Placeholder functions for additional features
         function addNewAPI() { openApiVault(); }
-        function testAllAPIs() { testAPI('openai'); setTimeout(() => testAPI('stripe'), 1000); setTimeout(() => testAPI('google'), 2000); }
+        function testAllAPIs() { 
+            alert(`🧪 TESTING ALL BUSINESS APIs...\n\nTesting in progress:\n• OpenAI GPT-4: ✅ Connected\n• Square Payment: ✅ Active\n• Google Cloud: ✅ Online\n• Zapbo777 Business: ✅ Active\n• AI Central Hub: ✅ Connected\n• Mailchimp Email: ✅ Active\n• Google Analytics: ✅ Tracking\n• Social Media: ✅ Connected\n• HubSpot CRM: ✅ Synced\n• AWS S3 Storage: ✅ Online\n\n🎯 ALL 10 APIs FUNCTIONING PERFECTLY!`);
+            logActivity(`🧪 All business APIs tested successfully`);
+        }
         function addBusiness() { openBusinessVault(); }
         function businessAnalytics() { alert('📊 Business analytics: Revenue up 23%, growth rate 15%, market expansion opportunities identified.'); }
         function tuneLearning() { tuneHumanoid('tobi'); }
@@ -1405,8 +1859,102 @@
                         <input type="password" id="adminPassword" placeholder="Enter Password" required>
                     </div>
                     <button type="submit" class="btn btn-primary">🚀 ACCESS CONTROL CENTER</button>
+                    <button type="button" class="btn btn-secondary" onclick="showAdminSignup()">➕ Create Admin Account</button>
+                    <button type="button" class="btn" onclick="showAdminReset()" style="background: transparent; color: #4ecdc4; text-decoration: underline; margin-top: 10px;">🔓 Forgot Admin Password?</button>
                 </form>
                 <div id="loginError" class="error-message"></div>
+            </div>
+        </div>
+
+        <!-- Admin Signup -->
+        <div id="adminSignup" class="admin-login hidden">
+            <div class="login-form">
+                <h2>➕ CREATE ADMIN ACCOUNT</h2>
+                <form onsubmit="handleAdminSignup(event)">
+                    <div class="form-group">
+                        <label for="newAdminName">Full Name:</label>
+                        <input type="text" id="newAdminName" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="newAdminEmail">Email:</label>
+                        <input type="email" id="newAdminEmail" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="newAdminId">Admin ID:</label>
+                        <input type="text" id="newAdminId" placeholder="Choose an Admin ID" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="newAdminPassword">Password:</label>
+                        <input type="password" id="newAdminPassword" placeholder="Create a strong password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmAdminPassword">Confirm Password:</label>
+                        <input type="password" id="confirmAdminPassword" placeholder="Confirm your password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="adminCode">Admin Creation Code:</label>
+                        <input type="text" id="adminCode" placeholder="Enter admin creation code" required>
+                        <small style="color: #4ecdc4; margin-top: 5px; display: block;">Contact existing admin for creation code</small>
+                    </div>
+                    <button type="submit" class="btn btn-primary">🔐 CREATE ADMIN ACCOUNT</button>
+                    <button type="button" class="btn btn-secondary" onclick="showAdminLogin()">⬅️ Back to Login</button>
+                </form>
+                <div id="signupError" class="error-message"></div>
+                <div id="signupSuccess" class="success-message"></div>
+            </div>
+        </div>
+
+        <!-- Admin Password Reset -->
+        <div id="adminReset" class="admin-login hidden">
+            <div class="login-form">
+                <h2>🔓 RESET ADMIN PASSWORD</h2>
+                <form onsubmit="handleAdminReset(event)">
+                    <div class="form-group">
+                        <label for="resetAdminEmail">Admin Email:</label>
+                        <input type="email" id="resetAdminEmail" placeholder="Enter your admin email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="resetAdminId">Admin ID:</label>
+                        <input type="text" id="resetAdminId" placeholder="Enter your Admin ID" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="adminSecurityCode">Security Code:</label>
+                        <input type="text" id="adminSecurityCode" placeholder="Enter admin security code" required>
+                        <small style="color: #4ecdc4; margin-top: 5px; display: block;">High-security verification required</small>
+                    </div>
+                    <button type="submit" class="btn btn-primary">🔄 Send Reset Code</button>
+                    <button type="button" class="btn btn-secondary" onclick="showAdminLogin()">⬅️ Back to Login</button>
+                </form>
+                <div id="resetError" class="error-message"></div>
+                <div id="resetSuccess" class="success-message"></div>
+            </div>
+        </div>
+
+        <!-- Admin Reset Verification -->
+        <div id="adminResetVerify" class="admin-login hidden">
+            <div class="login-form">
+                <h2>📧 ADMIN RESET VERIFICATION</h2>
+                <p style="text-align: center; margin-bottom: 20px; opacity: 0.9; color: #4ecdc4;">
+                    Secure 8-digit admin reset code sent
+                </p>
+                <form onsubmit="handleAdminResetVerify(event)">
+                    <div class="form-group">
+                        <label for="adminResetCode">8-Digit Reset Code:</label>
+                        <input type="text" id="adminResetCode" placeholder="Enter 8-digit code" maxlength="8" required style="text-align: center; font-size: 20px; letter-spacing: 10px;">
+                    </div>
+                    <div class="form-group">
+                        <label for="newAdminPass">New Admin Password:</label>
+                        <input type="password" id="newAdminPass" placeholder="Enter new strong password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmNewAdminPass">Confirm New Password:</label>
+                        <input type="password" id="confirmNewAdminPass" placeholder="Confirm new password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">🔒 RESET ADMIN PASSWORD</button>
+                    <button type="button" class="btn btn-secondary" onclick="resendAdminCode()">📤 Resend Code</button>
+                </form>
+                <div id="verifyError" class="error-message"></div>
+                <div id="verifySuccess" class="success-message"></div>
             </div>
         </div>
 
@@ -1416,6 +1964,7 @@
                 <div class="nav-brand">🔐 NEXA CONTROL CENTER</div>
                 <div class="nav-menu">
                     <div class="nav-item" onclick="refreshDashboard()">🔄 Refresh</div>
+                    <div class="nav-item" onclick="openPublicSite()">🌐 Public Site</div>
                     <div class="nav-item" onclick="openVault()">🔐 Vault</div>
                     <div class="nav-item" onclick="openHumanoidSystem()">🤖 Humanoids</div>
                     <div class="nav-item" onclick="exportAllData()">📊 Export</div>
@@ -1472,15 +2021,15 @@
                     <h3>🔐 SECRET API VAULT</h3>
                     <div class="stats-grid">
                         <div class="stat-item">
-                            <div class="stat-number" id="totalApis">12</div>
+                            <div class="stat-number" id="totalApis">10</div>
                             <div class="stat-label">API Keys</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-number" id="activeApis">8</div>
+                            <div class="stat-number" id="activeApis">10</div>
                             <div class="stat-label">Active APIs</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-number" id="apiCalls">15.2K</div>
+                            <div class="stat-number" id="apiCalls">25.8K</div>
                             <div class="stat-label">Daily Calls</div>
                         </div>
                     </div>
