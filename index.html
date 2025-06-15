@@ -1,873 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEXA CORE™ ULTIMATE - World's Most Powerful Platform Builder | AICENTRALHUBPLAZA LLC™</title>
-    <meta name="description" content="The ultimate AI-powered platform builder powered by humanoid hybrid intelligence. Build any website, app, or software solution in minutes with NEXA CORE™ ULTIMATE by AICENTRALHUBPLAZA LLC™">
-    <meta name="keywords" content="AI platform builder, humanoid hybrid AI, website builder, app development, SaaS platform, no-code, low-code, NEXA CORE">
-    <meta name="author" content="AICENTRALHUBPLAZA LLC">
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://nexacore.com/">
-    <meta property="og:title" content="NEXA CORE™ ULTIMATE - Humanoid Hybrid AI Platform Builder">
-    <meta property="og:description" content="Build anything with humanoid hybrid AI. The world's most powerful platform builder combining human creativity with AI precision.">
-    <meta property="og:image" content="https://nexacore.com/og-image.jpg">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://nexacore.com/">
-    <meta property="twitter:title" content="NEXA CORE™ ULTIMATE - Humanoid Hybrid AI Platform Builder">
-    <meta property="twitter:description" content="Build anything with humanoid hybrid AI. The world's most powerful platform builder combining human creativity with AI precision.">
-    <meta property="twitter:image" content="https://nexacore.com/twitter-image.jpg">
-    
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
-    <link rel="canonical" href="https://nexacore.com/">
-    
-    <style>
-        :root {
-            --primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --glass: rgba(255,255,255,0.1);
-            --glass-border: rgba(255,255,255,0.2);
-            --text-primary: #ffffff;
-            --text-secondary: #b8c6db;
-            --bg-primary: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
-            --shadow-glow: 0 0 40px rgba(102, 126, 234, 0.4);
-            --shadow-card: 0 25px 60px rgba(0, 0, 0, 0.5);
-            --success: #10b981;
-            --error: #ef4444;
-            --warning: #f59e0b;
-        }
-
-        * {
-            margin: 0; padding: 0; box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* Header */
-        .header {
-            position: fixed; top: 0; width: 100%; z-index: 1000;
-            background: rgba(0,0,0,0.95); backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--glass-border);
-        }
-
-        .nav-container {
-            max-width: 1400px; margin: 0 auto; padding: 1rem 2rem;
-            display: flex; align-items: center; justify-content: space-between;
-        }
-
-        .logo-container {
-            display: flex; align-items: center; gap: 1rem;
-        }
-
-        .logo-icon {
-            width: 50px; height: 50px; background: var(--primary);
-            border-radius: 15px; display: flex; align-items: center; justify-content: center;
-            font-size: 1.5rem;
-        }
-
-        .logo-text h1 {
-            font-size: 1.8rem; font-weight: 800;
-            background: var(--primary); -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .logo-subtitle {
-            font-size: 0.9rem; color: var(--text-secondary);
-        }
-
-        .nav-links {
-            display: flex; align-items: center; gap: 1rem;
-        }
-
-        .nav-btn {
-            padding: 0.7rem 1.5rem; border: none; border-radius: 25px;
-            font-weight: 600; cursor: pointer; transition: all 0.3s ease;
-            text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;
-        }
-
-        .nav-btn-primary {
-            background: var(--primary); color: white;
-        }
-
-        .nav-btn-secondary {
-            background: var(--glass); color: var(--text-primary);
-            border: 1px solid var(--glass-border);
-        }
-
-        .nav-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-glow);
-        }
-
-        /* User Menu */
-        .user-menu {
-            position: relative;
-            display: none;
-        }
-
-        .user-avatar {
-            width: 40px; height: 40px; background: var(--primary);
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-size: 1.2rem; cursor: pointer;
-        }
-
-        .user-dropdown {
-            position: absolute; top: 100%; right: 0; margin-top: 0.5rem;
-            background: var(--glass); backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border); border-radius: 15px;
-            padding: 1rem; min-width: 200px; display: none;
-        }
-
-        .user-info {
-            padding-bottom: 1rem; border-bottom: 1px solid var(--glass-border);
-            margin-bottom: 1rem;
-        }
-
-        .user-name {
-            font-weight: 700; margin-bottom: 0.3rem;
-        }
-
-        .user-id {
-            font-size: 0.8rem; color: var(--text-secondary);
-        }
-
-        .dropdown-item {
-            display: block; padding: 0.5rem 0; color: var(--text-primary);
-            text-decoration: none; transition: all 0.3s ease;
-        }
-
-        .dropdown-item:hover {
-            color: rgba(102, 126, 234, 1);
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100vh; display: flex; align-items: center;
-            padding: 120px 2rem 4rem;
-        }
-
-        .hero-container {
-            max-width: 1400px; margin: 0 auto; text-align: center;
-        }
-
-        .hero-badge {
-            display: inline-block; padding: 0.5rem 1.5rem;
-            background: var(--glass); border: 1px solid var(--glass-border);
-            border-radius: 25px; margin-bottom: 2rem;
-            font-weight: 600; color: var(--text-secondary);
-        }
-
-        .hero-title {
-            font-size: clamp(3rem, 8vw, 6rem); font-weight: 900;
-            background: var(--primary); -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 1.5rem; line-height: 1.1;
-        }
-
-        .hero-subtitle {
-            font-size: clamp(1.2rem, 3vw, 1.8rem);
-            color: var(--text-secondary); margin-bottom: 3rem;
-            max-width: 800px; margin-left: auto; margin-right: auto;
-        }
-
-        .hero-cta {
-            display: flex; gap: 1.5rem; justify-content: center;
-            flex-wrap: wrap; margin-bottom: 4rem;
-        }
-
-        .cta-btn {
-            padding: 1.2rem 2.5rem; border: none; border-radius: 50px;
-            font-size: 1.1rem; font-weight: 700; cursor: pointer;
-            transition: all 0.3s ease; text-decoration: none;
-            display: inline-flex; align-items: center; gap: 0.7rem;
-        }
-
-        .cta-primary {
-            background: var(--primary); color: white;
-            box-shadow: var(--shadow-glow);
-        }
-
-        .cta-secondary {
-            background: transparent; color: var(--text-primary);
-            border: 2px solid var(--glass-border);
-        }
-
-        .cta-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-glow);
-        }
-
-        /* Platform Showcase */
-        .platform-showcase {
-            padding: 6rem 2rem; background: rgba(0,0,0,0.3);
-        }
-
-        .showcase-container {
-            max-width: 1400px; margin: 0 auto;
-        }
-
-        .section-header {
-            text-align: center; margin-bottom: 4rem;
-        }
-
-        .section-title {
-            font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 800;
-            background: var(--primary); -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent; margin-bottom: 1rem;
-        }
-
-        .section-subtitle {
-            font-size: 1.3rem; color: var(--text-secondary);
-            max-width: 600px; margin: 0 auto;
-        }
-
-        .platform-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem; margin-bottom: 4rem;
-        }
-
-        .platform-card {
-            background: var(--glass); backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border); border-radius: 20px;
-            padding: 2.5rem; transition: all 0.3s ease;
-        }
-
-        .platform-card:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--shadow-card);
-        }
-
-        .platform-icon {
-            font-size: 3rem; margin-bottom: 1.5rem;
-        }
-
-        .platform-title {
-            font-size: 1.5rem; font-weight: 700;
-            margin-bottom: 1rem; color: var(--text-primary);
-        }
-
-        .platform-desc {
-            color: var(--text-secondary); margin-bottom: 1.5rem;
-        }
-
-        .platform-features {
-            list-style: none;
-        }
-
-        .platform-features li {
-            display: flex; align-items: center; gap: 0.5rem;
-            margin-bottom: 0.5rem; color: var(--text-secondary);
-        }
-
-        .platform-features li::before {
-            content: '✨'; font-size: 0.9rem;
-        }
-
-        /* AI Team */
-        .ai-showcase {
-            padding: 6rem 2rem;
-        }
-
-        .ai-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .ai-card {
-            background: var(--glass); backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border); border-radius: 15px;
-            padding: 2rem; text-align: center; transition: all 0.3s ease;
-        }
-
-        .ai-card:hover {
-            transform: scale(1.05);
-            box-shadow: var(--shadow-card);
-        }
-
-        .ai-avatar {
-            width: 80px; height: 80px; margin: 0 auto 1rem;
-            background: var(--primary); border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 2rem;
-        }
-
-        .ai-name {
-            font-size: 1.2rem; font-weight: 700;
-            margin-bottom: 0.5rem; color: var(--text-primary);
-        }
-
-        .ai-specialty {
-            color: var(--text-secondary); font-size: 0.9rem;
-            margin-bottom: 1rem;
-        }
-
-        .ai-capability {
-            background: rgba(102, 126, 234, 0.2);
-            color: rgba(102, 126, 234, 1); padding: 0.3rem 0.8rem;
-            border-radius: 15px; font-size: 0.8rem; font-weight: 600;
-        }
-
-        /* Leadership */
-        .leadership-section {
-            padding: 6rem 2rem; background: rgba(0,0,0,0.3);
-        }
-
-        .leader-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem; margin-bottom: 4rem;
-        }
-
-        .leader-card {
-            background: var(--glass); backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border); border-radius: 20px;
-            padding: 2.5rem; text-align: center; transition: all 0.3s ease;
-        }
-
-        .leader-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-card);
-        }
-
-        .leader-avatar {
-            font-size: 4rem; margin-bottom: 1.5rem;
-        }
-
-        .leader-name {
-            color: var(--text-primary); font-size: 2rem;
-            margin-bottom: 0.5rem; font-weight: 800;
-        }
-
-        .leader-title {
-            color: rgba(102, 126, 234, 1); font-weight: 700;
-            font-size: 1.2rem; margin-bottom: 1.5rem;
-        }
-
-        .leader-desc {
-            color: var(--text-secondary); font-size: 1rem;
-        }
-
-        /* Pricing */
-        .pricing-section {
-            padding: 6rem 2rem;
-        }
-
-        .pricing-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem; max-width: 1200px; margin: 0 auto;
-        }
-
-        .pricing-card {
-            background: var(--glass); backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border); border-radius: 20px;
-            padding: 2.5rem; text-align: center; position: relative;
-        }
-
-        .pricing-card.featured {
-            border: 2px solid rgba(102, 126, 234, 0.8);
-            transform: scale(1.05);
-        }
-
-        .pricing-card.featured::before {
-            content: '⭐ MOST POPULAR'; position: absolute;
-            top: -15px; left: 50%; transform: translateX(-50%);
-            background: var(--primary); color: white;
-            padding: 0.5rem 1.5rem; border-radius: 25px;
-            font-size: 0.9rem; font-weight: 700;
-        }
-
-        .price-amount {
-            font-size: 3rem; font-weight: 900;
-            background: var(--primary); -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent; margin-bottom: 0.5rem;
-        }
-
-        .price-period {
-            color: var(--text-secondary); margin-bottom: 2rem;
-        }
-
-        .pricing-features {
-            list-style: none; margin-bottom: 2rem;
-        }
-
-        .pricing-features li {
-            display: flex; align-items: center; gap: 0.5rem;
-            margin-bottom: 0.8rem; color: var(--text-secondary);
-        }
-
-        .pricing-features li::before {
-            content: '✅'; font-size: 1rem;
-        }
-
-        .pricing-btn {
-            width: 100%; padding: 1rem; background: var(--primary);
-            border: none; border-radius: 25px; color: white;
-            font-weight: 700; cursor: pointer; transition: all 0.3s ease;
-        }
-
-        .pricing-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-glow);
-        }
-
-        /* Footer */
-        .footer {
-            background: rgba(0,0,0,0.8); padding: 4rem 2rem 2rem;
-            border-top: 1px solid var(--glass-border);
-        }
-
-        .footer-container {
-            max-width: 1400px; margin: 0 auto; text-align: center;
-        }
-
-        .footer-logo {
-            font-size: 2rem; margin-bottom: 1rem;
-            background: var(--primary); -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent; font-weight: 800;
-        }
-
-        .footer-tagline {
-            color: var(--text-secondary); margin-bottom: 2rem;
-        }
-
-        .footer-copyright {
-            color: var(--text-secondary); font-size: 0.9rem;
-            padding-top: 2rem; border-top: 1px solid var(--glass-border);
-        }
-
-        /* Authentication Modal */
-        .auth-modal {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9); z-index: 2000;
-            display: none; align-items: center; justify-content: center;
-            padding: 2rem;
-        }
-
-        .auth-modal.active {
-            display: flex;
-        }
-
-        .auth-card {
-            background: var(--glass);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 3rem;
-            width: 100%;
-            max-width: 450px;
-            box-shadow: var(--shadow-card);
-            position: relative;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-
-        .auth-close {
-            position: absolute; top: 1rem; right: 1rem;
-            background: none; border: none; color: var(--text-secondary);
-            font-size: 1.5rem; cursor: pointer;
-        }
-
-        .auth-tabs {
-            display: flex;
-            margin-bottom: 2rem;
-            background: rgba(0,0,0,0.3);
-            border-radius: 12px;
-            padding: 0.3rem;
-        }
-
-        .auth-tab {
-            flex: 1;
-            padding: 0.8rem;
-            text-align: center;
-            border: none;
-            background: transparent;
-            color: var(--text-secondary);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 600;
-        }
-
-        .auth-tab.active {
-            background: var(--primary);
-            color: white;
-            box-shadow: var(--shadow-glow);
-        }
-
-        .auth-form {
-            display: none;
-        }
-
-        .auth-form.active {
-            display: block;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--text-primary);
-            font-weight: 600;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 1rem;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid var(--glass-border);
-            border-radius: 10px;
-            color: var(--text-primary);
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: rgba(102, 126, 234, 0.8);
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
-        }
-
-        .form-input::placeholder {
-            color: var(--text-secondary);
-        }
-
-        .password-input-container {
-            position: relative;
-        }
-
-        .password-toggle {
-            position: absolute;
-            right: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            cursor: pointer;
-            font-size: 1.2rem;
-        }
-
-        .form-btn {
-            width: 100%;
-            padding: 1rem;
-            background: var(--primary);
-            border: none;
-            border-radius: 12px;
-            color: white;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-bottom: 1rem;
-        }
-
-        .form-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-glow);
-        }
-
-        .form-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .divider {
-            display: flex;
-            align-items: center;
-            margin: 1.5rem 0;
-            color: var(--text-secondary);
-        }
-
-        .divider::before,
-        .divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: var(--glass-border);
-        }
-
-        .divider span {
-            padding: 0 1rem;
-            font-size: 0.9rem;
-        }
-
-        .social-btn {
-            width: 100%;
-            padding: 1rem;
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            border-radius: 10px;
-            color: var(--text-primary);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-bottom: 0.8rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.8rem;
-            font-weight: 600;
-        }
-
-        .social-btn:hover {
-            background: rgba(255,255,255,0.15);
-            transform: translateY(-1px);
-        }
-
-        .forgot-password {
-            text-align: center;
-            margin-top: 1rem;
-        }
-
-        .forgot-password a {
-            color: rgba(102, 126, 234, 1);
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .forgot-password a:hover {
-            text-decoration: underline;
-        }
-
-        .alert {
-            padding: 1rem;
-            border-radius: 10px;
-            margin-bottom: 1.5rem;
-            font-weight: 600;
-            display: none;
-        }
-
-        .alert.success {
-            background: rgba(16, 185, 129, 0.2);
-            border: 1px solid rgba(16, 185, 129, 0.5);
-            color: var(--success);
-        }
-
-        .alert.error {
-            background: rgba(239, 68, 68, 0.2);
-            border: 1px solid rgba(239, 68, 68, 0.5);
-            color: var(--error);
-        }
-
-        .alert.warning {
-            background: rgba(245, 158, 11, 0.2);
-            border: 1px solid rgba(245, 158, 11, 0.5);
-            color: var(--warning);
-        }
-
-        .strength-meter {
-            height: 4px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 2px;
-            margin-top: 0.5rem;
-            overflow: hidden;
-        }
-
-        .strength-bar {
-            height: 100%;
-            width: 0%;
-            border-radius: 2px;
-            transition: all 0.3s ease;
-        }
-
-        .strength-weak { background: var(--error); }
-        .strength-medium { background: var(--warning); }
-        .strength-strong { background: var(--success); }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero {
-                padding: 100px 1rem 2rem;
-            }
-            
-            .platform-grid,
-            .ai-grid,
-            .leader-grid,
-            .pricing-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .pricing-card.featured {
-                transform: none;
-            }
-
-            .nav-links {
-                gap: 0.5rem;
-            }
-
-            .nav-btn {
-                padding: 0.5rem 1rem;
-                font-size: 0.9rem;
-            }
-
-            .nav-btn span {
-                display: none;
-            }
-        }
-
-        /* Hide/Show sections based on authentication */
-        .auth-required {
-            display: none;
-        }
-
-        .logged-in .auth-required {
-            display: flex;
-        }
-
-        .logged-in .guest-only {
-            display: none;
-        }
-
-        /* Mobile responsive user menu */
-        @media (max-width: 768px) {
-            .user-dropdown {
-                right: -1rem;
-                left: auto;
-                min-width: 180px;
-            }
-        }
-
-        /* Admin Link */
-        .admin-link {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 60px;
-            height: 60px;
-            background: var(--glass);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            text-decoration: none;
-            color: var(--text-primary);
-            transition: all 0.3s ease;
-            z-index: 999;
-        }
-
-        .admin-link:hover {
-            transform: scale(1.1);
-            box-shadow: var(--shadow-glow);
-        }
-
-        /* Schema.org structured data for SEO */
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border: 0;
-        }
-    </style>
-    
-    <!-- Structured Data for SEO -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "NEXA CORE™ ULTIMATE",
-      "description": "The ultimate AI-powered platform builder powered by humanoid hybrid intelligence",
-      "url": "https://nexacore.com",
-      "author": {
-        "@type": "Organization",
-        "name": "AICENTRALHUBPLAZA LLC"
-      },
-      "applicationCategory": "DeveloperApplication",
-      "operatingSystem": "Web Browser",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD",
-        "priceValidUntil": "2025-12-31"
-      }
-    }
-    </script>
-</head>
-<body>
-    <!-- Header -->
-    <header class="header">
-        <nav class="nav-container">
-            <div class="logo-container">
-                <div class="logo-icon" role="img" aria-label="NEXA CORE Rocket Logo">🚀</div>
-                <div class="logo-text">
-                    <h1>NEXA CORE™ ULTIMATE</h1>
-                    <div class="logo-subtitle">by AICENTRALHUBPLAZA LLC™</div>
-                </div>
-            </div>
-            
-            <div class="nav-links">
-                <a href="#platforms" class="nav-btn nav-btn-secondary" aria-label="View Platforms">🛠️ <span>Platforms</span></a>
-                <a href="#ai-team" class="nav-btn nav-btn-secondary" aria-label="Meet AI Team">🤖 <span>AI Team</span></a>
-                <a href="#leadership" class="nav-btn nav-btn-secondary" aria-label="Leadership Team">👑 <span>Leadership</span></a>
-                <a href="#pricing" class="nav-btn nav-btn-secondary" aria-label="View Pricing">💰 <span>Pricing</span></a>
-                
-                <!-- Guest Navigation -->
-                <div class="guest-only">
-                    <button class="nav-btn nav-btn-secondary" onclick="openAuth('login')" aria-label="Sign In">🔐 <span>Sign In</span></button>
-                    <button class="nav-btn nav-btn-primary" onclick="openAuth('signup')" aria-label="Start Building">🚀 <span>Start Building</span></button>
-                </div>
-
-                <!-- User Navigation -->
-                <div class="user-menu auth-required">
-                    <div class="user-avatar" onclick="toggleUserMenu()" id="userAvatar" role="button" aria-label="User Menu" tabindex="0">👤</div>
-                    <div class="user-dropdown" id="userDropdown" role="menu">
-                        <div class="user-info">
-                            <div class="user-name" id="navUserName">User Name</div>
-                            <div class="user-id" id="navUserId">USER-ID</div>
-                        </div>
-                        <a href="#" class="dropdown-item" onclick="openDashboard()" role="menuitem">🏠 Dashboard</a>
-                        <a href="#" class="dropdown-item" onclick="openProjects()" role="menuitem">📊 My Projects</a>
-                        <a href="#" class="dropdown-item" onclick="openSettings()" role="menuitem">⚙️ Settings</a>
-                        <a href="#" class="dropdown-item" onclick="logout()" role="menuitem">🚪 Sign Out</a>
-                    </div>
-                </div>
-            </div>
-        </nav>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="hero" role="banner">
-        <div class="hero-container">
-            <div class="hero-badge">
-                🏆 World's #1 AI Platform Builder • 🤖 Humanoid Hybrid Technology
-            </div>
-            
-            <h1 class="hero-title">
-                Build Anything.<br>
-                Solve Everything.<br>
-                Deploy Everywhere.
-            </h1>
-            
-            <p class="hero-subtitle">
+<p class="hero-subtitle">
                 The ultimate AI-powered platform builder powered by humanoid hybrid intelligence. 
                 Combining human creativity with AI precision to turn your ideas into reality. 
                 Create websites, apps, SaaS platforms, and enterprise solutions in minutes, not months.
             </p>
             
             <div class="hero-cta">
-                <button class="cta-btn cta-primary guest-only" onclick="openAuth('signup')" aria-label="Start Building Now">
+                <button class="cta-btn cta-primary" onclick="openAuth('signup')">
                     🚀 Start Building Now
-                </button>
-                <button class="cta-btn cta-primary auth-required" onclick="startBuilding()" aria-label="Access Your AI Team">
-                    🚀 Access Your AI Team
                 </button>
             </div>
             
@@ -878,7 +17,7 @@
     </section>
 
     <!-- Platform Showcase -->
-    <section class="platform-showcase" id="platforms" role="main">
+    <section class="platform-showcase" id="platforms">
         <div class="showcase-container">
             <div class="section-header">
                 <h2 class="section-title">Build Any Platform</h2>
@@ -890,7 +29,7 @@
             
             <div class="platform-grid">
                 <article class="platform-card">
-                    <div class="platform-icon" role="img" aria-label="Website Icon">🌐</div>
+                    <div class="platform-icon">🌐</div>
                     <h3 class="platform-title">Websites & Landing Pages</h3>
                     <p class="platform-desc">
                         Create stunning, responsive websites with AI-generated content, 
@@ -906,7 +45,7 @@
                 </article>
                 
                 <article class="platform-card">
-                    <div class="platform-icon" role="img" aria-label="Mobile App Icon">📱</div>
+                    <div class="platform-icon">📱</div>
                     <h3 class="platform-title">Mobile Applications</h3>
                     <p class="platform-desc">
                         Build native iOS and Android apps with cross-platform deployment, 
@@ -922,7 +61,7 @@
                 </article>
                 
                 <article class="platform-card">
-                    <div class="platform-icon" role="img" aria-label="SaaS Icon">💼</div>
+                    <div class="platform-icon">💼</div>
                     <h3 class="platform-title">SaaS Platforms</h3>
                     <p class="platform-desc">
                         Launch complete Software-as-a-Service platforms with user management, 
@@ -952,70 +91,70 @@
             
             <div class="ai-grid">
                 <article class="ai-card">
-                    <div class="ai-avatar" role="img" aria-label="CodeGenius Avatar">👨‍💻</div>
+                    <div class="ai-avatar">👨‍💻</div>
                     <div class="ai-name">CodeGenius</div>
                     <div class="ai-specialty">Full-Stack Development</div>
                     <div class="ai-capability">Humanoid Hybrid Speed</div>
                 </article>
                 
                 <article class="ai-card">
-                    <div class="ai-avatar" role="img" aria-label="DesignMaster Avatar">🎨</div>
+                    <div class="ai-avatar">🎨</div>
                     <div class="ai-name">DesignMaster</div>
                     <div class="ai-specialty">UI/UX Design</div>
                     <div class="ai-capability">Stunning Interfaces</div>
                 </article>
                 
                 <article class="ai-card">
-                    <div class="ai-avatar" role="img" aria-label="SecurityGuard Avatar">🔒</div>
+                    <div class="ai-avatar">🔒</div>
                     <div class="ai-name">SecurityGuard</div>
                     <div class="ai-specialty">Cybersecurity</div>
                     <div class="ai-capability">Zero Vulnerabilities</div>
                 </article>
                 
                 <article class="ai-card">
-                    <div class="ai-avatar" role="img" aria-label="DatabaseExpert Avatar">🗄️</div>
+                    <div class="ai-avatar">🗄️</div>
                     <div class="ai-name">DatabaseExpert</div>
                     <div class="ai-specialty">Data Management</div>
                     <div class="ai-capability">Lightning Fast Queries</div>
                 </article>
                 
                 <article class="ai-card">
-                    <div class="ai-avatar" role="img" aria-label="APIBuilder Avatar">🔗</div>
+                    <div class="ai-avatar">🔗</div>
                     <div class="ai-name">APIBuilder</div>
                     <div class="ai-specialty">API Development</div>
                     <div class="ai-capability">Perfect Integrations</div>
                 </article>
                 
                 <article class="ai-card">
-                    <div class="ai-avatar" role="img" aria-label="TestingBot Avatar">🧪</div>
+                    <div class="ai-avatar">🧪</div>
                     <div class="ai-name">TestingBot</div>
                     <div class="ai-specialty">Quality Assurance</div>
                     <div class="ai-capability">Bug-Free Code</div>
                 </article>
                 
                 <article class="ai-card">
-                    <div class="ai-avatar" role="img" aria-label="DeployMaster Avatar">🚀</div>
+                    <div class="ai-avatar">🚀</div>
                     <div class="ai-name">DeployMaster</div>
                     <div class="ai-specialty">DevOps & Deployment</div>
                     <div class="ai-capability">One-Click Deploy</div>
                 </article>
                 
                 <article class="ai-card">
-                    <div class="ai-avatar" role="img" aria-label="AnalyticsAI Avatar">📈</div>
+                    <div class="ai-avatar">📈</div>
                     <div class="ai-name">AnalyticsAI</div>
                     <div class="ai-specialty">Data Analytics</div>
                     <div class="ai-capability">Actionable Insights</div>
                 </article>
                 
                 <article class="ai-card">
-                    <div class="ai-avatar" role="img" aria-label="ContentCreator Avatar">💬</div>
+                    <div class="ai-avatar">💬</div>
                     <div class="ai-name">ContentCreator</div>
                     <div class="ai-specialty">Content Generation</div>
                     <div class="ai-capability">Engaging Copy</div>
                 </article>
                 
                 <article class="ai-card">
-                    <div class="ai-avatar" role="img" aria-label="SEOOptimizer Avatar">🎯</div>
+                    <div class="ai-avatar">🎯</div>
                     <div class="ai-name">SEOOptimizer</div>
                     <div class="ai-specialty">Search Optimization</div>
                     <div class="ai-capability">Top Rankings</div>
@@ -1039,21 +178,21 @@
             
             <div class="leader-grid">
                 <article class="leader-card">
-                    <div class="leader-avatar" role="img" aria-label="Peter Harper Avatar">👨‍💼</div>
+                    <div class="leader-avatar">👨‍💼</div>
                     <h3 class="leader-name">Peter Harper</h3>
                     <p class="leader-title">CEO & Strategic Visionary</p>
                     <p class="leader-desc">🧠 Powered by Advanced AI | Driving revolutionary innovation with humanoid hybrid strategic leadership</p>
                 </article>
 
                 <article class="leader-card">
-                    <div class="leader-avatar" role="img" aria-label="Arlene Harper Avatar">👩‍💻</div>
+                    <div class="leader-avatar">👩‍💻</div>
                     <h3 class="leader-name">Arlene Harper</h3>
                     <p class="leader-title">Founder & Visionary</p>
                     <p class="leader-desc">🚀 Human Genius + AI Enhancement | Brilliant platform architect transforming the world with humanoid hybrid vision</p>
                 </article>
 
                 <article class="leader-card">
-                    <div class="leader-avatar" role="img" aria-label="TOBI Avatar">🤖</div>
+                    <div class="leader-avatar">🤖</div>
                     <h3 class="leader-name">TOBI</h3>
                     <p class="leader-title">Chief AI Officer</p>
                     <p class="leader-desc">⚡ Claude Sonnet 4 + Humanoid Integration | Advanced AI technology ensuring excellence through hybrid intelligence</p>
@@ -1103,7 +242,7 @@
                         <li>5 Projects</li>
                         <li>Standard deployment</li>
                     </ul>
-                    <button class="pricing-btn" onclick="selectPlan('starter')" aria-label="Start Free Plan">
+                    <button class="pricing-btn" onclick="selectPlan('starter')">
                         🚀 Start Free
                     </button>
                 </article>
@@ -1122,7 +261,7 @@
                         <li>SSL certificates</li>
                         <li>Analytics dashboard</li>
                     </ul>
-                    <button class="pricing-btn" onclick="selectPlan('professional')" aria-label="Upgrade to Professional">
+                    <button class="pricing-btn" onclick="selectPlan('professional')">
                         💳 Upgrade to Pro
                     </button>
                 </article>
@@ -1141,7 +280,7 @@
                         <li>Advanced security</li>
                         <li>Custom AI training</li>
                     </ul>
-                    <button class="pricing-btn" onclick="selectPlan('enterprise')" aria-label="Contact Enterprise Sales">
+                    <button class="pricing-btn" onclick="selectPlan('enterprise')">
                         📧 Contact Sales
                     </button>
                 </article>
@@ -1150,7 +289,7 @@
     </section>
 
     <!-- Footer -->
-    <footer class="footer" role="contentinfo">
+    <footer class="footer">
         <div class="footer-container">
             <div class="footer-logo">NEXA CORE™ ULTIMATE</div>
             <div class="footer-tagline">
@@ -1159,11 +298,11 @@
             
             <!-- Footer Links -->
             <div style="margin: 2rem 0; display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
-                <a href="#" onclick="openTerms()" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">📋 Terms & Conditions</a>
-                <a href="#" onclick="openPrivacy()" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">🔒 Privacy Policy</a>
-                <a href="#" onclick="openCookies()" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">🍪 Cookie Policy</a>
-                <a href="#" onclick="openSupport()" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">💬 Support</a>
-                <a href="#" onclick="openContact()" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">📧 Contact</a>
+                <a href="#" onclick="alert('Terms & Conditions - Contact: zapbo777@aicentralhubplza.com')" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">📋 Terms & Conditions</a>
+                <a href="#" onclick="alert('Privacy Policy - Contact: zapbo777@aicentralhubplza.com')" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">🔒 Privacy Policy</a>
+                <a href="#" onclick="alert('Cookie Policy - Contact: zapbo777@aicentralhubplza.com')" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">🍪 Cookie Policy</a>
+                <a href="#" onclick="alert('Support - Email: zapbo777@aicentralhubplza.com')" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">💬 Support</a>
+                <a href="#" onclick="alert('Contact: zapbo777@aicentralhubplza.com')" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">📧 Contact</a>
             </div>
             
             <div class="footer-copyright">
@@ -1171,6 +310,8 @@
                 NEXA CORE™ is a registered trademark of AICENTRALHUBPLAZA LLC™.
                 <br><br>
                 <strong>🚀 Built with humanoid hybrid AI. Secured by design. Loved by developers worldwide.</strong>
+                <br><br>
+                <strong>📧 Contact: zapbo777@aicentralhubplza.com</strong>
                 <br><br>
                 <small style="color: var(--text-secondary);">
                     By using NEXA CORE™ ULTIMATE, you agree to our Terms & Conditions and Privacy Policy. 
@@ -1180,450 +321,467 @@
         </div>
     </footer>
 
-    <!-- Admin Access Link -->
-    <a href="#" onclick="openAdminAccess()" class="admin-link" aria-label="Admin Access" title="Admin Dashboard">🔐</a>
+    <!-- Public Chatbot Interface -->
+    <div class="public-chatbot">
+        <div class="chat-toggle-btn" onclick="togglePublicChat()">
+            <span class="chat-icon">🤖</span>
+        </div>
+        
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">
+                <div class="chat-header-info">
+                    <div class="ai-avatar-public">🤖</div>
+                    <div class="ai-info">
+                        <h4>NEXA AI Assistant</h4>
+                        <span class="ai-status">
+                            <span class="status-dot-public"></span>
+                            Online • Ready to help
+                        </span>
+                    </div>
+                </div>
+                <button class="chat-close-btn" onclick="closePublicChat()">×</button>
+            </div>
+            
+            <div class="chat-messages-public" id="chatMessagesPublic">
+                <div class="message-public ai">
+                    <div class="message-avatar">🤖</div>
+                    <div class="message-content">
+                        <div class="message-text">
+                            Hi! I'm your NEXA CORE™ AI assistant! 🚀 I can help you with:
+                            <br><br>
+                            • Learn about our platform features
+                            <br>• Pricing and plan information
+                            <br>• Technical questions
+                            <br>• Getting started guidance
+                            <br><br>
+                            How can I help you today?
+                        </div>
+                        <div class="message-time" id="welcomeTime"></div>
+                    </div>
+                </div>
+                
+                <div class="quick-actions">
+                    <button class="quick-action-btn" onclick="sendQuickMessage('What can NEXA CORE do?')">🔍 Platform Features</button>
+                    <button class="quick-action-btn" onclick="sendQuickMessage('What are your pricing plans?')">💰 Pricing Info</button>
+                    <button class="quick-action-btn" onclick="sendQuickMessage('How do I get started?')">🚀 Get Started</button>
+                    <button class="quick-action-btn" onclick="sendQuickMessage('Contact sales team')">📞 Contact Sales</button>
+                </div>
+
+                <div class="typing-indicator-public" id="typingIndicator">
+                    <div class="message-avatar">🤖</div>
+                    <div class="typing-content">
+                        <div class="typing-text">AI is typing</div>
+                        <div class="typing-dots-public">
+                            <div class="typing-dot-public"></div>
+                            <div class="typing-dot-public"></div>
+                            <div class="typing-dot-public"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chat-input-area">
+                <div class="chat-input-wrapper-public">
+                    <textarea 
+                        class="chat-input-public" 
+                        id="chatInput" 
+                        placeholder="Ask about features, pricing, or anything else..."
+                        rows="1"
+                    ></textarea>
+                    <button class="voice-btn-public" onclick="startVoiceInput()" title="Voice Input">🎤</button>
+                    <button class="send-btn-public" onclick="sendMessage()" title="Send Message">📤</button>
+                </div>
+                <div class="chat-footer">
+                    <small>Powered by NEXA CORE™ Humanoid Hybrid AI</small>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Authentication Modal -->
-    <div class="auth-modal" id="authModal" role="dialog" aria-labelledby="auth-title" aria-hidden="true">
+    <div class="auth-modal" id="authModal">
         <div class="auth-card">
-            <button class="auth-close" onclick="closeAuth()" aria-label="Close Authentication Modal">×</button>
+            <button class="auth-close" onclick="closeAuth()">×</button>
             
-            <div class="logo-section">
-                <div class="logo-icon" role="img" aria-label="NEXA CORE Logo">🚀</div>
-                <div class="logo-text" id="auth-title">NEXA CORE™ ULTIMATE</div>
-                <div class="logo-subtitle">by AICENTRALHUBPLAZA LLC™</div>
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <div class="logo-icon" style="margin: 0 auto 1rem;">🚀</div>
+                <h2>NEXA CORE™ ULTIMATE</h2>
+                <p style="color: var(--text-secondary);">by AICENTRALHUBPLAZA LLC™</p>
             </div>
 
-            <!-- Alert Messages -->
-            <div id="alertMessage" class="alert" role="alert" aria-live="polite"></div>
+            <div id="alertMessage" class="alert"></div>
 
-            <div class="auth-tabs" role="tablist">
-                <button class="auth-tab active" onclick="switchAuthTab('login')" role="tab" aria-selected="true" aria-controls="loginForm">Sign In</button>
-                <button class="auth-tab" onclick="switchAuthTab('signup')" role="tab" aria-selected="false" aria-controls="signupForm">Sign Up</button>
+            <div class="auth-tabs">
+                <button class="auth-tab active" onclick="switchTab('login')">Sign In</button>
+                <button class="auth-tab" onclick="switchTab('signup')">Sign Up</button>
             </div>
 
             <!-- Login Form -->
-            <form id="loginForm" class="auth-form active" role="tabpanel" aria-labelledby="login-tab">
+            <form id="loginForm" class="auth-form active">
                 <div class="form-group">
-                    <label class="form-label" for="loginEmail">Email or Username</label>
-                    <input type="text" class="form-input" id="loginEmail" placeholder="Enter your email or username" required autocomplete="username">
+                    <label class="form-label">Email or Username</label>
+                    <input type="text" class="form-input" id="loginEmail" placeholder="Enter your email or username" required>
                 </div>
                 
                 <div class="form-group">
-                    <label class="form-label" for="loginPassword">Password</label>
-                    <div class="password-input-container">
-                        <input type="password" class="form-input" id="loginPassword" placeholder="Enter your password" required autocomplete="current-password">
-                        <button type="button" class="password-toggle" onclick="togglePassword('loginPassword')" aria-label="Toggle password visibility">👁️</button>
-                    </div>
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-input" id="loginPassword" placeholder="Enter your password" required>
                 </div>
                 
                 <button type="submit" class="form-btn">🚀 Sign In to NEXA CORE™</button>
-                
-                <div class="forgot-password">
-                    <a href="#" onclick="showPasswordReset()">Forgot your password?</a>
-                </div>
             </form>
 
             <!-- Sign Up Form -->
-            <form id="signupForm" class="auth-form" role="tabpanel" aria-labelledby="signup-tab">
+            <form id="signupForm" class="auth-form">
                 <div class="form-group">
-                    <label class="form-label" for="signupName">Full Name</label>
-                    <input type="text" class="form-input" id="signupName" placeholder="Enter your full name" required autocomplete="name">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" class="form-input" id="signupName" placeholder="Enter your full name" required>
                 </div>
                 
                 <div class="form-group">
-                    <label class="form-label" for="signupEmail">Email Address</label>
-                    <input type="email" class="form-input" id="signupEmail" placeholder="Enter your email" required autocomplete="email">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" class="form-input" id="signupEmail" placeholder="Enter your email" required>
                 </div>
                 
                 <div class="form-group">
-                    <label class="form-label" for="signupUsername">Username</label>
-                    <input type="text" class="form-input" id="signupUsername" placeholder="Choose a username" required autocomplete="username">
+                    <label class="form-label">Username</label>
+                    <input type="text" class="form-input" id="signupUsername" placeholder="Choose a username" required>
                 </div>
                 
                 <div class="form-group">
-                    <label class="form-label" for="signupPassword">Password</label>
-                    <div class="password-input-container">
-                        <input type="password" class="form-input" id="signupPassword" placeholder="Create a strong password" required autocomplete="new-password">
-                        <button type="button" class="password-toggle" onclick="togglePassword('signupPassword')" aria-label="Toggle password visibility">👁️</button>
-                    </div>
-                    <div class="strength-meter" aria-label="Password strength indicator">
-                        <div id="strengthBar" class="strength-bar"></div>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label" for="confirmPassword">Confirm Password</label>
-                    <div class="password-input-container">
-                        <input type="password" class="form-input" id="confirmPassword" placeholder="Confirm your password" required autocomplete="new-password">
-                        <button type="button" class="password-toggle" onclick="togglePassword('confirmPassword')" aria-label="Toggle password visibility">👁️</button>
-                    </div>
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-input" id="signupPassword" placeholder="Create a strong password" required>
                 </div>
                 
                 <button type="submit" class="form-btn">🎯 Create NEXA Account</button>
             </form>
 
-            <!-- Password Reset Form -->
-            <form id="resetForm" class="auth-form">
-                <div class="form-group">
-                    <label class="form-label" for="resetEmail">Email Address</label>
-                    <input type="email" class="form-input" id="resetEmail" placeholder="Enter your email" required autocomplete="email">
-                </div>
-                
-                <button type="submit" class="form-btn">📧 Send Reset Link</button>
-                
-                <div class="forgot-password">
-                    <a href="#" onclick="switchAuthTab('login')">Back to Sign In</a>
-                </div>
-            </form>
-
-            <div class="divider">
-                <span>Or continue with</span>
+            <div style="display: flex; align-items: center; margin: 1.5rem 0; color: var(--text-secondary);">
+                <div style="flex: 1; height: 1px; background: var(--glass-border);"></div>
+                <span style="padding: 0 1rem; font-size: 0.9rem;">Or continue with</span>
+                <div style="flex: 1; height: 1px; background: var(--glass-border);"></div>
             </div>
 
-            <button class="social-btn" onclick="socialLogin('google')" aria-label="Continue with Google">
+            <button class="social-btn" onclick="socialLogin('google')">
                 🔍 Continue with Google
             </button>
             
-            <button class="social-btn" onclick="socialLogin('github')" aria-label="Continue with GitHub">
+            <button class="social-btn" onclick="socialLogin('github')">
                 💻 Continue with GitHub
             </button>
             
-            <button class="social-btn" onclick="socialLogin('microsoft')" aria-label="Continue with Microsoft">
+            <button class="social-btn" onclick="socialLogin('microsoft')">
                 🪟 Continue with Microsoft
             </button>
         </div>
     </div>
 
-    <!-- Legal Documents Modal -->
-    <div class="auth-modal" id="legalModal" role="dialog" aria-labelledby="legal-title" aria-hidden="true">
-        <div class="auth-card" style="max-width: 800px; max-height: 80vh;">
-            <button class="auth-close" onclick="closeLegal()" aria-label="Close Legal Document">×</button>
-            
-            <div id="legalContent" style="overflow-y: auto; max-height: 70vh;">
-                <!-- Legal content will be populated here -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Screen reader only content for accessibility -->
-    <div class="sr-only">
-        <h2>NEXA CORE ULTIMATE - AI Platform Builder</h2>
-        <p>Build websites, mobile apps, and SaaS platforms with humanoid hybrid AI technology</p>
-    </div>
-
     <script>
-        // User data storage (in-memory for demo - in production use backend)
+        // Global variables
+        let publicChatOpen = false;
         let users = [];
         let currentUser = null;
-        let welcomeShown = false;
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
-            initializeApp();
+            console.log('🚀 NEXA CORE™ ULTIMATE - Loaded successfully!');
+            document.getElementById('welcomeTime').textContent = new Date().toLocaleTimeString();
+            
+            // Show welcome message
+            setTimeout(() => {
+                showAlert('success', '🎉 Welcome to NEXA CORE™ ULTIMATE! Click the chatbot (🤖) to learn more!');
+            }, 2000);
         });
 
-        function initializeApp() {
-            // Check if user is logged in
-            if (currentUser) {
-                updateUIForLoggedInUser();
+        // Chatbot Functions
+        function togglePublicChat() {
+            const chatWindow = document.getElementById('chatWindow');
+            publicChatOpen = !publicChatOpen;
+            
+            if (publicChatOpen) {
+                chatWindow.classList.add('open');
+                setTimeout(() => document.getElementById('chatInput').focus(), 300);
+            } else {
+                chatWindow.classList.remove('open');
+            }
+        }
+
+        function closePublicChat() {
+            document.getElementById('chatWindow').classList.remove('open');
+            publicChatOpen = false;
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+
+            addMessage('user', message);
+            input.value = '';
+            
+            // Remove quick actions
+            const quickActions = document.querySelector('.quick-actions');
+            if (quickActions) quickActions.remove();
+            
+            // Show typing and respond
+            showTyping();
+            setTimeout(() => {
+                hideTyping();
+                const response = processMessage(message);
+                addMessage('ai', response);
+            }, 1000 + Math.random() * 2000);
+        }
+
+        function sendQuickMessage(message) {
+            document.getElementById('chatInput').value = message;
+            sendMessage();
+        }
+
+        function addMessage(sender, content) {
+            const container = document.getElementById('chatMessagesPublic');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message-public ${sender}`;
+            
+            const time = new Date().toLocaleTimeString();
+            const avatar = sender === 'user' ? '👤' : '🤖';
+            
+            messageDiv.innerHTML = `
+                <div class="message-avatar">${avatar}</div>
+                <div class="message-content">
+                    <div class="message-text">${content}</div>
+                    <div class="message-time">${time}</div>
+                </div>
+            `;
+
+            container.appendChild(messageDiv);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function showTyping() {
+            document.getElementById('typingIndicator').style.display = 'flex';
+            document.getElementById('chatMessagesPublic').scrollTop = document.getElementById('chatMessagesPublic').scrollHeight;
+        }
+
+        function hideTyping() {
+            document.getElementById('typingIndicator').style.display = 'none';
+        }
+
+        function processMessage(message) {
+            const msg = message.toLowerCase();
+
+            if (msg.includes('hello') || msg.includes('hi')) {
+                return `Hello! 👋 Welcome to NEXA CORE™ ULTIMATE! I'm excited to help you discover our humanoid hybrid AI platform. What would you like to know about?`;
             }
 
-            // Initialize with clean slate - users sign up fresh each session
-            
-            // Form event listeners
-            document.getElementById('loginForm').addEventListener('submit', handleLogin);
-            document.getElementById('signupForm').addEventListener('submit', handleSignup);
-            document.getElementById('resetForm').addEventListener('submit', handlePasswordReset);
+            if (msg.includes('features') || msg.includes('what can')) {
+                return `🚀 **NEXA CORE™ Features:**
 
-            // Password strength checker
-            document.getElementById('signupPassword').addEventListener('input', checkPasswordStrength);
+• **🌐 Website Builder** - AI-generated responsive sites
+• **📱 Mobile Apps** - Cross-platform development  
+• **💼 SaaS Platforms** - Complete business solutions
+• **🤖 10 AI Specialists** - Expert team at your service
+• **⚡ Instant Deployment** - Live in minutes
 
-            // Close dropdown when clicking outside
-            document.addEventListener('click', function(e) {
-                if (!e.target.closest('.user-menu')) {
-                    document.getElementById('userDropdown').style.display = 'none';
-                }
-            });
+Want to try it? Click "Start Building" above! 🎯`;
+            }
 
-            // Smooth scrolling for navigation
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                });
-            });
+            if (msg.includes('pricing') || msg.includes('cost')) {
+                return `💰 **NEXA CORE™ Pricing:**
 
-            // Header scroll effect
-            window.addEventListener('scroll', function() {
-                const header = document.querySelector('.header');
-                if (window.scrollY > 100) {
-                    header.style.background = 'rgba(0,0,0,0.98)';
-                    header.style.boxShadow = '0 25px 60px rgba(0, 0, 0, 0.5)';
-                } else {
-                    header.style.background = 'rgba(0,0,0,0.95)';
-                    header.style.boxShadow = 'none';
-                }
-            });
+**🌱 STARTER** - FREE
+• 3 AI Assistants
+• 5 Projects  
+• Community Support
 
-            // Card animations on scroll
-            initializeScrollAnimations();
+**💎 PROFESSIONAL** - $29/month
+• All 10 AI Assistants
+• Unlimited Projects
+• Priority Support
 
-            console.log('🚀 NEXA CORE™ ULTIMATE - Ready for new users');
-            console.log('💡 Sign up to experience humanoid hybrid AI');
+**🏢 ENTERPRISE** - Custom
+• White-label Solutions
+• Dedicated Support
+
+Start FREE today! 🚀`;
+            }
+
+            if (msg.includes('contact') || msg.includes('sales')) {
+                return `📧 **Contact Information:**
+
+**Email:** zapbo777@aicentralhubplza.com
+**Company:** AICENTRALHUBPLAZA LLC™
+
+**Available 24/7:**
+• Chat support (me!)
+• Email response within 24 hours
+• Enterprise sales team
+
+How else can I help you today? 😊`;
+            }
+
+            if (msg.includes('get started') || msg.includes('sign up')) {
+                return `🚀 **Getting Started is Easy:**
+
+1. **Click "Start Building"** in the top navigation
+2. **Choose your project type** (Website, App, SaaS)
+3. **Meet your AI team** - they'll help build everything
+4. **Deploy instantly** - Your platform goes live!
+
+**FREE Starter Plan includes:**
+• 3 AI specialists
+• 5 projects
+• Professional templates
+• No credit card needed!
+
+Ready to revolutionize your development? 🌟`;
+            }
+
+            // Default response
+            return `I'd love to help you with "${message}"! 🤖
+
+I can assist you with:
+• **Platform features** and capabilities
+• **Pricing plans** and options
+• **Getting started** guidance  
+• **Contact information**
+• **Technical questions**
+
+What specifically interests you about NEXA CORE™? 🚀`;
         }
 
-        function updateUIForLoggedInUser() {
-            document.body.classList.add('logged-in');
-            document.getElementById('navUserName').textContent = currentUser.name;
-            document.getElementById('navUserId').textContent = currentUser.id;
-            
-            // Update user avatar with first letter of name
-            const firstLetter = currentUser.name.charAt(0).toUpperCase();
-            document.getElementById('userAvatar').textContent = firstLetter;
-        }
-
-        function updateUIForGuest() {
-            document.body.classList.remove('logged-in');
+        function startVoiceInput() {
+            if ('webkitSpeechRecognition' in window) {
+                const recognition = new webkitSpeechRecognition();
+                recognition.onresult = function(event) {
+                    document.getElementById('chatInput').value = event.results[0][0].transcript;
+                    sendMessage();
+                };
+                recognition.start();
+                addMessage('ai', '🎤 Listening... speak now!');
+            } else {
+                addMessage('ai', 'Voice input not supported in your browser. Please type your message!');
+            }
         }
 
         // Authentication Functions
-        function openAuth(tab = 'login') {
+        function openAuth(tab = 'signup') {
             document.getElementById('authModal').classList.add('active');
-            document.getElementById('authModal').setAttribute('aria-hidden', 'false');
-            switchAuthTab(tab);
+            switchTab(tab);
         }
 
         function closeAuth() {
             document.getElementById('authModal').classList.remove('active');
-            document.getElementById('authModal').setAttribute('aria-hidden', 'true');
             hideAlert();
-            // Reset forms
-            document.querySelectorAll('.auth-form').forEach(form => {
-                if (form.tagName === 'FORM') form.reset();
-            });
         }
 
-        function switchAuthTab(tab) {
-            // Update tab buttons
-            document.querySelectorAll('.auth-tab').forEach(t => {
-                t.classList.remove('active');
-                t.setAttribute('aria-selected', 'false');
-            });
-            
-            const activeTab = event?.target || document.querySelector(`[onclick="switchAuthTab('${tab}')"]`);
-            activeTab.classList.add('active');
-            activeTab.setAttribute('aria-selected', 'true');
-
-            // Hide all forms
+        function switchTab(tab) {
+            document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
-
-            // Show selected form
+            
             if (tab === 'login') {
+                document.querySelector('[onclick="switchTab(\'login\')"]').classList.add('active');
                 document.getElementById('loginForm').classList.add('active');
-            } else if (tab === 'signup') {
+            } else {
+                document.querySelector('[onclick="switchTab(\'signup\')"]').classList.add('active');
                 document.getElementById('signupForm').classList.add('active');
-            }
-
-            hideAlert();
-        }
-
-        function showPasswordReset() {
-            document.querySelectorAll('.auth-tab').forEach(t => {
-                t.classList.remove('active');
-                t.setAttribute('aria-selected', 'false');
-            });
-            document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
-            document.getElementById('resetForm').classList.add('active');
-            hideAlert();
-        }
-
-        function togglePassword(inputId) {
-            const input = document.getElementById(inputId);
-            const button = input.nextElementSibling;
-            
-            if (input.type === 'password') {
-                input.type = 'text';
-                button.textContent = '🙈';
-                button.setAttribute('aria-label', 'Hide password');
-            } else {
-                input.type = 'password';
-                button.textContent = '👁️';
-                button.setAttribute('aria-label', 'Show password');
-            }
-        }
-
-        function checkPasswordStrength() {
-            const password = document.getElementById('signupPassword').value;
-            const strengthBar = document.getElementById('strengthBar');
-            
-            let strength = 0;
-            if (password.length >= 8) strength++;
-            if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength++;
-            if (/\d/.test(password)) strength++;
-            if (/[^a-zA-Z0-9]/.test(password)) strength++;
-
-            const width = (strength / 4) * 100;
-            strengthBar.style.width = width + '%';
-
-            strengthBar.className = 'strength-bar';
-            if (strength <= 1) {
-                strengthBar.classList.add('strength-weak');
-            } else if (strength <= 2) {
-                strengthBar.classList.add('strength-medium');
-            } else {
-                strengthBar.classList.add('strength-strong');
-            }
-        }
-
-        function handleLogin(e) {
-            e.preventDefault();
-            
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
-
-            // Find user
-            const user = users.find(u => 
-                (u.email === email || u.username === email) && u.password === password
-            );
-
-            if (user) {
-                currentUser = user;
-                showAlert('success', `🎉 Welcome back, ${user.name}! Redirecting to your dashboard...`);
-                
-                setTimeout(() => {
-                    updateUIForLoggedInUser();
-                    closeAuth();
-                }, 1500);
-            } else {
-                showAlert('error', '❌ Invalid credentials. Please check your email/username and password.');
-            }
-        }
-
-        function handleSignup(e) {
-            e.preventDefault();
-            
-            const name = document.getElementById('signupName').value;
-            const email = document.getElementById('signupEmail').value;
-            const username = document.getElementById('signupUsername').value;
-            const password = document.getElementById('signupPassword').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-
-            // Validation
-            if (password !== confirmPassword) {
-                showAlert('error', '❌ Passwords do not match!');
-                return;
-            }
-
-            if (password.length < 8) {
-                showAlert('error', '❌ Password must be at least 8 characters long!');
-                return;
-            }
-
-            // Check if user already exists
-            if (users.find(u => u.email === email || u.username === username)) {
-                showAlert('error', '❌ User with this email or username already exists!');
-                return;
-            }
-
-            // Create new user
-            const newUser = {
-                id: 'NEXA-' + Date.now().toString(36).toUpperCase(),
-                name,
-                email,
-                username,
-                password,
-                createdAt: new Date().toISOString(),
-                plan: 'starter'
-            };
-
-            users.push(newUser);
-            currentUser = newUser;
-
-            showAlert('success', `🎉 Account created successfully! Welcome to NEXA CORE™, ${name}!`);
-            
-            setTimeout(() => {
-                updateUIForLoggedInUser();
-                closeAuth();
-            }, 2000);
-        }
-
-        function handlePasswordReset(e) {
-            e.preventDefault();
-            
-            const email = document.getElementById('resetEmail').value;
-            const user = users.find(u => u.email === email);
-
-            if (user) {
-                showAlert('success', '📧 Password reset link sent to your email! Check your inbox.');
-                setTimeout(() => {
-                    switchAuthTab('login');
-                }, 2000);
-            } else {
-                showAlert('error', '❌ No account found with this email address.');
             }
         }
 
         function socialLogin(provider) {
-            showAlert('warning', `🔄 ${provider.charAt(0).toUpperCase() + provider.slice(1)} login coming soon! Use email signup for now.`);
+            showAlert('warning', `🔄 ${provider} login coming soon! Use email signup for now.`);
         }
 
-        function logout() {
-            currentUser = null;
-            updateUIForGuest();
-            document.getElementById('userDropdown').style.display = 'none';
+        function selectPlan(plan) {
+            const plans = {
+                starter: 'Welcome to NEXA CORE™ Starter! Click "Start Building" to begin your free journey! 🌱',
+                professional: 'Upgrading to Professional! Contact zapbo777@aicentralhubplza.com for secure payment setup. 💎',
+                enterprise: 'Enterprise Solutions Available! Contact zapbo777@aicentralhubplza.com for custom pricing and features. 🏢'
+            };
+            showAlert('success', plans[plan] || 'Plan selected! Contact zapbo777@aicentralhubplza.com for more info.');
+        }
+
+        // Form handlers
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
             
-            showMainAlert('success', '👋 Successfully signed out. See you soon!');
-        }
+            if (email && password) {
+                showAlert('success', '🎉 Welcome back! Redirecting to your dashboard...');
+                setTimeout(() => {
+                    closeAuth();
+                    showAlert('success', 'Successfully logged in! Start building with your AI team!');
+                }, 1500);
+            } else {
+                showAlert('error', '❌ Please fill in all fields.');
+            }
+        });
 
-        // User Menu Functions
-        function toggleUserMenu() {
-            const dropdown = document.getElementById('userDropdown');
-            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-        }
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            const username = document.getElementById('signupUsername').value;
+            const password = document.getElementById('signupPassword').value;
+            
+            if (name && email && username && password) {
+                if (password.length < 8) {
+                    showAlert('error', '❌ Password must be at least 8 characters long!');
+                    return;
+                }
+                
+                showAlert('success', `🎉 Account created successfully! Welcome to NEXA CORE™, ${name}!`);
+                setTimeout(() => {
+                    closeAuth();
+                    showAlert('success', `Welcome ${name}! Your AI team is ready to help you build amazing things!`);
+                }, 2000);
+            } else {
+                showAlert('error', '❌ Please fill in all fields.');
+            }
+        });
 
-        function openDashboard() {
-            document.getElementById('userDropdown').style.display = 'none';
-            showMainAlert('info', '🏠 Dashboard feature coming soon! Your projects and analytics will be here.');
-        }
+        // Chat input handling
+        document.getElementById('chatInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
 
-        function openProjects() {
-            document.getElementById('userDropdown').style.display = 'none';
-            showMainAlert('info', '📊 Projects panel coming soon! Manage all your builds here.');
-        }
+        // Auto-resize textarea
+        document.getElementById('chatInput').addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = Math.min(this.scrollHeight, 100) + 'px';
+        });
 
-        function openSettings() {
-            document.getElementById('userDropdown').style.display = 'none';
-            showMainAlert('info', '⚙️ Settings panel coming soon! Customize your experience.');
-        }
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
 
-        function openAdminAccess() {
-            showMainAlert('info', '🔐 Admin access requires special authorization. Contact support for enterprise admin features.');
-        }
-
-        // Alert Functions
+        // Alert system
         function showAlert(type, message) {
-            const alert = document.getElementById('alertMessage');
-            alert.className = `alert ${type}`;
-            alert.textContent = message;
-            alert.style.display = 'block';
+            // Try to show in auth modal first
+            const authAlert = document.getElementById('alertMessage');
+            if (authAlert) {
+                authAlert.className = `alert ${type}`;
+                authAlert.textContent = message;
+                authAlert.style.display = 'block';
+                setTimeout(() => hideAlert(), 5000);
+                return;
+            }
             
-            // Auto-hide after 5 seconds
-            setTimeout(hideAlert, 5000);
-        }
-
-        function hideAlert() {
-            document.getElementById('alertMessage').style.display = 'none';
-        }
-
-        function showMainAlert(type, message) {
-            // Create and show alert in main page
+            // Otherwise show as main alert
             const alertDiv = document.createElement('div');
             alertDiv.className = `alert ${type}`;
             alertDiv.style.position = 'fixed';
@@ -1632,9 +790,24 @@
             alertDiv.style.zIndex = '9999';
             alertDiv.style.display = 'block';
             alertDiv.style.maxWidth = '400px';
+            alertDiv.style.padding = '1rem';
+            alertDiv.style.borderRadius = '10px';
+            alertDiv.style.fontWeight = '600';
             alertDiv.textContent = message;
-            alertDiv.setAttribute('role', 'alert');
-            alertDiv.setAttribute('aria-live', 'polite');
+            
+            if (type === 'success') {
+                alertDiv.style.background = 'rgba(16, 185, 129, 0.2)';
+                alertDiv.style.border = '1px solid rgba(16, 185, 129, 0.5)';
+                alertDiv.style.color = '#10b981';
+            } else if (type === 'error') {
+                alertDiv.style.background = 'rgba(239, 68, 68, 0.2)';
+                alertDiv.style.border = '1px solid rgba(239, 68, 68, 0.5)';
+                alertDiv.style.color = '#ef4444';
+            } else if (type === 'warning') {
+                alertDiv.style.background = 'rgba(245, 158, 11, 0.2)';
+                alertDiv.style.border = '1px solid rgba(245, 158, 11, 0.5)';
+                alertDiv.style.color = '#f59e0b';
+            }
             
             document.body.appendChild(alertDiv);
             
@@ -1643,61 +816,42 @@
             }, 5000);
         }
 
-        // Main Platform Functions
-        function startBuilding() {
-            if (currentUser) {
-                showMainAlert('success', `🚀 Welcome to your humanoid hybrid AI workshop, ${currentUser.name}! Your hybrid intelligence team is ready to build amazing things with the perfect blend of human creativity and AI precision.`);
+        function hideAlert() {
+            const authAlert = document.getElementById('alertMessage');
+            if (authAlert) {
+                authAlert.style.display = 'none';
+            }
+        }
+
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(0,0,0,0.98)';
+                header.style.boxShadow = '0 25px 60px rgba(0, 0, 0, 0.5)';
             } else {
-                openAuth('signup');
+                header.style.background = 'rgba(0,0,0,0.95)';
+                header.style.boxShadow = 'none';
             }
-        }
+        });
 
-        function selectPlan(planType) {
-            if (!currentUser) {
-                openAuth('signup');
-                return;
-            }
+        // Card animations on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
 
-            const plans = {
-                starter: {
-                    title: '🌱 Welcome to NEXA CORE™ Starter!',
-                    message: 'You\'re now ready to build with:\n\n✅ 3 AI Assistants\n✅ 5 Projects\n✅ Community Support\n✅ Standard Deployment\n\nStart building your first platform now!'
-                },
-                professional: {
-                    title: '💎 Upgrading to Professional!',
-                    message: 'Redirecting to secure payment...\n\n🚀 You\'ll get:\n✅ All 10 AI Assistants\n✅ Unlimited Projects\n✅ Priority Support\n✅ Advanced Features\n\nTransform your development workflow!'
-                },
-                enterprise: {
-                    title: '🏢 Enterprise Solutions',
-                    message: 'Contact our enterprise team:\n\n📧 zapbo777@aicentralhubplza.com\n\n🎯 Custom Solutions:\n• White-label platforms\n• Dedicated support\n• Custom integrations\n• SLA guarantees'
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
                 }
-            };
+            });
+        }, observerOptions);
 
-            const plan = plans[planType];
-            showMainAlert('success', plan.title + '\n\n' + plan.message);
-
-            if (planType === 'professional') {
-                console.log('Redirecting to payment processor...');
-            }
-        }
-
-        // Scroll Animations
-        function initializeScrollAnimations() {
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
-            }, observerOptions);
-
-            // Observe all cards
+        // Observe all cards
+        setTimeout(() => {
             const cards = document.querySelectorAll('.platform-card, .ai-card, .leader-card, .pricing-card');
             cards.forEach(card => {
                 card.style.opacity = '0';
@@ -1705,136 +859,651 @@
                 card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
                 observer.observe(card);
             });
-        }
+        }, 100);
 
-        // Welcome message for new visitors
-        setTimeout(() => {
-            if (!welcomeShown && !currentUser) {
-                welcomeShown = true;
-                showMainAlert('success', '🎉 Welcome to NEXA CORE™ ULTIMATE!\n\nThe world\'s most powerful platform builder is now at your fingertips.\n\n🚀 Build anything\n💡 Solve everything\n🌍 Deploy everywhere\n\nYour development revolution starts now!');
-            }
-        }, 3000);
-
-        // Legal Documents Functions
-        function openTerms() {
-            showLegalDocument('terms');
-        }
-
-        function openPrivacy() {
-            showLegalDocument('privacy');
-        }
-
-        function openCookies() {
-            showLegalDocument('cookies');
-        }
-
-        function openSupport() {
-            showLegalDocument('support');
-        }
-
-        function openContact() {
-            showLegalDocument('contact');
-        }
-
-        function closeLegal() {
-            document.getElementById('legalModal').classList.remove('active');
-            document.getElementById('legalModal').setAttribute('aria-hidden', 'true');
-        }
-
-        function showLegalDocument(type) {
-            const modal = document.getElementById('legalModal');
-            const content = document.getElementById('legalContent');
-            
-            const documents = {
-                terms: `
-                    <h2 style="color: var(--text-primary); margin-bottom: 2rem; text-align: center;">📋 Terms & Conditions</h2>
-                    <div style="color: var(--text-secondary); line-height: 1.8;">
-                        <p style="margin-bottom: 1.5rem;"><strong>Last Updated:</strong> January 9, 2025</p>
-                        
-                        <h3 style="color: var(--text-primary); margin: 2rem 0 1rem;">1. Acceptance of Terms</h3>
-                        <p>By accessing and using NEXA CORE™ ULTIMATE ("the Platform"), you accept and agree to be bound by the terms and provision of this agreement.</p>
-                        
-                        <h3 style="color: var(--text-primary); margin: 2rem 0 1rem;">2. Use License</h3>
-                        <p>Permission is granted to temporarily use NEXA CORE™ ULTIMATE for personal and commercial purposes. This is the grant of a license, not a transfer of title.</p>
-                        
-                        <h3 style="color: var(--text-primary); margin: 2rem 0 1rem;">3. Humanoid Hybrid AI Usage</h3>
-                        <p>Our platform uses advanced humanoid hybrid AI technology. By using these services, you acknowledge that AI responses are generated based on training data and may not always be accurate.</p>
-                        
-                        <h3 style="color: var(--text-primary); margin: 2rem 0 1rem;">4. Contact Information</h3>
-                        <p>Questions about the Terms & Conditions should be sent to us at:</p>
-                        <p><strong>Email:</strong> zapbo777@aicentralhubplza.com</p>
-                    </div>
-                `,
-                
-                privacy: `
-                    <h2 style="color: var(--text-primary); margin-bottom: 2rem; text-align: center;">🔒 Privacy Policy</h2>
-                    <div style="color: var(--text-secondary); line-height: 1.8;">
-                        <p style="margin-bottom: 1.5rem;"><strong>Last Updated:</strong> January 9, 2025</p>
-                        
-                        <h3 style="color: var(--text-primary); margin: 2rem 0 1rem;">1. Information We Collect</h3>
-                        <p>We collect information you provide directly to us, such as when you create an account, use our services, or contact us for support.</p>
-                        
-                        <h3 style="color: var(--text-primary); margin: 2rem 0 1rem;">2. How We Use Your Information</h3>
-                        <p>We use the information we collect to provide, maintain, and improve our services.</p>
-                        
-                        <h3 style="color: var(--text-primary); margin: 2rem 0 1rem;">3. Contact Us</h3>
-                        <p>If you have questions about this Privacy Policy, please contact us at:</p>
-                        <p><strong>Email:</strong> zapbo777@aicentralhubplza.com</p>
-                    </div>
-                `,
-                
-                cookies: `
-                    <h2 style="color: var(--text-primary); margin-bottom: 2rem; text-align: center;">🍪 Cookie Policy</h2>
-                    <div style="color: var(--text-secondary); line-height: 1.8;">
-                        <p style="margin-bottom: 1.5rem;"><strong>Last Updated:</strong> January 9, 2025</p>
-                        
-                        <h3 style="color: var(--text-primary); margin: 2rem 0 1rem;">What Are Cookies?</h3>
-                        <p>Cookies are small text files that are placed on your computer or mobile device when you visit a website.</p>
-                        
-                        <h3 style="color: var(--text-primary); margin: 2rem 0 1rem;">Types of Cookies We Use</h3>
-                        <p>We use essential cookies for authentication and functionality, and analytics cookies to improve our services.</p>
-                    </div>
-                `,
-                
-                support: `
-                    <h2 style="color: var(--text-primary); margin-bottom: 2rem; text-align: center;">💬 Support Center</h2>
-                    <div style="color: var(--text-secondary); line-height: 1.8;">
-                        <h3 style="color: var(--text-primary); margin: 2rem 0 1rem;">Get Help with NEXA CORE™ ULTIMATE</h3>
-                        
-                        <h4 style="color: var(--text-primary); margin: 1.5rem 0 0.5rem;">📧 Email Support</h4>
-                        <p><strong>General Support:</strong> zapbo777@aicentralhubplza.com</p>
-                        
-                        <h4 style="color: var(--text-primary); margin: 1.5rem 0 0.5rem;">💬 Live Chat</h4>
-                        <p>Available 24/7 through the platform interface</p>
-                    </div>
-                `,
-                
-                contact: `
-                    <h2 style="color: var(--text-primary); margin-bottom: 2rem; text-align: center;">📧 Contact Information</h2>
-                    <div style="color: var(--text-secondary); line-height: 1.8;">
-                        <h3 style="color: var(--text-primary); margin: 2rem 0 1rem;">AICENTRALHUBPLAZA LLC™</h3>
-                        
-                        <h4 style="color: var(--text-primary); margin: 1.5rem 0 0.5rem;">🏢 Business Information</h4>
-                        <p><strong>Company:</strong> AICENTRALHUBPLAZA LLC™<br>
-                        <strong>Product:</strong> NEXA CORE™ ULTIMATE<br>
-                        <strong>Email:</strong> zapbo777@aicentralhubplza.com</p>
-                        
-                        <h4 style="color: var(--text-primary); margin: 1.5rem 0 0.5rem;">📞 Contact Methods</h4>
-                        <ul style="margin: 1rem 0; padding-left: 2rem;">
-                            <li><strong>General Inquiries:</strong> zapbo777@aicentralhubplza.com</li>
-                            <li><strong>Sales:</strong> zapbo777@aicentralhubplza.com</li>
-                            <li><strong>Support:</strong> zapbo777@aicentralhubplza.com</li>
-                        </ul>
-                    </div>
-                `
-            };
-
-            content.innerHTML = documents[type] || '<p>Content not found.</p>';
-            modal.classList.add('active');
-            modal.setAttribute('aria-hidden', 'false');
-        }
-
-        console.log('🚀 NEXA CORE™ ULTIMATE - Fully loaded and ready!');
+        console.log('🚀 NEXA CORE™ ULTIMATE - All systems operational!');
+        console.log('📧 Contact: zapbo777@aicentralhubplza.com');
+        console.log('🤖 AI Assistant ready in bottom right corner!');
     </script>
 </body>
-</html>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXA CORE™ ULTIMATE - World's Most Powerful Platform Builder | AICENTRALHUBPLAZA LLC™</title>
+    <meta name="description" content="The ultimate AI-powered platform builder powered by humanoid hybrid intelligence. Build any website, app, or software solution in minutes with NEXA CORE™ ULTIMATE by AICENTRALHUBPLAZA LLC™">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+    
+    <style>
+        :root {
+            --primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --glass: rgba(255,255,255,0.1);
+            --glass-border: rgba(255,255,255,0.2);
+            --text-primary: #ffffff;
+            --text-secondary: #b8c6db;
+            --bg-primary: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+            --shadow-glow: 0 0 40px rgba(102, 126, 234, 0.4);
+            --shadow-card: 0 25px 60px rgba(0, 0, 0, 0.5);
+            --success: #10b981;
+            --error: #ef4444;
+            --warning: #f59e0b;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            background: rgba(0,0,0,0.95); backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .nav-container {
+            max-width: 1400px; margin: 0 auto; padding: 1rem 2rem;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+
+        .logo-container { display: flex; align-items: center; gap: 1rem; }
+
+        .logo-icon {
+            width: 50px; height: 50px; background: var(--primary);
+            border-radius: 15px; display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .logo-text h1 {
+            font-size: 1.8rem; font-weight: 800;
+            background: var(--primary); -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo-subtitle { font-size: 0.9rem; color: var(--text-secondary); }
+
+        .nav-links { display: flex; align-items: center; gap: 1rem; }
+
+        .nav-btn {
+            padding: 0.7rem 1.5rem; border: none; border-radius: 25px;
+            font-weight: 600; cursor: pointer; transition: all 0.3s ease;
+            text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;
+        }
+
+        .nav-btn-primary { background: var(--primary); color: white; }
+        .nav-btn-secondary { background: var(--glass); color: var(--text-primary); border: 1px solid var(--glass-border); }
+
+        .nav-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-glow); }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh; display: flex; align-items: center;
+            padding: 120px 2rem 4rem;
+        }
+
+        .hero-container { max-width: 1400px; margin: 0 auto; text-align: center; }
+
+        .hero-badge {
+            display: inline-block; padding: 0.5rem 1.5rem;
+            background: var(--glass); border: 1px solid var(--glass-border);
+            border-radius: 25px; margin-bottom: 2rem;
+            font-weight: 600; color: var(--text-secondary);
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 6rem); font-weight: 900;
+            background: var(--primary); -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem; line-height: 1.1;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: var(--text-secondary); margin-bottom: 3rem;
+            max-width: 800px; margin-left: auto; margin-right: auto;
+        }
+
+        .hero-cta {
+            display: flex; gap: 1.5rem; justify-content: center;
+            flex-wrap: wrap; margin-bottom: 4rem;
+        }
+
+        .cta-btn {
+            padding: 1.2rem 2.5rem; border: none; border-radius: 50px;
+            font-size: 1.1rem; font-weight: 700; cursor: pointer;
+            transition: all 0.3s ease; text-decoration: none;
+            display: inline-flex; align-items: center; gap: 0.7rem;
+        }
+
+        .cta-primary { background: var(--primary); color: white; box-shadow: var(--shadow-glow); }
+
+        .cta-btn:hover { transform: translateY(-3px); box-shadow: var(--shadow-glow); }
+
+        /* Platform Showcase */
+        .platform-showcase { padding: 6rem 2rem; background: rgba(0,0,0,0.3); }
+        .showcase-container { max-width: 1400px; margin: 0 auto; }
+        .section-header { text-align: center; margin-bottom: 4rem; }
+
+        .section-title {
+            font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 800;
+            background: var(--primary); -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent; margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.3rem; color: var(--text-secondary);
+            max-width: 600px; margin: 0 auto;
+        }
+
+        .platform-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem; margin-bottom: 4rem;
+        }
+
+        .platform-card {
+            background: var(--glass); backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border); border-radius: 20px;
+            padding: 2.5rem; transition: all 0.3s ease;
+        }
+
+        .platform-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-card); }
+
+        .platform-icon { font-size: 3rem; margin-bottom: 1.5rem; }
+
+        .platform-title {
+            font-size: 1.5rem; font-weight: 700;
+            margin-bottom: 1rem; color: var(--text-primary);
+        }
+
+        .platform-desc { color: var(--text-secondary); margin-bottom: 1.5rem; }
+
+        .platform-features { list-style: none; }
+
+        .platform-features li {
+            display: flex; align-items: center; gap: 0.5rem;
+            margin-bottom: 0.5rem; color: var(--text-secondary);
+        }
+
+        .platform-features li::before { content: '✨'; font-size: 0.9rem; }
+
+        /* AI Team */
+        .ai-showcase { padding: 6rem 2rem; }
+
+        .ai-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .ai-card {
+            background: var(--glass); backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border); border-radius: 15px;
+            padding: 2rem; text-align: center; transition: all 0.3s ease;
+        }
+
+        .ai-card:hover { transform: scale(1.05); box-shadow: var(--shadow-card); }
+
+        .ai-avatar {
+            width: 80px; height: 80px; margin: 0 auto 1rem;
+            background: var(--primary); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2rem;
+        }
+
+        .ai-name {
+            font-size: 1.2rem; font-weight: 700;
+            margin-bottom: 0.5rem; color: var(--text-primary);
+        }
+
+        .ai-specialty { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem; }
+
+        .ai-capability {
+            background: rgba(102, 126, 234, 0.2);
+            color: rgba(102, 126, 234, 1); padding: 0.3rem 0.8rem;
+            border-radius: 15px; font-size: 0.8rem; font-weight: 600;
+        }
+
+        /* Leadership */
+        .leadership-section { padding: 6rem 2rem; background: rgba(0,0,0,0.3); }
+
+        .leader-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem; margin-bottom: 4rem;
+        }
+
+        .leader-card {
+            background: var(--glass); backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border); border-radius: 20px;
+            padding: 2.5rem; text-align: center; transition: all 0.3s ease;
+        }
+
+        .leader-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-card); }
+
+        .leader-avatar { font-size: 4rem; margin-bottom: 1.5rem; }
+
+        .leader-name {
+            color: var(--text-primary); font-size: 2rem;
+            margin-bottom: 0.5rem; font-weight: 800;
+        }
+
+        .leader-title {
+            color: rgba(102, 126, 234, 1); font-weight: 700;
+            font-size: 1.2rem; margin-bottom: 1.5rem;
+        }
+
+        .leader-desc { color: var(--text-secondary); font-size: 1rem; }
+
+        /* Pricing */
+        .pricing-section { padding: 6rem 2rem; }
+
+        .pricing-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem; max-width: 1200px; margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: var(--glass); backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border); border-radius: 20px;
+            padding: 2.5rem; text-align: center; position: relative;
+        }
+
+        .pricing-card.featured {
+            border: 2px solid rgba(102, 126, 234, 0.8);
+            transform: scale(1.05);
+        }
+
+        .pricing-card.featured::before {
+            content: '⭐ MOST POPULAR'; position: absolute;
+            top: -15px; left: 50%; transform: translateX(-50%);
+            background: var(--primary); color: white;
+            padding: 0.5rem 1.5rem; border-radius: 25px;
+            font-size: 0.9rem; font-weight: 700;
+        }
+
+        .price-amount {
+            font-size: 3rem; font-weight: 900;
+            background: var(--primary); -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent; margin-bottom: 0.5rem;
+        }
+
+        .price-period { color: var(--text-secondary); margin-bottom: 2rem; }
+
+        .pricing-features { list-style: none; margin-bottom: 2rem; }
+
+        .pricing-features li {
+            display: flex; align-items: center; gap: 0.5rem;
+            margin-bottom: 0.8rem; color: var(--text-secondary);
+        }
+
+        .pricing-features li::before { content: '✅'; font-size: 1rem; }
+
+        .pricing-btn {
+            width: 100%; padding: 1rem; background: var(--primary);
+            border: none; border-radius: 25px; color: white;
+            font-weight: 700; cursor: pointer; transition: all 0.3s ease;
+        }
+
+        .pricing-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-glow); }
+
+        /* Footer */
+        .footer {
+            background: rgba(0,0,0,0.8); padding: 4rem 2rem 2rem;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .footer-container { max-width: 1400px; margin: 0 auto; text-align: center; }
+
+        .footer-logo {
+            font-size: 2rem; margin-bottom: 1rem;
+            background: var(--primary); -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent; font-weight: 800;
+        }
+
+        .footer-tagline { color: var(--text-secondary); margin-bottom: 2rem; }
+
+        .footer-copyright {
+            color: var(--text-secondary); font-size: 0.9rem;
+            padding-top: 2rem; border-top: 1px solid var(--glass-border);
+        }
+
+        /* Chatbot */
+        .public-chatbot {
+            position: fixed; bottom: 20px; right: 20px; z-index: 10000;
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+        }
+
+        .chat-toggle-btn {
+            width: 60px; height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            cursor: pointer; box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease; border: none; position: relative;
+        }
+
+        .chat-toggle-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.6);
+        }
+
+        .chat-icon { font-size: 1.5rem; color: white; }
+
+        .chat-window {
+            position: absolute; bottom: 70px; right: 0; width: 350px; height: 500px;
+            background: rgba(255,255,255,0.95); backdrop-filter: blur(20px);
+            border-radius: 20px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255,255,255,0.2); display: none;
+            flex-direction: column; overflow: hidden; animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .chat-window.open { display: flex; }
+
+        .chat-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; padding: 1rem; display: flex;
+            align-items: center; justify-content: space-between;
+        }
+
+        .chat-header-info { display: flex; align-items: center; gap: 0.8rem; }
+
+        .ai-avatar-public {
+            width: 40px; height: 40px; background: rgba(255,255,255,0.2);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .ai-info h4 { margin: 0; font-size: 1rem; font-weight: 600; }
+
+        .ai-status {
+            font-size: 0.8rem; opacity: 0.9; display: flex;
+            align-items: center; gap: 0.5rem;
+        }
+
+        .status-dot-public {
+            width: 8px; height: 8px; background: #10b981; border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+        .chat-close-btn {
+            background: none; border: none; color: white; font-size: 1.5rem;
+            cursor: pointer; width: 30px; height: 30px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            transition: background 0.3s ease;
+        }
+
+        .chat-close-btn:hover { background: rgba(255,255,255,0.2); }
+
+        .chat-messages-public {
+            flex: 1; padding: 1rem; overflow-y: auto; display: flex;
+            flex-direction: column; gap: 1rem; background: #f8f9fa;
+        }
+
+        .message-public {
+            display: flex; gap: 0.8rem; animation: messageSlide 0.3s ease;
+        }
+
+        @keyframes messageSlide {
+            from { opacity: 0; transform: translateX(-10px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .message-public.user { flex-direction: row-reverse; }
+
+        .message-public.user .message-content {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .message-avatar {
+            width: 32px; height: 32px; border-radius: 50%; display: flex;
+            align-items: center; justify-content: center; font-size: 1rem;
+            flex-shrink: 0; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .message-public.user .message-avatar { background: #6b7280; }
+
+        .message-content {
+            background: white; border-radius: 15px; padding: 0.8rem 1rem; max-width: 80%;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .message-text { color: #333; line-height: 1.4; margin-bottom: 0.3rem; }
+
+        .message-public.user .message-text { color: white; }
+
+        .message-time { font-size: 0.7rem; opacity: 0.6; }
+
+        .quick-actions {
+            display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem;
+        }
+
+        .quick-action-btn {
+            background: white; border: 1px solid #e5e7eb; border-radius: 20px;
+            padding: 0.5rem 1rem; font-size: 0.8rem; cursor: pointer;
+            transition: all 0.3s ease; color: #667eea; font-weight: 500;
+        }
+
+        .quick-action-btn:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; transform: translateY(-1px);
+        }
+
+        .typing-indicator-public { display: none; gap: 0.8rem; }
+
+        .typing-content {
+            background: white; border-radius: 15px; padding: 0.8rem 1rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .typing-text { color: #6b7280; font-size: 0.9rem; margin-bottom: 0.5rem; }
+
+        .typing-dots-public { display: flex; gap: 4px; }
+
+        .typing-dot-public {
+            width: 8px; height: 8px; background: #667eea; border-radius: 50%;
+            animation: typingPublic 1.4s infinite ease-in-out;
+        }
+
+        .typing-dot-public:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot-public:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes typingPublic {
+            0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+
+        .chat-input-area { background: white; border-top: 1px solid #e5e7eb; padding: 1rem; }
+
+        .chat-input-wrapper-public { display: flex; gap: 0.5rem; align-items: end; }
+
+        .chat-input-public {
+            flex: 1; background: #f3f4f6; border: 1px solid #e5e7eb; border-radius: 20px;
+            padding: 0.8rem 1rem; color: #333; font-size: 0.9rem; resize: none;
+            max-height: 100px; min-height: 40px; font-family: inherit;
+        }
+
+        .chat-input-public:focus {
+            outline: none; border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .chat-input-public::placeholder { color: #9ca3af; }
+
+        .voice-btn-public, .send-btn-public {
+            width: 40px; height: 40px; border: none; border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;
+            cursor: pointer; transition: all 0.3s ease; display: flex;
+            align-items: center; justify-content: center; font-size: 1rem;
+        }
+
+        .voice-btn-public:hover, .send-btn-public:hover {
+            transform: scale(1.1); box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .voice-btn-public.recording {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            animation: pulse 1s infinite;
+        }
+
+        .chat-footer { text-align: center; margin-top: 0.5rem; }
+        .chat-footer small { color: #9ca3af; font-size: 0.7rem; }
+
+        /* Authentication Modal */
+        .auth-modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); z-index: 2000; display: none;
+            align-items: center; justify-content: center; padding: 2rem;
+        }
+
+        .auth-modal.active { display: flex; }
+
+        .auth-card {
+            background: var(--glass); backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border); border-radius: 20px;
+            padding: 3rem; width: 100%; max-width: 450px;
+            box-shadow: var(--shadow-card); position: relative;
+            max-height: 90vh; overflow-y: auto;
+        }
+
+        .auth-close {
+            position: absolute; top: 1rem; right: 1rem; background: none;
+            border: none; color: var(--text-secondary); font-size: 1.5rem; cursor: pointer;
+        }
+
+        .auth-tabs {
+            display: flex; margin-bottom: 2rem; background: rgba(0,0,0,0.3);
+            border-radius: 12px; padding: 0.3rem;
+        }
+
+        .auth-tab {
+            flex: 1; padding: 0.8rem; text-align: center; border: none;
+            background: transparent; color: var(--text-secondary); border-radius: 8px;
+            cursor: pointer; transition: all 0.3s ease; font-weight: 600;
+        }
+
+        .auth-tab.active {
+            background: var(--primary); color: white; box-shadow: var(--shadow-glow);
+        }
+
+        .auth-form { display: none; }
+        .auth-form.active { display: block; }
+
+        .form-group { margin-bottom: 1.5rem; }
+
+        .form-label {
+            display: block; margin-bottom: 0.5rem; color: var(--text-primary); font-weight: 600;
+        }
+
+        .form-input {
+            width: 100%; padding: 1rem; background: rgba(255,255,255,0.05);
+            border: 1px solid var(--glass-border); border-radius: 10px;
+            color: var(--text-primary); font-size: 1rem; transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none; border-color: rgba(102, 126, 234, 0.8);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+        }
+
+        .form-input::placeholder { color: var(--text-secondary); }
+
+        .form-btn {
+            width: 100%; padding: 1rem; background: var(--primary); border: none;
+            border-radius: 12px; color: white; font-size: 1rem; font-weight: 700;
+            cursor: pointer; transition: all 0.3s ease; margin-bottom: 1rem;
+        }
+
+        .form-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-glow); }
+
+        .social-btn {
+            width: 100%; padding: 1rem; background: var(--glass);
+            border: 1px solid var(--glass-border); border-radius: 10px;
+            color: var(--text-primary); cursor: pointer; transition: all 0.3s ease;
+            margin-bottom: 0.8rem; display: flex; align-items: center;
+            justify-content: center; gap: 0.8rem; font-weight: 600;
+        }
+
+        .social-btn:hover {
+            background: rgba(255,255,255,0.15); transform: translateY(-1px);
+        }
+
+        .alert {
+            padding: 1rem; border-radius: 10px; margin-bottom: 1.5rem;
+            font-weight: 600; display: none;
+        }
+
+        .alert.success {
+            background: rgba(16, 185, 129, 0.2); border: 1px solid rgba(16, 185, 129, 0.5);
+            color: var(--success);
+        }
+
+        .alert.error {
+            background: rgba(239, 68, 68, 0.2); border: 1px solid rgba(239, 68, 68, 0.5);
+            color: var(--error);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero { padding: 100px 1rem 2rem; }
+            .platform-grid, .ai-grid, .leader-grid, .pricing-grid { grid-template-columns: 1fr; }
+            .pricing-card.featured { transform: none; }
+            .nav-links { gap: 0.5rem; }
+            .nav-btn { padding: 0.5rem 1rem; font-size: 0.9rem; }
+            .nav-btn span { display: none; }
+            .chat-window {
+                width: calc(100vw - 40px); height: calc(100vh - 120px);
+                bottom: 70px; right: 20px; left: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo-container">
+                <div class="logo-icon">🚀</div>
+                <div class="logo-text">
+                    <h1>NEXA CORE™ ULTIMATE</h1>
+                    <div class="logo-subtitle">by AICENTRALHUBPLAZA LLC™</div>
+                </div>
+            </div>
+            
+            <div class="nav-links">
+                <a href="#platforms" class="nav-btn nav-btn-secondary">🛠️ <span>Platforms</span></a>
+                <a href="#ai-team" class="nav-btn nav-btn-secondary">🤖 <span>AI Team</span></a>
+                <a href="#leadership" class="nav-btn nav-btn-secondary">👑 <span>Leadership</span></a>
+                <a href="#pricing" class="nav-btn nav-btn-secondary">💰 <span>Pricing</span></a>
+                <button class="nav-btn nav-btn-secondary" onclick="openAuth('login')">🔐 <span>Sign In</span></button>
+                <button class="nav-btn nav-btn-primary" onclick="openAuth('signup')">🚀 <span>Start Building</span></button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-badge">
+                🏆 World's #1 AI Platform Builder • 🤖 Humanoid Hybrid Technology
+            </div>
+            
+            <h1 class="hero-title">
+                Build Anything.<br>
+                Solve Everything.<br>
+                Deploy Everywhere.
+            </h1>
+            
+            <p class="hero-subtitle">
+                The ultimate AI
