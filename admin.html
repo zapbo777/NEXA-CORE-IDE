@@ -246,248 +246,27 @@
             transform: scale(1.1);
         }
 
-        /* Admin Dashboard */
-        .admin-dashboard {
-            display: none;
-        }
-
-        .admin-dashboard.active {
-            display: block;
-        }
-
-        .admin-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .admin-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 25px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .admin-card h3 {
-            margin-bottom: 15px;
-            color: #4ecdc4;
-        }
-
-        .user-list {
-            max-height: 200px;
-            overflow-y: auto;
-        }
-
-        .user-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px;
-            margin-bottom: 10px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-        }
-
-        .btn-small {
-            padding: 5px 10px;
-            font-size: 12px;
-            border-radius: 5px;
-        }
-
-        .btn-danger {
-            background: #ff6b6b;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-        }
-
-        .stat-item {
-            text-align: center;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-        }
-
-        .stat-number {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #4ecdc4;
-        }
-
         .hidden {
             display: none;
         }
 
-        .vault-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .vault-content {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 20px;
-            padding: 30px;
-            width: 90%;
-            max-width: 800px;
-            max-height: 90vh;
-            overflow-y: auto;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .vault-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
-            padding-bottom: 15px;
-        }
-
-        .close-btn {
-            background: none;
-            border: none;
-            color: #fff;
-            font-size: 20px;
-            cursor: pointer;
-            padding: 5px;
-            border-radius: 5px;
-            transition: all 0.3s ease;
-        }
-
-        .close-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        .vault-tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .vault-tab {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 10px;
-            background: rgba(255, 255, 255, 0.2);
-            color: #fff;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .vault-tab.active,
-        .vault-tab:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
-        }
-
-        .vault-section {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-
-        .vault-list {
-            max-height: 300px;
-            overflow-y: auto;
-            margin-bottom: 15px;
-        }
-
-        .vault-item {
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .vault-item-info {
-            flex: 1;
-        }
-
-        .vault-item-actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        .btn-small {
-            padding: 5px 12px;
-            font-size: 12px;
-            border-radius: 5px;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .btn-edit {
-            background: #4ecdc4;
-            color: white;
-        }
-
-        .btn-delete {
-            background: #ff6b6b;
-            color: white;
-        }
-
-        .btn-test {
-            background: #45b7d1;
-            color: white;
-        }
-
-        .vault-form {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 15px;
-        }
-
-        .form-row {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 15px;
-        }
-
-        .form-row .form-group {
-            flex: 1;
-        }
-
-        .status-indicator {
-            display: inline-block;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            margin-right: 8px;
-        }
-
-        .status-active {
-            background: #4ecdc4;
-        }
-
-        .status-inactive {
-            background: #ff6b6b;
-        }
-
-        .status-pending {
-            background: #feca57;
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .logo {
+                font-size: 2rem;
+            }
+            
+            .auth-form {
+                padding: 30px 20px;
+            }
+            
+            .nav-bar {
+                flex-direction: column;
+                gap: 15px;
+            }
         }
     </style>
 </head>
@@ -495,7 +274,7 @@
     <div class="container">
         <div class="header">
             <div class="logo">NEXA CORE™</div>
-            <div class="tagline">Ultimate AI Platform</div>
+            <div class="tagline">Ultimate AI Platform with Password Reset</div>
         </div>
 
         <!-- Login Form -->
@@ -600,6 +379,8 @@
                 <div id="verifySuccess" class="success-message"></div>
             </div>
         </div>
+
+        <!-- Main Dashboard -->
         <div id="mainDashboard" class="dashboard">
             <nav class="nav-bar">
                 <div class="nav-brand">NEXA CORE™</div>
@@ -616,7 +397,7 @@
                 <h2>🤖 TOBI AI Assistant</h2>
                 <div class="chat-messages" id="chatMessages">
                     <div class="message ai">
-                        <strong>TOBI:</strong> Hello! I'm TOBI, your AI assistant. How can I help you today?
+                        <strong>TOBI:</strong> Hello! I'm TOBI, your AI assistant with advanced capabilities. How can I help you today?
                     </div>
                 </div>
                 <div class="chat-input-container">
@@ -632,229 +413,10 @@
                 <div id="profileDetails"></div>
             </div>
         </div>
-
-        <!-- Admin Dashboard -->
-        <div id="adminDashboard" class="admin-dashboard">
-            <nav class="nav-bar">
-                <div class="nav-brand">NEXA CORE™ - Admin Panel</div>
-                <div class="nav-menu">
-                    <div class="nav-item" onclick="showChat()">💬 Back to Chat</div>
-                    <div class="nav-item" onclick="logout()">🚪 Logout</div>
-                </div>
-            </nav>
-
-            <div class="admin-grid">
-                <div class="admin-card">
-                    <h3>📊 System Statistics</h3>
-                    <div class="stats-grid">
-                        <div class="stat-item">
-                            <div class="stat-number" id="totalUsers">0</div>
-                            <div>Total Users</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number" id="activeUsers">0</div>
-                            <div>Active Users</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number" id="totalMessages">0</div>
-                            <div>Messages</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="admin-card">
-                    <h3>👥 User Management</h3>
-                    <div class="user-list" id="userList"></div>
-                </div>
-
-                <div class="admin-card">
-                    <h3>🌐 Public Access Control</h3>
-                    <div style="margin-bottom: 15px;">
-                        <label style="display: flex; align-items: center; margin-bottom: 10px;">
-                            <input type="checkbox" id="publicAccessToggle" onchange="togglePublicAccess()" style="margin-right: 10px;">
-                            <span>Enable Public Access (No Login Required)</span>
-                        </label>
-                        <p style="font-size: 14px; opacity: 0.8; margin-bottom: 15px;">
-                            When enabled, visitors can use the chatbot without creating an account
-                        </p>
-                        <div id="publicAccessStatus" style="padding: 10px; border-radius: 8px; background: rgba(255,107,107,0.2);">
-                            🔒 Public Access: DISABLED
-                        </div>
-                    </div>
-                    <button class="btn btn-primary" onclick="generatePublicLink()">🔗 Generate Public Link</button>
-                    <div id="publicLinkContainer" style="display: none; margin-top: 15px; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 8px;">
-                        <p><strong>Public Access URL:</strong></p>
-                        <div style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 5px; word-break: break-all; margin: 10px 0;">
-                            <span id="publicLink"></span>
-                        </div>
-                        <button class="btn btn-secondary btn-small" onclick="copyPublicLink()">📋 Copy Link</button>
-                    </div>
-                </div>
-
-                <div class="admin-card">
-                    <h3>🔧 System Controls</h3>
-                    <button class="btn btn-primary" onclick="refreshStats()">🔄 Refresh Stats</button>
-                    <button class="btn btn-secondary" onclick="exportData()">📊 Export Data</button>
-                    <button class="btn btn-danger" onclick="clearLogs()">🗑️ Clear Logs</button>
-                    <button class="btn btn-primary" onclick="backupSystem()">💾 Backup System</button>
-                </div>
-
-                <div class="admin-card">
-                    <h3>🔐 API Keys & Business Vault</h3>
-                    <div style="margin-bottom: 15px;">
-                        <button class="btn btn-primary" onclick="openVault()">🔓 Open Secure Vault</button>
-                        <button class="btn btn-secondary" onclick="addNewKey()">➕ Add API Key</button>
-                        <button class="btn btn-secondary" onclick="addBusiness()">🏢 Add Business</button>
-                    </div>
-                    <div id="vaultStatus" style="padding: 10px; border-radius: 8px; background: rgba(255,107,107,0.2);">
-                        🔒 Vault Status: SECURED
-                    </div>
-                </div>
-
-                <div class="admin-card">
-                    <h3>💼 Business Integrations</h3>
-                    <div class="stats-grid">
-                        <div class="stat-item">
-                            <div class="stat-number" id="totalApis">0</div>
-                            <div>API Keys</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number" id="totalBusinesses">0</div>
-                            <div>Businesses</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number" id="activeIntegrations">0</div>
-                            <div>Active</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        <!-- API Vault Modal -->
-        <div id="vaultModal" class="vault-modal hidden">
-            <div class="vault-content">
-                <div class="vault-header">
-                    <h2>🔐 Secure Business Vault</h2>
-                    <button onclick="closeVault()" class="close-btn">✖️</button>
-                </div>
-                
-                <div class="vault-tabs">
-                    <button class="vault-tab active" onclick="showVaultTab('apis')">🔑 API Keys</button>
-                    <button class="vault-tab" onclick="showVaultTab('businesses')">🏢 Businesses</button>
-                    <button class="vault-tab" onclick="showVaultTab('integrations')">🔗 Integrations</button>
-                </div>
-
-                <!-- API Keys Tab -->
-                <div id="apisTab" class="vault-tab-content">
-                    <div class="vault-section">
-                        <h3>🔑 API Keys Manager</h3>
-                        <div id="apiKeysList" class="vault-list"></div>
-                        <button class="btn btn-primary" onclick="addApiKeyForm()">➕ Add New API Key</button>
-                    </div>
-                </div>
-
-                <!-- Businesses Tab -->
-                <div id="businessesTab" class="vault-tab-content hidden">
-                    <div class="vault-section">
-                        <h3>🏢 Business Accounts</h3>
-                        <div id="businessesList" class="vault-list"></div>
-                        <button class="btn btn-primary" onclick="addBusinessForm()">➕ Add New Business</button>
-                    </div>
-                </div>
-
-                <!-- Integrations Tab -->
-                <div id="integrationsTab" class="vault-tab-content hidden">
-                    <div class="vault-section">
-                        <h3>🔗 Active Integrations</h3>
-                        <div id="integrationsList" class="vault-list"></div>
-                        <button class="btn btn-primary" onclick="testAllIntegrations()">🧪 Test All Connections</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+    </div>
 
     <script>
-        // Business Vault System
-        let businessVault = {
-            apiKeys: {
-                'openai': {
-                    name: 'OpenAI API',
-                    key: 'sk-proj-xxx...xxxxx',
-                    service: 'OpenAI',
-                    status: 'active',
-                    lastUsed: new Date().toISOString(),
-                    usageLimit: '1000 requests/day',
-                    description: 'GPT-4 and ChatGPT API access'
-                },
-                'stripe': {
-                    name: 'Stripe Payment API',
-                    key: 'sk_live_xxx...xxxxx',
-                    service: 'Stripe',
-                    status: 'active',
-                    lastUsed: new Date().toISOString(),
-                    usageLimit: 'Unlimited',
-                    description: 'Payment processing and subscriptions'
-                },
-                'google_cloud': {
-                    name: 'Google Cloud Platform',
-                    key: 'AIza...xxxxx',
-                    service: 'Google Cloud',
-                    status: 'active',
-                    lastUsed: new Date().toISOString(),
-                    usageLimit: '$300 credit',
-                    description: 'Cloud computing and AI services'
-                }
-            },
-            businesses: {
-                'nexa_core': {
-                    name: 'NEXA CORE™',
-                    industry: 'AI Technology',
-                    email: 'zapbo777@aicentralhubplza.com',
-                    website: 'https://nexacore.ai',
-                    status: 'active',
-                    revenue: '$50,000/month',
-                    employees: '10-50',
-                    description: 'Ultimate AI Platform Development'
-                },
-                'ai_central_hub': {
-                    name: 'AI Central Hub',
-                    industry: 'AI Consulting',
-                    email: 'zapbo777@aicentralhubplza.com',
-                    website: 'https://aicentralhub.com',
-                    status: 'active',
-                    revenue: '$25,000/month',
-                    employees: '5-25',
-                    description: 'AI solutions and consulting services'
-                }
-            },
-            integrations: {
-                'crm_integration': {
-                    name: 'CRM Integration',
-                    service: 'Salesforce',
-                    status: 'active',
-                    connectedApis: ['salesforce', 'hubspot'],
-                    lastSync: new Date().toISOString(),
-                    description: 'Customer relationship management'
-                },
-                'payment_processing': {
-                    name: 'Payment Gateway',
-                    service: 'Stripe + PayPal',
-                    status: 'active',
-                    connectedApis: ['stripe', 'paypal'],
-                    lastSync: new Date().toISOString(),
-                    description: 'Unified payment processing'
-                }
-            }
-        };
-
-        // System configuration
-        let systemConfig = {
-            publicAccess: false,
-            publicLink: null,
-            guestUsers: 0,
-            vaultUnlocked: false
-        };
-
-        // User data storage (in real app, this would be server-side)
+        // User data storage
         let users = {
             'admin': {
                 id: 'admin',
@@ -871,6 +433,10 @@
         let currentUser = null;
         let chatMessages = [];
         let isListening = false;
+
+        // Password Reset System
+        let resetCodes = {};
+        let resetAttempts = {};
 
         // Authentication Functions
         function handleLogin(event) {
@@ -898,11 +464,9 @@
             const errorDiv = document.getElementById('signupError');
             const successDiv = document.getElementById('signupSuccess');
 
-            // Reset messages
             errorDiv.textContent = '';
             successDiv.textContent = '';
 
-            // Validation
             if (password !== confirmPassword) {
                 errorDiv.textContent = 'Passwords do not match!';
                 return;
@@ -918,29 +482,167 @@
                 return;
             }
 
-            // Create new user
             users[id] = {
                 id: id,
                 name: name,
                 email: email,
                 password: password,
                 role: 'user',
-                createdAt: new Date().toISOString()
+                createdAt: new Date().toISOString(),
+                messageCount: 0
             };
 
             successDiv.textContent = 'Account created successfully! You can now login.';
             
-            // Clear form
             document.getElementById('signupName').value = '';
             document.getElementById('signupEmail').value = '';
             document.getElementById('signupId').value = '';
             document.getElementById('signupPassword').value = '';
             document.getElementById('confirmPassword').value = '';
 
-            // Auto switch to login after 2 seconds
             setTimeout(() => {
                 showLogin();
             }, 2000);
+        }
+
+        function showPasswordReset() {
+            document.getElementById('loginForm').classList.add('hidden');
+            document.getElementById('signupForm').classList.add('hidden');
+            document.getElementById('resetForm').classList.remove('hidden');
+            document.getElementById('verifyResetForm').classList.add('hidden');
+        }
+
+        function handlePasswordReset(event) {
+            event.preventDefault();
+            const email = document.getElementById('resetEmail').value;
+            const userId = document.getElementById('resetUserId').value;
+            const errorDiv = document.getElementById('resetError');
+            const successDiv = document.getElementById('resetSuccess');
+
+            errorDiv.textContent = '';
+            successDiv.textContent = '';
+
+            const user = users[userId];
+            if (!user) {
+                errorDiv.textContent = 'User ID not found!';
+                return;
+            }
+
+            if (user.email !== email) {
+                errorDiv.textContent = 'Email does not match our records!';
+                return;
+            }
+
+            const resetCode = Math.floor(100000 + Math.random() * 900000).toString();
+            
+            resetCodes[userId] = {
+                code: resetCode,
+                email: email,
+                timestamp: new Date().getTime(),
+                attempts: 0
+            };
+
+            successDiv.textContent = `Reset code sent to ${email}! Code: ${resetCode} (In real app, this would be emailed)`;
+            
+            setTimeout(() => {
+                showResetVerification(userId);
+            }, 2000);
+        }
+
+        function showResetVerification(userId) {
+            document.getElementById('resetForm').classList.add('hidden');
+            document.getElementById('verifyResetForm').classList.remove('hidden');
+            window.currentResetUser = userId;
+        }
+
+        function handleResetVerification(event) {
+            event.preventDefault();
+            const code = document.getElementById('resetCode').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmNewPassword').value;
+            const errorDiv = document.getElementById('verifyError');
+            const successDiv = document.getElementById('verifySuccess');
+
+            errorDiv.textContent = '';
+            successDiv.textContent = '';
+
+            const userId = window.currentResetUser;
+            const resetData = resetCodes[userId];
+
+            if (!resetData) {
+                errorDiv.textContent = 'Reset session expired. Please start over.';
+                return;
+            }
+
+            const now = new Date().getTime();
+            if (now - resetData.timestamp > 600000) {
+                errorDiv.textContent = 'Reset code expired. Please request a new one.';
+                delete resetCodes[userId];
+                return;
+            }
+
+            if (resetData.attempts >= 3) {
+                errorDiv.textContent = 'Too many failed attempts. Please request a new code.';
+                delete resetCodes[userId];
+                return;
+            }
+
+            if (code !== resetData.code) {
+                resetData.attempts++;
+                errorDiv.textContent = `Invalid reset code. ${3 - resetData.attempts} attempts remaining.`;
+                return;
+            }
+
+            if (newPassword !== confirmPassword) {
+                errorDiv.textContent = 'Passwords do not match!';
+                return;
+            }
+
+            if (newPassword.length < 6) {
+                errorDiv.textContent = 'Password must be at least 6 characters!';
+                return;
+            }
+
+            users[userId].password = newPassword;
+            users[userId].lastPasswordReset = new Date().toISOString();
+
+            delete resetCodes[userId];
+            delete window.currentResetUser;
+
+            successDiv.textContent = 'Password reset successfully! Redirecting to login...';
+            
+            setTimeout(() => {
+                showLogin();
+                document.getElementById('loginId').value = userId;
+                alert('🔒 Password reset successful! You can now login with your new password.');
+            }, 2000);
+        }
+
+        function resendResetCode() {
+            const userId = window.currentResetUser;
+            if (!userId) {
+                alert('Session expired. Please start the reset process again.');
+                showPasswordReset();
+                return;
+            }
+
+            const user = users[userId];
+            if (!user) {
+                alert('User not found. Please start over.');
+                showPasswordReset();
+                return;
+            }
+
+            const resetCode = Math.floor(100000 + Math.random() * 900000).toString();
+            
+            resetCodes[userId] = {
+                code: resetCode,
+                email: user.email,
+                timestamp: new Date().getTime(),
+                attempts: 0
+            };
+
+            alert(`New reset code sent to ${user.email}!\nCode: ${resetCode}\n(In real app, this would be emailed)`);
         }
 
         function showLogin() {
@@ -949,7 +651,6 @@
             document.getElementById('resetForm').classList.add('hidden');
             document.getElementById('verifyResetForm').classList.add('hidden');
             document.getElementById('mainDashboard').classList.remove('active');
-            document.getElementById('adminDashboard').classList.remove('active');
         }
 
         function showSignup() {
@@ -966,13 +667,11 @@
             document.getElementById('verifyResetForm').classList.add('hidden');
             document.getElementById('mainDashboard').classList.add('active');
             
-            // Show admin nav item if user is admin
             if (currentUser.role === 'admin') {
                 document.getElementById('adminNavItem').style.display = 'block';
             }
 
             updateProfile();
-            updateAdminStats();
         }
 
         function logout() {
@@ -981,27 +680,15 @@
             document.getElementById('adminNavItem').style.display = 'none';
         }
 
-        // Navigation Functions
         function showChat() {
             document.getElementById('chatInterface').classList.remove('hidden');
             document.getElementById('profileInterface').classList.add('hidden');
-            document.getElementById('adminDashboard').classList.remove('active');
-            document.getElementById('mainDashboard').classList.add('active');
         }
 
         function showProfile() {
             document.getElementById('chatInterface').classList.add('hidden');
             document.getElementById('profileInterface').classList.remove('hidden');
             updateProfile();
-        }
-
-        function showAdmin() {
-            if (currentUser.role === 'admin') {
-                document.getElementById('mainDashboard').classList.remove('active');
-                document.getElementById('adminDashboard').classList.add('active');
-                updateAdminStats();
-                updateUserList();
-            }
         }
 
         function updateProfile() {
@@ -1016,13 +703,49 @@
                     <p><strong>Email:</strong> ${currentUser.email}</p>
                     <p><strong>Role:</strong> ${currentUser.role.toUpperCase()}</p>
                     <p><strong>Member Since:</strong> ${new Date(currentUser.createdAt).toLocaleDateString()}</p>
-                    <button class="btn btn-primary" onclick="editProfile()">✏️ Edit Profile</button>
+                    ${currentUser.lastPasswordReset ? `<p><strong>Last Password Reset:</strong> ${new Date(currentUser.lastPasswordReset).toLocaleDateString()}</p>` : ''}
+                    <div style="margin-top: 20px;">
+                        <button class="btn btn-primary" onclick="editProfile()">✏️ Edit Profile</button>
+                        <button class="btn btn-secondary" onclick="changePassword()">🔒 Change Password</button>
+                    </div>
                 </div>
             `;
         }
 
         function editProfile() {
             alert('Profile editing feature coming soon!');
+        }
+
+        function changePassword() {
+            const currentPassword = prompt('Enter your current password:');
+            if (!currentPassword) return;
+
+            if (currentPassword !== currentUser.password) {
+                alert('❌ Current password is incorrect!');
+                return;
+            }
+
+            const newPassword = prompt('Enter your new password (min 6 characters):');
+            if (!newPassword) return;
+
+            if (newPassword.length < 6) {
+                alert('❌ Password must be at least 6 characters!');
+                return;
+            }
+
+            const confirmPassword = prompt('Confirm your new password:');
+            if (newPassword !== confirmPassword) {
+                alert('❌ Passwords do not match!');
+                return;
+            }
+
+            users[currentUser.id].password = newPassword;
+            users[currentUser.id].lastPasswordReset = new Date().toISOString();
+            currentUser.password = newPassword;
+            currentUser.lastPasswordReset = new Date().toISOString();
+
+            alert('✅ Password changed successfully!');
+            updateProfile();
         }
 
         // Chat Functions
@@ -1038,28 +761,13 @@
             
             if (!message) return;
 
-            // Add user message
             addMessage(message, 'user');
             input.value = '';
 
-            // Simulate AI response
             setTimeout(() => {
                 const response = generateAIResponse(message);
                 addMessage(response, 'ai');
             }, 1000);
-        }
-
-        function clearLogs() {
-            if (confirm('Are you sure you want to clear all chat logs?')) {
-                chatMessages = [];
-                document.getElementById('chatMessages').innerHTML = `
-                    <div class="message ai">
-                        <strong>TOBI:</strong> Hello! I'm TOBI, your AI assistant. How can I help you today?
-                    </div>
-                `;
-                updateAdminStats();
-                alert('Chat logs cleared!');
-            }
         }
 
         function addMessage(message, sender) {
@@ -1070,7 +778,6 @@
             if (sender === 'user') {
                 messageDiv.innerHTML = `<strong>${currentUser.name}:</strong> ${message}`;
                 
-                // Update user message count
                 if (users[currentUser.id]) {
                     users[currentUser.id].messageCount = (users[currentUser.id].messageCount || 0) + 1;
                     users[currentUser.id].lastActive = new Date().toISOString();
@@ -1093,7 +800,6 @@
         function generateAIResponse(message) {
             const msg = message.toLowerCase();
             
-            // AI Knowledge Base - Smart Responses
             if (msg.includes('hello') || msg.includes('hi') || msg.includes('hey')) {
                 return `Hello ${currentUser.name}! 👋 I'm TOBI, your intelligent AI assistant. I can help you with coding, business advice, creative writing, problem-solving, and much more! What would you like to explore today?`;
             }
@@ -1114,19 +820,6 @@
                 return `🆘 I'm here to help! I can assist you with:\n• Technical problems and coding\n• Creative writing and content\n• Business and marketing advice\n• Learning new skills\n• Problem-solving strategies\n• Data analysis\n\nJust tell me what you need help with!`;
             }
             
-            if (msg.includes('create') || msg.includes('build') || msg.includes('make')) {
-                return `🛠️ I love creating things! I can help you build:\n• Websites and web applications\n• Mobile app prototypes\n• Business plans and strategies\n• Content and marketing materials\n• Automated workflows\n• Creative projects\n\nWhat would you like to create today?`;
-            }
-            
-            if (msg.includes('learn') || msg.includes('teach') || msg.includes('education')) {
-                return `🎓 I'm an excellent teacher! I can help you learn:\n• Programming languages\n• Business skills\n• Creative writing\n• Digital marketing\n• Data science\n• Any topic you're curious about!\n\nI use simple explanations with practical examples. What would you like to learn?`;
-            }
-            
-            if (msg.includes('nexa') || msg.includes('platform') || msg.includes('system')) {
-                return `🌟 You're using NEXA CORE™ - the ultimate AI platform! Features:\n• Advanced AI chat with TOBI (that's me!)\n• Secure user authentication\n• Admin dashboard for management\n• Voice recognition support\n• Mobile-responsive design\n\nNEXA CORE™ represents the future of AI interaction!`;
-            }
-            
-            // Advanced responses based on context
             const advancedResponses = [
                 `🧠 Based on your question about "${message}", I can provide detailed insights. This is a complex topic that involves multiple factors. Let me break it down for you step by step...`,
                 `💡 That's an excellent question! "${message}" is something I can definitely help with. From my analysis, here are the key points to consider...`,
@@ -1173,461 +866,10 @@
             }
         }
 
-        // Admin Functions
-        function updateAdminStats() {
-            document.getElementById('totalUsers').textContent = Object.keys(users).length + systemConfig.guestUsers;
-            document.getElementById('activeUsers').textContent = currentUser ? 1 + systemConfig.guestUsers : systemConfig.guestUsers;
-            document.getElementById('totalMessages').textContent = chatMessages.length;
-            updateTopUsers();
-        }
-
-        function updateUserList() {
-            const userListDiv = document.getElementById('userList');
-            userListDiv.innerHTML = '';
-            
-            Object.values(users).forEach(user => {
-                const userDiv = document.createElement('div');
-                userDiv.className = 'user-item';
-                userDiv.innerHTML = `
-                    <div>
-                        <strong>${user.name}</strong><br>
-                        <small>ID: ${user.id} | Role: ${user.role}</small>
-                    </div>
-                    <button class="btn btn-danger btn-small" onclick="deleteUser('${user.id}')" ${user.id === 'admin' ? 'disabled' : ''}>Delete</button>
-                `;
-                userListDiv.appendChild(userDiv);
-            });
-        }
-
-        function deleteUser(userId) {
-            if (userId === 'admin') {
-                alert('Cannot delete admin user!');
-                return;
-            }
-            
-            if (confirm(`Are you sure you want to delete user ${userId}?`)) {
-                delete users[userId];
-                updateUserList();
-                updateAdminStats();
-            }
-        }
-
-        function refreshStats() {
-            updateAdminStats();
-            updateUserList();
-            alert('Statistics refreshed!');
-        }
-
-        function exportData() {
-            const data = {
-                users: users,
-                messages: chatMessages,
-                exportDate: new Date().toISOString()
-            };
-            
-            const dataStr = JSON.stringify(data, null, 2);
-            const dataBlob = new Blob([dataStr], {type: 'application/json'});
-            const url = URL.createObjectURL(dataBlob);
-            
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = 'nexa-core-data.json';
-            link.click();
-            
-            URL.revokeObjectURL(url);
-        }
-
-        // Add public access functions
-        function togglePublicAccess() {
-            const toggle = document.getElementById('publicAccessToggle');
-            const status = document.getElementById('publicAccessStatus');
-            
-            systemConfig.publicAccess = toggle.checked;
-            
-            if (systemConfig.publicAccess) {
-                status.innerHTML = '🌐 Public Access: ENABLED';
-                status.style.background = 'rgba(76, 217, 100, 0.3)';
-                
-                // Add public access button to login page
-                addPublicAccessButton();
-            } else {
-                status.innerHTML = '🔒 Public Access: DISABLED';
-                status.style.background = 'rgba(255, 107, 107, 0.2)';
-                
-                // Remove public access button
-                removePublicAccessButton();
-            }
-        }
-
-        function addPublicAccessButton() {
-            const loginForm = document.querySelector('#loginForm .auth-form form');
-            
-            // Check if button already exists
-            if (document.getElementById('publicAccessBtn')) return;
-            
-            const publicBtn = document.createElement('button');
-            publicBtn.type = 'button';
-            publicBtn.id = 'publicAccessBtn';
-            publicBtn.className = 'btn btn-secondary';
-            publicBtn.textContent = '🌐 Try as Guest';
-            publicBtn.onclick = function() {
-                loginAsGuest();
-            };
-            
-            loginForm.appendChild(publicBtn);
-        }
-
-        function removePublicAccessButton() {
-            const publicBtn = document.getElementById('publicAccessBtn');
-            if (publicBtn) {
-                publicBtn.remove();
-            }
-        }
-
-        function loginAsGuest() {
-            if (!systemConfig.publicAccess) {
-                alert('Public access is currently disabled.');
-                return;
-            }
-            
-            systemConfig.guestUsers++;
-            currentUser = {
-                id: `guest_${Date.now()}`,
-                name: `Guest User ${systemConfig.guestUsers}`,
-                email: 'guest@nexacore.com',
-                role: 'guest',
-                createdAt: new Date().toISOString(),
-                isGuest: true
-            };
-            
-            showDashboard();
-        }
-
-        function generatePublicLink() {
-            const baseUrl = window.location.origin + window.location.pathname;
-            const publicUrl = `${baseUrl}?public=true`;
-            
-            systemConfig.publicLink = publicUrl;
-            
-            document.getElementById('publicLink').textContent = publicUrl;
-            document.getElementById('publicLinkContainer').style.display = 'block';
-        }
-
-        function copyPublicLink() {
-            const link = document.getElementById('publicLink').textContent;
-            navigator.clipboard.writeText(link).then(() => {
-                alert('Public link copied to clipboard!');
-            }).catch(() => {
-                // Fallback for older browsers
-                const textArea = document.createElement('textarea');
-                textArea.value = link;
-                document.body.appendChild(textArea);
-                textArea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textArea);
-                alert('Public link copied to clipboard!');
-            });
-        }
-
-        function backupSystem() {
-            const backup = {
-                users: users,
-                messages: chatMessages,
-                config: systemConfig,
-                backupDate: new Date().toISOString(),
-                version: '1.0.0'
-            };
-            
-            const dataStr = JSON.stringify(backup, null, 2);
-            const dataBlob = new Blob([dataStr], {type: 'application/json'});
-            const url = URL.createObjectURL(dataBlob);
-            
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = `nexa-core-backup-${new Date().toISOString().split('T')[0]}.json`;
-            link.click();
-            
-            URL.revokeObjectURL(url);
-            alert('System backup downloaded successfully!');
-        }
-
-        // Vault Management Functions
-        function openVault() {
-            if (currentUser.role !== 'admin') {
-                alert('Access denied. Admin privileges required.');
-                return;
-            }
-            
-            // Simple vault authentication (in real app, use better security)
-            const vaultPassword = prompt('Enter vault password:');
-            if (vaultPassword === 'vault123') {
-                document.getElementById('vaultModal').classList.remove('hidden');
-                document.getElementById('vaultStatus').innerHTML = '🔓 Vault Status: UNLOCKED';
-                document.getElementById('vaultStatus').style.background = 'rgba(76, 217, 100, 0.3)';
-                systemConfig.vaultUnlocked = true;
-                loadVaultData();
-            } else {
-                alert('Invalid vault password!');
-            }
-        }
-
-        function closeVault() {
-            document.getElementById('vaultModal').classList.add('hidden');
-            document.getElementById('vaultStatus').innerHTML = '🔒 Vault Status: SECURED';
-            document.getElementById('vaultStatus').style.background = 'rgba(255, 107, 107, 0.2)';
-            systemConfig.vaultUnlocked = false;
-        }
-
-        function showVaultTab(tabName) {
-            // Hide all tabs
-            document.querySelectorAll('.vault-tab-content').forEach(tab => {
-                tab.classList.add('hidden');
-            });
-            
-            // Remove active class from all tab buttons
-            document.querySelectorAll('.vault-tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            
-            // Show selected tab
-            document.getElementById(tabName + 'Tab').classList.remove('hidden');
-            event.target.classList.add('active');
-            
-            // Load tab data
-            loadVaultData();
-        }
-
-        function loadVaultData() {
-            loadApiKeys();
-            loadBusinesses();
-            loadIntegrations();
-            updateVaultStats();
-        }
-
-        function loadApiKeys() {
-            const apiList = document.getElementById('apiKeysList');
-            apiList.innerHTML = '';
-            
-            Object.entries(businessVault.apiKeys).forEach(([id, api]) => {
-                const apiItem = document.createElement('div');
-                apiItem.className = 'vault-item';
-                apiItem.innerHTML = `
-                    <div class="vault-item-info">
-                        <h4>🔑 ${api.name}</h4>
-                        <p><strong>Service:</strong> ${api.service}</p>
-                        <p><strong>Key:</strong> ${api.key.substring(0, 12)}...hidden</p>
-                        <p><strong>Status:</strong> <span class="status-indicator status-${api.status}"></span>${api.status.toUpperCase()}</p>
-                        <p><strong>Usage:</strong> ${api.usageLimit}</p>
-                        <small>${api.description}</small>
-                    </div>
-                    <div class="vault-item-actions">
-                        <button class="btn-small btn-test" onclick="testApiKey('${id}')">🧪 Test</button>
-                        <button class="btn-small btn-edit" onclick="editApiKey('${id}')">✏️ Edit</button>
-                        <button class="btn-small btn-delete" onclick="deleteApiKey('${id}')">🗑️ Delete</button>
-                    </div>
-                `;
-                apiList.appendChild(apiItem);
-            });
-        }
-
-        function loadBusinesses() {
-            const businessList = document.getElementById('businessesList');
-            businessList.innerHTML = '';
-            
-            Object.entries(businessVault.businesses).forEach(([id, business]) => {
-                const businessItem = document.createElement('div');
-                businessItem.className = 'vault-item';
-                businessItem.innerHTML = `
-                    <div class="vault-item-info">
-                        <h4>🏢 ${business.name}</h4>
-                        <p><strong>Industry:</strong> ${business.industry}</p>
-                        <p><strong>Email:</strong> ${business.email}</p>
-                        <p><strong>Revenue:</strong> ${business.revenue}</p>
-                        <p><strong>Employees:</strong> ${business.employees}</p>
-                        <p><strong>Status:</strong> <span class="status-indicator status-${business.status}"></span>${business.status.toUpperCase()}</p>
-                        <small>${business.description}</small>
-                    </div>
-                    <div class="vault-item-actions">
-                        <button class="btn-small btn-test" onclick="visitWebsite('${business.website}')">🌐 Visit</button>
-                        <button class="btn-small btn-edit" onclick="editBusiness('${id}')">✏️ Edit</button>
-                        <button class="btn-small btn-delete" onclick="deleteBusiness('${id}')">🗑️ Delete</button>
-                    </div>
-                `;
-                businessList.appendChild(businessItem);
-            });
-        }
-
-        function loadIntegrations() {
-            const integrationList = document.getElementById('integrationsList');
-            integrationList.innerHTML = '';
-            
-            Object.entries(businessVault.integrations).forEach(([id, integration]) => {
-                const integrationItem = document.createElement('div');
-                integrationItem.className = 'vault-item';
-                integrationItem.innerHTML = `
-                    <div class="vault-item-info">
-                        <h4>🔗 ${integration.name}</h4>
-                        <p><strong>Service:</strong> ${integration.service}</p>
-                        <p><strong>Connected APIs:</strong> ${integration.connectedApis.join(', ')}</p>
-                        <p><strong>Last Sync:</strong> ${new Date(integration.lastSync).toLocaleString()}</p>
-                        <p><strong>Status:</strong> <span class="status-indicator status-${integration.status}"></span>${integration.status.toUpperCase()}</p>
-                        <small>${integration.description}</small>
-                    </div>
-                    <div class="vault-item-actions">
-                        <button class="btn-small btn-test" onclick="testIntegration('${id}')">🧪 Test</button>
-                        <button class="btn-small btn-edit" onclick="editIntegration('${id}')">✏️ Edit</button>
-                        <button class="btn-small btn-delete" onclick="deleteIntegration('${id}')">🗑️ Delete</button>
-                    </div>
-                `;
-                integrationList.appendChild(integrationItem);
-            });
-        }
-
-        function updateVaultStats() {
-            document.getElementById('totalApis').textContent = Object.keys(businessVault.apiKeys).length;
-            document.getElementById('totalBusinesses').textContent = Object.keys(businessVault.businesses).length;
-            document.getElementById('activeIntegrations').textContent = Object.values(businessVault.integrations).filter(i => i.status === 'active').length;
-        }
-
-        // Add new items functions
-        function addNewKey() {
-            openVault();
-            setTimeout(() => {
-                showVaultTab('apis');
-                addApiKeyForm();
-            }, 100);
-        }
-
-        function addBusiness() {
-            openVault();
-            setTimeout(() => {
-                showVaultTab('businesses');
-                addBusinessForm();
-            }, 100);
-        }
-
-        function addApiKeyForm() {
-            const apiList = document.getElementById('apiKeysList');
-            const formHTML = `
-                <div class="vault-form" id="apiKeyForm">
-                    <h4>➕ Add New API Key</h4>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>API Name:</label>
-                            <input type="text" id="newApiName" placeholder="e.g., OpenAI API">
-                        </div>
-                        <div class="form-group">
-                            <label>Service:</label>
-                            <input type="text" id="newApiService" placeholder="e.g., OpenAI">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>API Key:</label>
-                            <input type="password" id="newApiKey" placeholder="Enter API key">
-                        </div>
-                        <div class="form-group">
-                            <label>Usage Limit:</label>
-                            <input type="text" id="newApiLimit" placeholder="e.g., 1000 requests/day">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Description:</label>
-                        <input type="text" id="newApiDescription" placeholder="What this API is used for">
-                    </div>
-                    <button class="btn btn-primary" onclick="saveNewApiKey()">💾 Save API Key</button>
-                    <button class="btn btn-secondary" onclick="cancelApiKeyForm()">❌ Cancel</button>
-                </div>
-            `;
-            apiList.insertAdjacentHTML('afterbegin', formHTML);
-        }
-
-        function saveNewApiKey() {
-            const name = document.getElementById('newApiName').value;
-            const service = document.getElementById('newApiService').value;
-            const key = document.getElementById('newApiKey').value;
-            const limit = document.getElementById('newApiLimit').value;
-            const description = document.getElementById('newApiDescription').value;
-            
-            if (!name || !service || !key) {
-                alert('Please fill in all required fields!');
-                return;
-            }
-            
-            const id = name.toLowerCase().replace(/\s+/g, '_');
-            businessVault.apiKeys[id] = {
-                name: name,
-                key: key,
-                service: service,
-                status: 'active',
-                lastUsed: new Date().toISOString(),
-                usageLimit: limit || 'Not specified',
-                description: description || 'No description provided'
-            };
-            
-            cancelApiKeyForm();
-            loadApiKeys();
-            updateVaultStats();
-            alert('API Key added successfully!');
-        }
-
-        function cancelApiKeyForm() {
-            const form = document.getElementById('apiKeyForm');
-            if (form) form.remove();
-        }
-
-        // Test functions
-        function testApiKey(id) {
-            const api = businessVault.apiKeys[id];
-            alert(`🧪 Testing ${api.name}...\n\n✅ Connection: Successful\n📊 Status: ${api.status}\n🔑 Key: Valid\n📈 Usage: ${api.usageLimit}`);
-        }
-
-        function testIntegration(id) {
-            const integration = businessVault.integrations[id];
-            alert(`🧪 Testing ${integration.name}...\n\n✅ Connection: Successful\n🔗 Service: ${integration.service}\n📡 APIs: ${integration.connectedApis.join(', ')}\n⏰ Last Sync: ${new Date(integration.lastSync).toLocaleString()}`);
-        }
-
-        function visitWebsite(url) {
-            window.open(url, '_blank');
-        }
-
-        // Delete functions
-        function deleteApiKey(id) {
-            if (confirm(`Are you sure you want to delete this API key?`)) {
-                delete businessVault.apiKeys[id];
-                loadApiKeys();
-                updateVaultStats();
-                alert('API Key deleted successfully!');
-            }
-        }
-
-        function deleteBusiness(id) {
-            if (confirm(`Are you sure you want to delete this business?`)) {
-                delete businessVault.businesses[id];
-                loadBusinesses();
-                updateVaultStats();
-                alert('Business deleted successfully!');
-            }
-        }
-
-        function deleteIntegration(id) {
-            if (confirm(`Are you sure you want to delete this integration?`)) {
-                delete businessVault.integrations[id];
-                loadIntegrations();
-                updateVaultStats();
-                alert('Integration deleted successfully!');
-            }
-        }
-
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
-            // Check if public access is requested
-            const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.get('public') === 'true' && systemConfig.publicAccess) {
-                loginAsGuest();
-            } else {
-                showLogin();
-            }
+            showLogin();
+            console.log('NEXA CORE™ with Password Reset System - Ready!');
         });
     </script>
 </body>
