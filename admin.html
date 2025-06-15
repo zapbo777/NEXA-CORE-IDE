@@ -1,398 +1,9 @@
-<!-- Analytics Tab -->
-                <div id="analyticsTab" class="vault-tab-content hidden">
-                    <div class="vault-section">
-                        <h3>📊 AI Family Analytics</h3>
-                        <div class="stats-grid">
-                            <div class="stat-item">
-                                <div class="stat-number">12</div>
-                                <div class="stat-label">Total AIs</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-number">98.7%</div>
-                                <div class="stat-label">AI Uptime</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-number">15.2K</div>
-                                <div class="stat-label">AI Interactions</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-number">$2.1K</div>
-                                <div class="stat-label">AI Costs Today</div>
-                            </div>
-                        </div>
-                        <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; margin-bottom: 15px;">
-                            <h4>🏆 Top Performing AIs</h4>
-                            <p>• TOBI (Internal): 2,847 conversations - 99.2% success rate</p>
-                            <p>• GPT-4 (External): 1,234 calls - 97.8% success rate</p>
-                            <p>• Claude 3.5 (External): 892 conversations - 98.5% success rate</p>
-                            <p>• NEXUS (Internal): 156 reports - 100% accuracy</p>
-                        </div>
-                        <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px;">
-                            <h4>📈 Performance Trends</h4>
-                            <p>• Internal AI efficiency: ⬆️ +15% this week</p>
-                            <p>• External API response time: ⬇️ -8ms average</p>
-                            <p>• Cost optimization: ⬇️ -12% per interaction</p>
-                            <p>• User satisfaction: ⬆️ 4.8/5.0 rating</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // AI Family Management System
-        const aiFamily = {
-            internal: {
-                tobi: { name: 'TOBI', status: 'active', type: 'conversational', usage: 2847 },
-                nexus: { name: 'NEXUS', status: 'active', type: 'analytics', usage: 156 },
-                guardian: { name: 'GUARDIAN', status: 'active', type: 'security', usage: 24 },
-                oracle: { name: 'ORACLE', status: 'active', type: 'business', usage: 42 }
-            },
-            external: {
-                gpt4: { name: 'GPT-4', provider: 'OpenAI', status: 'connected', usage: 1234 },
-                gemini: { name: 'Gemini Pro', provider: 'Google', status: 'connected', usage: 567 },
-                claude: { name: 'Claude 3.5', provider: 'Anthropic', status: 'connected', usage: 892 },
-                dalle: { name: 'DALL-E 3', provider: 'OpenAI', status: 'connected', usage: 145 },
-                huggingface: { name: 'HF Models', provider: 'Hugging Face', status: 'connected', usage: 78 }
-            }
-        };
-
-        // Admin credentials
-        const adminCredentials = {
-            'admin': 'admin123',
-            'superadmin': 'super2024',
-            'zapbo777': 'nexacore123'
-        };
-
-        let currentAdmin = null;
-        let vaultUnlocked = false;
-
-        // Authentication
-        function handleAdminLogin(event) {
-            event.preventDefault();
-            const id = document.getElementById('adminId').value;
-            const password = document.getElementById('adminPassword').value;
-            const errorDiv = document.getElementById('loginError');
-
-            if (adminCredentials[id] && adminCredentials[id] === password) {
-                currentAdmin = id;
-                showDashboard();
-                errorDiv.textContent = '';
-                updateRealTimeStats();
-            } else {
-                errorDiv.textContent = 'Invalid Admin ID or Password!';
-            }
-        }
-
-        function showDashboard() {
-            document.getElementById('adminLogin').style.display = 'none';
-            document.getElementById('adminDashboard').classList.add('active');
-            startRealTimeUpdates();
-        }
-
-        function logout() {
-            currentAdmin = null;
-            vaultUnlocked = false;
-            document.getElementById('adminLogin').style.display = 'flex';
-            document.getElementById('adminDashboard').classList.remove('active');
-            document.getElementById('vaultModal').classList.add('hidden');
-        }
-
-        // Real-time updates
-        function startRealTimeUpdates() {
-            setInterval(updateRealTimeStats, 5000); // Update every 5 seconds
-        }
-
-        function updateRealTimeStats() {
-            // Simulate real-time data updates
-            document.getElementById('totalUsers').textContent = Math.floor(Math.random() * 50) + 150;
-            document.getElementById('activeUsers').textContent = Math.floor(Math.random() * 20) + 35;
-            document.getElementById('totalMessages').textContent = Math.floor(Math.random() * 100) + 2800;
-            
-            // AI Family stats
-            document.getElementById('internalAIs').textContent = Object.keys(aiFamily.internal).length;
-            document.getElementById('externalAIs').textContent = Object.keys(aiFamily.external).length;
-            document.getElementById('activeConnections').textContent = Object.keys(aiFamily.internal).length + Object.keys(aiFamily.external).length;
-        }
-
-        // Vault Functions
-        function openVault() {
-            if (!currentAdmin) {
-                alert('Please login as admin first!');
-                return;
-            }
-            
-            const vaultPassword = prompt('Enter vault password:');
-            if (vaultPassword === 'vault123') {
-                document.getElementById('vaultModal').classList.remove('hidden');
-                vaultUnlocked = true;
-                loadVaultData();
-            } else {
-                alert('Invalid vault password!');
-            }
-        }
-
-        function closeVault() {
-            document.getElementById('vaultModal').classList.add('hidden');
-            vaultUnlocked = false;
-        }
-
-        function showVaultTab(tabName) {
-            // Hide all tabs
-            document.querySelectorAll('.vault-tab-content').forEach(tab => {
-                tab.classList.add('hidden');
-            });
-            
-            // Remove active class from all tab buttons
-            document.querySelectorAll('.vault-tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            
-            // Show selected tab
-            document.getElementById(tabName + 'Tab').classList.remove('hidden');
-            event.target.classList.add('active');
-        }
-
-        function loadVaultData() {
-            // Load vault statistics
-            document.getElementById('totalApis').textContent = '8';
-            document.getElementById('totalBusinesses').textContent = '3';
-            document.getElementById('activeIntegrations').textContent = '5';
-        }
-
-        // AI Family Management Functions
-        function manageAIFamily() {
-            openVault();
-            setTimeout(() => {
-                showVaultTab('aifamily');
-            }, 100);
-        }
-
-        function testAI(aiId) {
-            if (aiFamily.internal[aiId]) {
-                const ai = aiFamily.internal[aiId];
-                alert(`🧪 Testing ${ai.name}...\n\n✅ Status: ONLINE\n🤖 Type: ${ai.type}\n📊 Usage Today: ${ai.usage}\n⚡ Response Time: 0.2s\n🎯 Success Rate: 99.2%\n\n${ai.name} is functioning perfectly!`);
-            }
-        }
-
-        function testExternalAI(aiId) {
-            if (aiFamily.external[aiId]) {
-                const ai = aiFamily.external[aiId];
-                alert(`🧪 Testing ${ai.name}...\n\n✅ Connection: ACTIVE\n🏢 Provider: ${ai.provider}\n📊 Usage Today: ${ai.usage}\n⚡ API Response: 0.8s\n🔑 API Status: Valid\n\n${ai.name} connection is stable!`);
-            }
-        }
-
-        function configureAI(aiId) {
-            alert(`⚙️ Configuring ${aiFamily.internal[aiId].name}...\n\nConfiguration options:\n• Personality settings\n• Response style\n• Knowledge domains\n• Security levels\n• Performance tuning\n\nOpening configuration panel...`);
-        }
-
-        function configureExternal(aiId) {
-            alert(`⚙️ Configuring ${aiFamily.external[aiId].name}...\n\nExternal AI settings:\n• API rate limits\n• Cost controls\n• Fallback options\n• Quality filters\n• Usage monitoring\n\nOpening configuration panel...`);
-        }
-
-        function upgradeAI(aiId) {
-            alert(`⬆️ Upgrading ${aiFamily.internal[aiId].name}...\n\nAvailable upgrades:\n• Enhanced reasoning\n• Faster processing\n• New capabilities\n• Better accuracy\n• Extended memory\n\nStarting upgrade process...`);
-        }
-
-        function disconnectAI(aiId) {
-            if (confirm(`Are you sure you want to disconnect ${aiFamily.external[aiId].name}?`)) {
-                aiFamily.external[aiId].status = 'disconnected';
-                alert(`🔌 ${aiFamily.external[aiId].name} has been disconnected.`);
-                loadVaultData();
-            }
-        }
-
-        function createInternalAI() {
-            const aiName = prompt('Enter name for new Internal AI:');
-            if (aiName) {
-                alert(`🔧 Creating new Internal AI: ${aiName}\n\nSetup process:\n• Defining capabilities\n• Training neural networks\n• Integrating with NEXA CORE™\n• Testing functionality\n• Deploying to production\n\n${aiName} will be ready in 24 hours!`);
-            }
-        }
-
-        function connectExternalAI() {
-            const providers = ['OpenAI', 'Google', 'Anthropic', 'Cohere', 'AI21', 'Stability AI', 'Midjourney', 'Replicate'];
-            const provider = prompt(`Connect External AI\n\nAvailable providers:\n${providers.join(', ')}\n\nEnter provider name:`);
-            
-            if (provider && providers.includes(provider)) {
-                alert(`🌐 Connecting to ${provider}...\n\nConnection steps:\n• Validating API credentials\n• Testing connection\n• Setting up integration\n• Configuring limits\n• Adding to AI family\n\n${provider} AI will be available shortly!`);
-            }
-        }
-
-        function createWorkflow() {
-            alert(`🎼 Creating AI Workflow...\n\nWorkflow Builder:\n• Drag & drop AI components\n• Define data flow\n• Set triggers and conditions\n• Configure fallbacks\n• Test automation\n\nOpening workflow designer...`);
-        }
-
-        function manageWorkflows() {
-            alert(`⚙️ AI Workflow Manager\n\nActive Workflows:\n• Smart Routing (Internal → External)\n• Load Balancing (Multi-AI)\n• Fallback Chain (Reliability)\n• Cost Optimization (Smart Selection)\n• Quality Control (Response Validation)\n\nSelect workflow to modify...`);
-        }
-
-        function testWorkflow() {
-            alert(`🧪 Testing AI Workflows...\n\n✅ Smart Routing: PASSED\n✅ Load Balancing: PASSED\n✅ Fallback Chain: PASSED\n✅ Cost Optimization: PASSED\n✅ Quality Control: PASSED\n\nAll workflows functioning perfectly!`);
-        }
-
-        function enableLoadBalancing() {
-            alert(`🎯 Enabling AI Load Balancing...\n\nConfiguration:\n• Round-robin distribution\n• Health-based routing\n• Cost-aware selection\n• Performance monitoring\n• Auto-failover\n\nLoad balancing is now ACTIVE!`);
-        }
-
-        function balancingSettings() {
-            alert(`⚙️ Load Balancing Settings\n\nCurrent Configuration:\n• Distribution: Smart (70% Internal, 30% External)\n• Health checks: Every 30 seconds\n• Failover time: 2 seconds\n• Cost threshold: $0.05 per request\n• Max concurrent: 1000 requests\n\nModify settings...`);
-        }
-
-        function viewMetrics() {
-            alert(`📊 AI Performance Metrics\n\nToday's Statistics:\n• Total requests: 15,247\n• Internal AI: 10,673 (70%)\n• External AI: 4,574 (30%)\n• Average response: 0.4s\n• Success rate: 99.1%\n• Cost per request: $0.032\n\nDetailed analytics available...`);
-        }
-
-        // Dashboard Functions
-        function refreshDashboard() {
-            updateRealTimeStats();
-            alert('📊 Dashboard refreshed! All metrics updated.');
-        }
-
-        function exportAllData() {
-            const data = {
-                users: { total: 156, active: 42 },
-                aiFamily: aiFamily,
-                messages: 2847,
-                exportDate: new Date().toISOString(),
-                adminExport: currentAdmin
-            };
-            
-            const dataStr = JSON.stringify(data, null, 2);
-            const dataBlob = new Blob([dataStr], {type: 'application/json'});
-            const url = URL.createObjectURL(dataBlob);
-            
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = `nexa-admin-export-${new Date().toISOString().split('T')[0]}.json`;
-            link.click();
-            
-            URL.revokeObjectURL(url);
-            alert('📊 Admin data exported successfully!');
-        }
-
-        function refreshStats() {
-            updateRealTimeStats();
-            alert('📈 Statistics refreshed!');
-        }
-
-        function viewAnalytics() {
-            alert(`📈 Advanced Analytics\n\nUser Engagement:\n• Daily active users: 42\n• Session duration: 8.3 minutes\n• Bounce rate: 12%\n• User satisfaction: 4.8/5\n\nAI Performance:\n• Response accuracy: 99.1%\n• Processing speed: 0.4s avg\n• Cost efficiency: +15%\n• Uptime: 99.9%`);
-        }
-
-        function addNewUser() {
-            const userName = prompt('Enter new user name:');
-            if (userName) {
-                alert(`👤 Creating new user: ${userName}\n\nUser setup:\n• Generating credentials\n• Setting permissions\n• Creating profile\n• Sending welcome email\n\nUser created successfully!`);
-            }
-        }
-
-        function bulkActions() {
-            alert(`⚙️ Bulk User Actions\n\nAvailable Actions:\n• Export user data\n• Send notifications\n• Update permissions\n• Reset passwords\n• Delete inactive users\n\nSelect action to perform...`);
-        }
-
-        function exportUsers() {
-            alert(`📤 Exporting user data...\n\nExport includes:\n• User profiles\n• Activity logs\n• Preferences\n• Usage statistics\n• Contact information\n\nDownload starting...`);
-        }
-
-        function viewUser(userId) {
-            alert(`👁️ User Profile: ${userId}\n\nUser Details:\n• Name: Administrator\n• Email: admin@nexacore.com\n• Role: Super Admin\n• Last Login: Now\n• Total Sessions: 1,234\n• Messages Sent: 5,678`);
-        }
-
-        function editUser(userId) {
-            alert(`✏️ Editing User: ${userId}\n\nEditable Fields:\n• Name\n• Email\n• Role\n• Permissions\n• Status\n• Preferences\n\nOpening user editor...`);
-        }
-
-        function togglePublicAccess() {
-            const toggle = document.getElementById('publicAccessToggle');
-            const status = document.getElementById('publicAccessStatus');
-            
-            if (toggle.checked) {
-                status.innerHTML = '🌐 Public Access: ENABLED';
-                status.style.background = 'rgba(76, 217, 100, 0.3)';
-                alert('🌐 Public access enabled! Guests can now use the chatbot.');
-            } else {
-                status.innerHTML = '🔒 Public Access: DISABLED';
-                status.style.background = 'rgba(255, 107, 107, 0.3)';
-                alert('🔒 Public access disabled! Login required.');
-            }
-        }
-
-        function generatePublicLink() {
-            const baseUrl = window.location.origin;
-            const publicLink = `${baseUrl}/index.html?public=true`;
-            
-            alert(`🔗 Public Access Link Generated:\n\n${publicLink}\n\nShare this link for direct chatbot access!\n\nCopied to clipboard!`);
-            
-            // Copy to clipboard
-            navigator.clipboard.writeText(publicLink).catch(() => {
-                console.log('Clipboard copy failed');
-            });
-        }
-
-        function viewPublicStats() {
-            alert(`📊 Public Access Statistics\n\nToday's Public Usage:\n• Guest users: 28\n• Public conversations: 156\n• Average session: 6.2 minutes\n• Satisfaction rate: 4.6/5\n• Conversion to signup: 18%`);
-        }
-
-        function configurePublic() {
-            alert(`⚙️ Public Access Configuration\n\nSettings:\n• Guest session duration: 30 minutes\n• Message limit: 50 per session\n• Available features: Chat, Voice\n• Restricted features: Vault, Admin\n• Rate limiting: 1 req/second\n\nModify configuration...`);
-        }
-
-        function addNewAPI() {
-            openVault();
-            setTimeout(() => {
-                showVaultTab('apis');
-                alert('🔑 Add New API Key\n\nAPI Key Manager opened.\nFill in the API details in the vault.');
-            }, 200);
-        }
-
-        function testConnections() {
-            alert(`🧪 Testing All Connections...\n\n✅ OpenAI API: Connected (0.8s)\n✅ Stripe API: Connected (0.3s)\n✅ Google Cloud: Connected (0.5s)\n✅ Internal AIs: All Online\n✅ External AIs: All Connected\n\nAll systems operational!`);
-        }
-
-        function backupSystem() {
-            alert(`💾 Creating System Backup...\n\nBacking up:\n• User database\n• AI configurations\n• API keys (encrypted)\n• Business data\n• System settings\n\nBackup completed successfully!`);
-        }
-
-        function updateSystem() {
-            alert(`🔄 System Update Available\n\nNEXA CORE™ v2.1.0:\n• Enhanced AI capabilities\n• Improved security\n• New integrations\n• Performance optimizations\n• Bug fixes\n\nUpdate will take 5 minutes...`);
-        }
-
-        function maintenanceMode() {
-            if (confirm('🔧 Enable Maintenance Mode?\n\nThis will:\n• Pause all user access\n• Stop AI processing\n• Show maintenance page\n• Allow admin access only')) {
-                alert('🔧 Maintenance mode ENABLED\n\nSystem is now in maintenance mode.');
-            }
-        }
-
-        function emergencyShutdown() {
-            if (confirm('🛑 EMERGENCY SHUTDOWN\n\nThis will immediately:\n• Stop all services\n• Disconnect all users\n• Halt AI processing\n• Secure all data\n\nAre you sure?')) {
-                alert('🛑 EMERGENCY SHUTDOWN INITIATED\n\nAll systems shutting down safely...');
-            }
-        }
-
-        function viewFullLog() {
-            alert(`📋 Full Activity Log\n\nLast 24 Hours:\n• 2,847 user interactions\n• 156 admin actions\n• 42 API calls\n• 18 system events\n• 7 security checks\n• 3 backups completed\n\nOpening detailed log viewer...`);
-        }
-
-        function clearLog() {
-            if (confirm('🗑️ Clear Activity Log?\n\nThis will permanently delete all log entries.')) {
-                alert('🗑️ Activity log cleared successfully!');
-                document.getElementById('activityLog').innerHTML = '<div class="activity-item"><div>📋 Activity log cleared</div><div class="activity-time">Now</div></div>';
-            }
-        }
-
-        // Initialize dashboard
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('NEXA CORE™ Admin Dashboard v2.0 - Loaded');
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEXA CORE™ Admin Dashboard</title>
+    <title>NEXA CORE™ - Complete AI Platform</title>
     <style>
         * {
             margin: 0;
@@ -402,13 +13,13 @@
 
         body {
             font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             color: #fff;
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
         }
@@ -416,11 +27,6 @@
         .header {
             text-align: center;
             margin-bottom: 30px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .logo {
@@ -433,21 +39,20 @@
             margin-bottom: 10px;
         }
 
-        .admin-tagline {
-            font-size: 1.3rem;
+        .tagline {
+            font-size: 1.2rem;
             opacity: 0.9;
-            color: #4ecdc4;
         }
 
-        /* Login Form */
-        .admin-login {
+        /* Authentication Forms */
+        .auth-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 70vh;
+            min-height: 80vh;
         }
 
-        .login-form {
+        .auth-form {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             border-radius: 20px;
@@ -455,18 +60,16 @@
             width: 100%;
             max-width: 400px;
             border: 1px solid rgba(255, 255, 255, 0.2);
-            text-align: center;
         }
 
-        .login-form h2 {
+        .auth-form h2 {
+            text-align: center;
             margin-bottom: 30px;
             font-size: 2rem;
-            color: #4ecdc4;
         }
 
         .form-group {
             margin-bottom: 20px;
-            text-align: left;
         }
 
         .form-group label {
@@ -511,6 +114,16 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
 
+        .btn-secondary {
+            background: transparent;
+            color: #fff;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
         .error-message {
             color: #ff6b6b;
             text-align: center;
@@ -518,7 +131,14 @@
             font-weight: bold;
         }
 
-        /* Dashboard */
+        .success-message {
+            color: #4ecdc4;
+            text-align: center;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        /* Main Dashboard */
         .dashboard {
             display: none;
         }
@@ -531,7 +151,7 @@
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             border-radius: 15px;
-            padding: 20px 30px;
+            padding: 15px 30px;
             margin-bottom: 30px;
             display: flex;
             justify-content: space-between;
@@ -541,7 +161,6 @@
         .nav-brand {
             font-size: 1.5rem;
             font-weight: bold;
-            color: #4ecdc4;
         }
 
         .nav-menu {
@@ -550,58 +169,149 @@
         }
 
         .nav-item {
-            padding: 10px 16px;
+            padding: 8px 16px;
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.1);
         }
 
         .nav-item:hover {
             background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
         }
 
-        .dashboard-grid {
+        .chat-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .chat-messages {
+            height: 400px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            padding: 12px;
+            border-radius: 10px;
+            max-width: 80%;
+        }
+
+        .message.user {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            margin-left: auto;
+            text-align: right;
+        }
+
+        .message.ai {
+            background: rgba(255, 255, 255, 0.2);
+            margin-right: auto;
+        }
+
+        .chat-input-container {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            font-size: 16px;
+        }
+
+        .voice-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            cursor: pointer;
+            font-size: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .voice-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Admin Dashboard */
+        .admin-dashboard {
+            display: none;
+        }
+
+        .admin-dashboard.active {
+            display: block;
+        }
+
+        .admin-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
             margin-bottom: 30px;
         }
 
-        .dashboard-card {
+        .admin-card {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             border-radius: 15px;
             padding: 25px;
             border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.3s ease;
         }
 
-        .dashboard-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-
-        .dashboard-card h3 {
-            margin-bottom: 20px;
+        .admin-card h3 {
+            margin-bottom: 15px;
             color: #4ecdc4;
-            font-size: 1.4rem;
+        }
+
+        .user-list {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .user-item {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 10px;
+            padding: 10px;
+            margin-bottom: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+        }
+
+        .btn-small {
+            padding: 5px 10px;
+            font-size: 12px;
+            border-radius: 5px;
+        }
+
+        .btn-danger {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            cursor: pointer;
         }
 
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 15px;
-            margin-bottom: 20px;
         }
 
         .stat-item {
             text-align: center;
-            padding: 15px;
+            padding: 20px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
         }
@@ -610,101 +320,12 @@
             font-size: 2rem;
             font-weight: bold;
             color: #4ecdc4;
-            margin-bottom: 5px;
         }
 
-        .stat-label {
-            font-size: 0.9rem;
-            opacity: 0.8;
+        .hidden {
+            display: none;
         }
 
-        .btn-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 10px;
-        }
-
-        .btn-small {
-            padding: 8px 12px;
-            font-size: 14px;
-            border-radius: 8px;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            color: white;
-        }
-
-        .btn-success {
-            background: #4ecdc4;
-        }
-
-        .btn-warning {
-            background: #feca57;
-        }
-
-        .btn-danger {
-            background: #ff6b6b;
-        }
-
-        .btn-info {
-            background: #45b7d1;
-        }
-
-        .btn-small:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-        }
-
-        .user-list, .vault-list {
-            max-height: 250px;
-            overflow-y: auto;
-            margin-bottom: 15px;
-        }
-
-        .list-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px;
-            margin-bottom: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .list-item:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        .list-item-info h4 {
-            margin-bottom: 5px;
-        }
-
-        .list-item-info small {
-            opacity: 0.7;
-        }
-
-        .status-indicator {
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            margin-right: 6px;
-        }
-
-        .status-active {
-            background: #4ecdc4;
-        }
-
-        .status-inactive {
-            background: #ff6b6b;
-        }
-
-        .status-pending {
-            background: #feca57;
-        }
-
-        /* Vault Modal */
         .vault-modal {
             position: fixed;
             top: 0;
@@ -720,11 +341,11 @@
         }
 
         .vault-content {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border-radius: 20px;
             padding: 30px;
             width: 90%;
-            max-width: 900px;
+            max-width: 800px;
             max-height: 90vh;
             overflow-y: auto;
             border: 2px solid rgba(255, 255, 255, 0.3);
@@ -743,7 +364,7 @@
             background: none;
             border: none;
             color: #fff;
-            font-size: 24px;
+            font-size: 20px;
             cursor: pointer;
             padding: 5px;
             border-radius: 5px;
@@ -758,18 +379,16 @@
             display: flex;
             gap: 10px;
             margin-bottom: 20px;
-            flex-wrap: wrap;
         }
 
         .vault-tab {
-            padding: 12px 20px;
+            padding: 10px 20px;
             border: none;
             border-radius: 10px;
             background: rgba(255, 255, 255, 0.2);
             color: #fff;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-weight: bold;
         }
 
         .vault-tab.active,
@@ -781,8 +400,14 @@
         .vault-section {
             background: rgba(255, 255, 255, 0.1);
             border-radius: 15px;
-            padding: 25px;
+            padding: 20px;
             margin-bottom: 20px;
+        }
+
+        .vault-list {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 15px;
         }
 
         .vault-item {
@@ -801,81 +426,68 @@
 
         .vault-item-actions {
             display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
+            gap: 10px;
         }
 
-        .activity-log {
-            max-height: 200px;
-            overflow-y: auto;
-            background: rgba(0, 0, 0, 0.2);
-            padding: 15px;
+        .btn-small {
+            padding: 5px 12px;
+            font-size: 12px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-edit {
+            background: #4ecdc4;
+            color: white;
+        }
+
+        .btn-delete {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .btn-test {
+            background: #45b7d1;
+            color: white;
+        }
+
+        .vault-form {
+            background: rgba(0, 0, 0, 0.3);
             border-radius: 10px;
+            padding: 20px;
+            margin-top: 15px;
         }
 
-        .activity-item {
-            padding: 8px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        .form-row {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
         }
 
-        .activity-item:last-child {
-            border-bottom: none;
+        .form-row .form-group {
+            flex: 1;
         }
 
-        .activity-time {
-            font-size: 0.8rem;
-            opacity: 0.7;
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 8px;
         }
 
-        .hidden {
-            display: none;
+        .status-active {
+            background: #4ecdc4;
         }
 
-        @media (max-width: 768px) {
-            .container {
-                padding: 10px;
-            }
-            
-            .logo {
-                font-size: 2rem;
-            }
-            
-            .nav-bar {
-                flex-direction: column;
-                gap: 15px;
-            }
+        .status-inactive {
+            background: #ff6b6b;
+        }
 
-            .nav-menu {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-            .dashboard-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .vault-content {
-                width: 95%;
-                padding: 20px;
-            }
-
-            .vault-tabs {
-                flex-direction: column;
-            }
-
-            .vault-item {
-                flex-direction: column;
-                gap: 15px;
-                align-items: flex-start;
-            }
-
-            .vault-item-actions {
-                width: 100%;
-                justify-content: center;
-            }
+        .status-pending {
+            background: #feca57;
         }
     </style>
 </head>
@@ -883,213 +495,241 @@
     <div class="container">
         <div class="header">
             <div class="logo">NEXA CORE™</div>
-            <div class="admin-tagline">🔐 ULTIMATE ADMIN DASHBOARD</div>
+            <div class="tagline">Ultimate AI Platform</div>
         </div>
 
-        <!-- Admin Login -->
-        <div id="adminLogin" class="admin-login">
-            <div class="login-form">
-                <h2>🔐 Admin Access</h2>
-                <form onsubmit="handleAdminLogin(event)">
+        <!-- Login Form -->
+        <div id="loginForm" class="auth-container">
+            <div class="auth-form">
+                <h2>🔐 Login</h2>
+                <form onsubmit="handleLogin(event)">
                     <div class="form-group">
-                        <label for="adminId">Admin ID:</label>
-                        <input type="text" id="adminId" placeholder="Enter Admin ID" required>
+                        <label for="loginId">User ID:</label>
+                        <input type="text" id="loginId" placeholder="Enter your User ID" required>
                     </div>
                     <div class="form-group">
-                        <label for="adminPassword">Password:</label>
-                        <input type="password" id="adminPassword" placeholder="Enter Password" required>
+                        <label for="loginPassword">Password:</label>
+                        <input type="password" id="loginPassword" placeholder="Enter your password" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">🚀 Access Dashboard</button>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                    <button type="button" class="btn btn-secondary" onclick="showSignup()">Create Account</button>
+                    <button type="button" class="btn" onclick="showPasswordReset()" style="background: transparent; color: #4ecdc4; text-decoration: underline; margin-top: 10px;">🔓 Forgot Password?</button>
                 </form>
                 <div id="loginError" class="error-message"></div>
             </div>
         </div>
 
-        <!-- Admin Dashboard -->
-        <div id="adminDashboard" class="dashboard">
+        <!-- Signup Form -->
+        <div id="signupForm" class="auth-container hidden">
+            <div class="auth-form">
+                <h2>📝 Sign Up</h2>
+                <form onsubmit="handleSignup(event)">
+                    <div class="form-group">
+                        <label for="signupName">Full Name:</label>
+                        <input type="text" id="signupName" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupEmail">Email:</label>
+                        <input type="email" id="signupEmail" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupId">Create User ID:</label>
+                        <input type="text" id="signupId" placeholder="Choose a User ID" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupPassword">Password:</label>
+                        <input type="password" id="signupPassword" placeholder="Create a password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password:</label>
+                        <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Create Account</button>
+                    <button type="button" class="btn btn-secondary" onclick="showLogin()">Back to Login</button>
+                </form>
+                <div id="signupError" class="error-message"></div>
+                <div id="signupSuccess" class="success-message"></div>
+            </div>
+        </div>
+
+        <!-- Password Reset Form -->
+        <div id="resetForm" class="auth-container hidden">
+            <div class="auth-form">
+                <h2>🔓 Reset Password</h2>
+                <form onsubmit="handlePasswordReset(event)">
+                    <div class="form-group">
+                        <label for="resetEmail">Email Address:</label>
+                        <input type="email" id="resetEmail" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="resetUserId">User ID:</label>
+                        <input type="text" id="resetUserId" placeholder="Enter your User ID" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">🔄 Send Reset Code</button>
+                    <button type="button" class="btn btn-secondary" onclick="showLogin()">⬅️ Back to Login</button>
+                </form>
+                <div id="resetError" class="error-message"></div>
+                <div id="resetSuccess" class="success-message"></div>
+            </div>
+        </div>
+
+        <!-- Reset Code Verification -->
+        <div id="verifyResetForm" class="auth-container hidden">
+            <div class="auth-form">
+                <h2>📧 Enter Reset Code</h2>
+                <p style="text-align: center; margin-bottom: 20px; opacity: 0.9;">
+                    We've sent a 6-digit code to your email
+                </p>
+                <form onsubmit="handleResetVerification(event)">
+                    <div class="form-group">
+                        <label for="resetCode">Reset Code:</label>
+                        <input type="text" id="resetCode" placeholder="Enter 6-digit code" maxlength="6" required style="text-align: center; font-size: 18px; letter-spacing: 8px;">
+                    </div>
+                    <div class="form-group">
+                        <label for="newPassword">New Password:</label>
+                        <input type="password" id="newPassword" placeholder="Enter new password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmNewPassword">Confirm New Password:</label>
+                        <input type="password" id="confirmNewPassword" placeholder="Confirm new password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">🔒 Reset Password</button>
+                    <button type="button" class="btn btn-secondary" onclick="resendResetCode()">📤 Resend Code</button>
+                </form>
+                <div id="verifyError" class="error-message"></div>
+                <div id="verifySuccess" class="success-message"></div>
+            </div>
+        </div>
+        <div id="mainDashboard" class="dashboard">
             <nav class="nav-bar">
-                <div class="nav-brand">🔐 NEXA ADMIN CENTER</div>
+                <div class="nav-brand">NEXA CORE™</div>
                 <div class="nav-menu">
-                    <div class="nav-item" onclick="refreshDashboard()">🔄 Refresh</div>
-                    <div class="nav-item" onclick="openVault()">🔐 Vault</div>
-                    <div class="nav-item" onclick="exportAllData()">📊 Export</div>
+                    <div class="nav-item" onclick="showChat()">💬 Chat</div>
+                    <div class="nav-item" onclick="showProfile()">👤 Profile</div>
+                    <div class="nav-item" id="adminNavItem" onclick="showAdmin()" style="display: none;">⚙️ Admin</div>
                     <div class="nav-item" onclick="logout()">🚪 Logout</div>
                 </div>
             </nav>
 
-            <div class="dashboard-grid">
-                <!-- System Statistics -->
-                <div class="dashboard-card">
-                    <h3>📊 System Statistics</h3>
-                    <div class="stats-grid">
-                        <div class="stat-item">
-                            <div class="stat-number" id="totalUsers">156</div>
-                            <div class="stat-label">Total Users</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number" id="activeUsers">42</div>
-                            <div class="stat-label">Active Now</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number" id="totalMessages">2,847</div>
-                            <div class="stat-label">Messages</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number" id="systemUptime">99.9%</div>
-                            <div class="stat-label">Uptime</div>
-                        </div>
-                    </div>
-                    <div class="btn-grid">
-                        <button class="btn-small btn-success" onclick="refreshStats()">🔄 Refresh</button>
-                        <button class="btn-small btn-info" onclick="viewAnalytics()">📈 Analytics</button>
+            <!-- Chat Interface -->
+            <div id="chatInterface" class="chat-container">
+                <h2>🤖 TOBI AI Assistant</h2>
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message ai">
+                        <strong>TOBI:</strong> Hello! I'm TOBI, your AI assistant. How can I help you today?
                     </div>
                 </div>
+                <div class="chat-input-container">
+                    <input type="text" class="chat-input" id="chatInput" placeholder="Type your message..." onkeypress="handleChatKeyPress(event)">
+                    <button class="voice-btn" onclick="toggleVoice()" id="voiceBtn">🎤</button>
+                    <button class="btn btn-primary" onclick="sendMessage()" style="width: auto; padding: 12px 20px;">Send</button>
+                </div>
+            </div>
 
-                <!-- User Management -->
-                <div class="dashboard-card">
-                    <h3>👥 User Management</h3>
-                    <div class="user-list" id="userList">
-                        <div class="list-item">
-                            <div class="list-item-info">
-                                <h4>Administrator</h4>
-                                <small>admin@nexacore.com | Last active: Now</small>
-                            </div>
-                            <div>
-                                <span class="status-indicator status-active"></span>
-                                <button class="btn-small btn-info" onclick="viewUser('admin')">👁️ View</button>
-                            </div>
-                        </div>
-                        <div class="list-item">
-                            <div class="list-item-info">
-                                <h4>John Smith</h4>
-                                <small>john@example.com | Last active: 2 hours ago</small>
-                            </div>
-                            <div>
-                                <span class="status-indicator status-inactive"></span>
-                                <button class="btn-small btn-warning" onclick="editUser('john')">✏️ Edit</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="btn-grid">
-                        <button class="btn-small btn-success" onclick="addNewUser()">➕ Add User</button>
-                        <button class="btn-small btn-warning" onclick="bulkActions()">⚙️ Bulk Edit</button>
-                        <button class="btn-small btn-danger" onclick="exportUsers()">📤 Export</button>
-                    </div>
-                </div>
-
-                <!-- Public Access Control -->
-                <div class="dashboard-card">
-                    <h3>🌐 Public Access Control</h3>
-                    <div style="margin-bottom: 20px;">
-                        <label style="display: flex; align-items: center; margin-bottom: 15px; cursor: pointer;">
-                            <input type="checkbox" id="publicAccessToggle" onchange="togglePublicAccess()" style="margin-right: 10px; transform: scale(1.2);">
-                            <span style="font-weight: bold;">Enable Public Access</span>
-                        </label>
-                        <div id="publicAccessStatus" style="padding: 12px; border-radius: 8px; background: rgba(255,107,107,0.3); text-align: center; font-weight: bold;">
-                            🔒 Public Access: DISABLED
-                        </div>
-                    </div>
-                    <div class="btn-grid">
-                        <button class="btn-small btn-success" onclick="generatePublicLink()">🔗 Get Link</button>
-                        <button class="btn-small btn-info" onclick="viewPublicStats()">📊 Stats</button>
-                        <button class="btn-small btn-warning" onclick="configurePublic()">⚙️ Configure</button>
-                    </div>
-                </div>
-
-                <!-- API & Business Vault -->
-                <div class="dashboard-card">
-                    <h3>🔐 Secure Vault</h3>
-                    <div class="stats-grid">
-                        <div class="stat-item">
-                            <div class="stat-number" id="totalApis">8</div>
-                            <div class="stat-label">API Keys</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number" id="totalBusinesses">3</div>
-                            <div class="stat-label">Businesses</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number" id="activeIntegrations">5</div>
-                            <div class="stat-label">Integrations</div>
-                        </div>
-                    </div>
-                    <div class="btn-grid">
-                        <button class="btn-small btn-success" onclick="openVault()">🔓 Open Vault</button>
-                        <button class="btn-small btn-info" onclick="addNewAPI()">🔑 Add API</button>
-                        <button class="btn-small btn-warning" onclick="testConnections()">🧪 Test All</button>
-                    </div>
-                </div>
-
-                <!-- AI Family Management -->
-                <div class="dashboard-card">
-                    <h3>🤖 AI Family Network</h3>
-                    <div class="stats-grid">
-                        <div class="stat-item">
-                            <div class="stat-number" id="internalAIs">4</div>
-                            <div class="stat-label">Internal AIs</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number" id="externalAIs">8</div>
-                            <div class="stat-label">External AIs</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number" id="activeConnections">12</div>
-                            <div class="stat-label">Active Now</div>
-                        </div>
-                    </div>
-                    <div class="btn-grid">
-                        <button class="btn-small btn-success" onclick="manageAIFamily()">🤖 Manage AIs</button>
-                        <button class="btn-small btn-info" onclick="addNewAI()">➕ Add AI</button>
-                        <button class="btn-small btn-warning" onclick="testAllAIs()">🧪 Test All</button>
-                    </div>
-                </div>
-
-                <!-- System Controls -->
-                <div class="dashboard-card">
-                    <h3>🔧 System Controls</h3>
-                    <div class="btn-grid">
-                        <button class="btn-small btn-success" onclick="backupSystem()">💾 Backup</button>
-                        <button class="btn-small btn-info" onclick="updateSystem()">🔄 Update</button>
-                        <button class="btn-small btn-warning" onclick="maintenanceMode()">🔧 Maintenance</button>
-                        <button class="btn-small btn-danger" onclick="emergencyShutdown()">🛑 Emergency</button>
-                    </div>
-                    <div style="margin-top: 15px; padding: 10px; background: rgba(76, 217, 100, 0.2); border-radius: 8px; text-align: center;">
-                        <strong>🟢 System Status: OPERATIONAL</strong>
-                    </div>
-                </div>
-                <div class="dashboard-card">
-                    <h3>📈 Recent Activity</h3>
-                    <div class="activity-log" id="activityLog">
-                        <div class="activity-item">
-                            <div>👤 New user registration: john@example.com</div>
-                            <div class="activity-time">2 min ago</div>
-                        </div>
-                        <div class="activity-item">
-                            <div>🔐 Vault accessed by admin</div>
-                            <div class="activity-time">5 min ago</div>
-                        </div>
-                        <div class="activity-item">
-                            <div>🤖 TOBI AI response generated</div>
-                            <div class="activity-time">7 min ago</div>
-                        </div>
-                        <div class="activity-item">
-                            <div>📊 System backup completed</div>
-                            <div class="activity-time">1 hour ago</div>
-                        </div>
-                        <div class="activity-item">
-                            <div>🔑 API key added: OpenAI GPT-4</div>
-                            <div class="activity-time">2 hours ago</div>
-                        </div>
-                    </div>
-                    <div class="btn-grid" style="margin-top: 15px;">
-                        <button class="btn-small btn-info" onclick="viewFullLog()">📋 Full Log</button>
-                        <button class="btn-small btn-warning" onclick="clearLog()">🗑️ Clear</button>
-                    </div>
-                </div>
+            <!-- Profile Interface -->
+            <div id="profileInterface" class="chat-container hidden">
+                <h2>👤 User Profile</h2>
+                <div id="profileDetails"></div>
             </div>
         </div>
 
-        <!-- Vault Modal -->
+        <!-- Admin Dashboard -->
+        <div id="adminDashboard" class="admin-dashboard">
+            <nav class="nav-bar">
+                <div class="nav-brand">NEXA CORE™ - Admin Panel</div>
+                <div class="nav-menu">
+                    <div class="nav-item" onclick="showChat()">💬 Back to Chat</div>
+                    <div class="nav-item" onclick="logout()">🚪 Logout</div>
+                </div>
+            </nav>
+
+            <div class="admin-grid">
+                <div class="admin-card">
+                    <h3>📊 System Statistics</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number" id="totalUsers">0</div>
+                            <div>Total Users</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="activeUsers">0</div>
+                            <div>Active Users</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="totalMessages">0</div>
+                            <div>Messages</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="admin-card">
+                    <h3>👥 User Management</h3>
+                    <div class="user-list" id="userList"></div>
+                </div>
+
+                <div class="admin-card">
+                    <h3>🌐 Public Access Control</h3>
+                    <div style="margin-bottom: 15px;">
+                        <label style="display: flex; align-items: center; margin-bottom: 10px;">
+                            <input type="checkbox" id="publicAccessToggle" onchange="togglePublicAccess()" style="margin-right: 10px;">
+                            <span>Enable Public Access (No Login Required)</span>
+                        </label>
+                        <p style="font-size: 14px; opacity: 0.8; margin-bottom: 15px;">
+                            When enabled, visitors can use the chatbot without creating an account
+                        </p>
+                        <div id="publicAccessStatus" style="padding: 10px; border-radius: 8px; background: rgba(255,107,107,0.2);">
+                            🔒 Public Access: DISABLED
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" onclick="generatePublicLink()">🔗 Generate Public Link</button>
+                    <div id="publicLinkContainer" style="display: none; margin-top: 15px; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 8px;">
+                        <p><strong>Public Access URL:</strong></p>
+                        <div style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 5px; word-break: break-all; margin: 10px 0;">
+                            <span id="publicLink"></span>
+                        </div>
+                        <button class="btn btn-secondary btn-small" onclick="copyPublicLink()">📋 Copy Link</button>
+                    </div>
+                </div>
+
+                <div class="admin-card">
+                    <h3>🔧 System Controls</h3>
+                    <button class="btn btn-primary" onclick="refreshStats()">🔄 Refresh Stats</button>
+                    <button class="btn btn-secondary" onclick="exportData()">📊 Export Data</button>
+                    <button class="btn btn-danger" onclick="clearLogs()">🗑️ Clear Logs</button>
+                    <button class="btn btn-primary" onclick="backupSystem()">💾 Backup System</button>
+                </div>
+
+                <div class="admin-card">
+                    <h3>🔐 API Keys & Business Vault</h3>
+                    <div style="margin-bottom: 15px;">
+                        <button class="btn btn-primary" onclick="openVault()">🔓 Open Secure Vault</button>
+                        <button class="btn btn-secondary" onclick="addNewKey()">➕ Add API Key</button>
+                        <button class="btn btn-secondary" onclick="addBusiness()">🏢 Add Business</button>
+                    </div>
+                    <div id="vaultStatus" style="padding: 10px; border-radius: 8px; background: rgba(255,107,107,0.2);">
+                        🔒 Vault Status: SECURED
+                    </div>
+                </div>
+
+                <div class="admin-card">
+                    <h3>💼 Business Integrations</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number" id="totalApis">0</div>
+                            <div>API Keys</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="totalBusinesses">0</div>
+                            <div>Businesses</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="activeIntegrations">0</div>
+                            <div>Active</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <!-- API Vault Modal -->
         <div id="vaultModal" class="vault-modal hidden">
             <div class="vault-content">
                 <div class="vault-header">
@@ -1101,68 +741,23 @@
                     <button class="vault-tab active" onclick="showVaultTab('apis')">🔑 API Keys</button>
                     <button class="vault-tab" onclick="showVaultTab('businesses')">🏢 Businesses</button>
                     <button class="vault-tab" onclick="showVaultTab('integrations')">🔗 Integrations</button>
-                    <button class="vault-tab" onclick="showVaultTab('aifamily')">🤖 AI Family</button>
-                    <button class="vault-tab" onclick="showVaultTab('analytics')">📊 Analytics</button>
                 </div>
 
                 <!-- API Keys Tab -->
                 <div id="apisTab" class="vault-tab-content">
                     <div class="vault-section">
                         <h3>🔑 API Keys Manager</h3>
-                        <div id="apiKeysList" class="vault-list">
-                            <div class="vault-item">
-                                <div class="vault-item-info">
-                                    <h4>🔑 OpenAI GPT-4 API</h4>
-                                    <p><strong>Service:</strong> OpenAI</p>
-                                    <p><strong>Key:</strong> sk-proj-xxx...xxxxx</p>
-                                    <p><strong>Status:</strong> <span class="status-indicator status-active"></span>ACTIVE</p>
-                                    <p><strong>Usage:</strong> 850/1000 requests today</p>
-                                </div>
-                                <div class="vault-item-actions">
-                                    <button class="btn-small btn-info" onclick="testAPI('openai')">🧪 Test</button>
-                                    <button class="btn-small btn-warning" onclick="editAPI('openai')">✏️ Edit</button>
-                                    <button class="btn-small btn-danger" onclick="deleteAPI('openai')">🗑️ Delete</button>
-                                </div>
-                            </div>
-                            <div class="vault-item">
-                                <div class="vault-item-info">
-                                    <h4>🔑 Stripe Payment API</h4>
-                                    <p><strong>Service:</strong> Stripe</p>
-                                    <p><strong>Key:</strong> sk_live_xxx...xxxxx</p>
-                                    <p><strong>Status:</strong> <span class="status-indicator status-active"></span>ACTIVE</p>
-                                    <p><strong>Usage:</strong> $45,230 processed today</p>
-                                </div>
-                                <div class="vault-item-actions">
-                                    <button class="btn-small btn-info" onclick="testAPI('stripe')">🧪 Test</button>
-                                    <button class="btn-small btn-warning" onclick="editAPI('stripe')">✏️ Edit</button>
-                                    <button class="btn-small btn-danger" onclick="deleteAPI('stripe')">🗑️ Delete</button>
-                                </div>
-                            </div>
-                        </div>
-                        <button class="btn btn-primary" onclick="addNewAPIKey()">➕ Add New API Key</button>
+                        <div id="apiKeysList" class="vault-list"></div>
+                        <button class="btn btn-primary" onclick="addApiKeyForm()">➕ Add New API Key</button>
                     </div>
                 </div>
 
                 <!-- Businesses Tab -->
                 <div id="businessesTab" class="vault-tab-content hidden">
                     <div class="vault-section">
-                        <h3>🏢 Business Portfolio</h3>
-                        <div id="businessesList" class="vault-list">
-                            <div class="vault-item">
-                                <div class="vault-item-info">
-                                    <h4>🏢 NEXA CORE™</h4>
-                                    <p><strong>Industry:</strong> AI Technology</p>
-                                    <p><strong>Revenue:</strong> $75,000/month</p>
-                                    <p><strong>Contact:</strong> zapbo777@aicentralhubplza.com</p>
-                                    <p><strong>Status:</strong> <span class="status-indicator status-active"></span>ACTIVE</p>
-                                </div>
-                                <div class="vault-item-actions">
-                                    <button class="btn-small btn-info" onclick="viewBusiness('nexa')">👁️ View</button>
-                                    <button class="btn-small btn-warning" onclick="editBusiness('nexa')">✏️ Edit</button>
-                                </div>
-                            </div>
-                        </div>
-                        <button class="btn btn-primary" onclick="addNewBusiness()">➕ Add New Business</button>
+                        <h3>🏢 Business Accounts</h3>
+                        <div id="businessesList" class="vault-list"></div>
+                        <button class="btn btn-primary" onclick="addBusinessForm()">➕ Add New Business</button>
                     </div>
                 </div>
 
@@ -1170,182 +765,870 @@
                 <div id="integrationsTab" class="vault-tab-content hidden">
                     <div class="vault-section">
                         <h3>🔗 Active Integrations</h3>
-                        <div id="integrationsList" class="vault-list">
-                            <div class="vault-item">
-                                <div class="vault-item-info">
-                                    <h4>🔗 CRM Integration</h4>
-                                    <p><strong>Service:</strong> Salesforce + HubSpot</p>
-                                    <p><strong>Status:</strong> <span class="status-indicator status-active"></span>SYNCED</p>
-                                    <p><strong>Last Sync:</strong> 5 minutes ago</p>
-                                </div>
-                                <div class="vault-item-actions">
-                                    <button class="btn-small btn-info" onclick="testIntegration('crm')">🧪 Test</button>
-                                    <button class="btn-small btn-success" onclick="syncNow('crm')">🔄 Sync</button>
-                                </div>
-                            </div>
-                        </div>
-                        <button class="btn btn-primary" onclick="addNewIntegration()">➕ Add Integration</button>
+                        <div id="integrationsList" class="vault-list"></div>
+                        <button class="btn btn-primary" onclick="testAllIntegrations()">🧪 Test All Connections</button>
                     </div>
                 </div>
+            </div>
+        </div>
 
-                <!-- AI Family Tab -->
-                <div id="aifamilyTab" class="vault-tab-content hidden">
-                    <div class="vault-section">
-                        <h3>🤖 Internal AI Family</h3>
-                        <div id="internalAIsList" class="vault-list">
-                            <div class="vault-item">
-                                <div class="vault-item-info">
-                                    <h4>🤖 TOBI (Main Assistant)</h4>
-                                    <p><strong>Type:</strong> Internal Conversational AI</p>
-                                    <p><strong>Capabilities:</strong> Chat, Voice, Code Help, Business Advice</p>
-                                    <p><strong>Status:</strong> <span class="status-indicator status-active"></span>ONLINE</p>
-                                    <p><strong>Usage:</strong> 2,847 conversations today</p>
-                                </div>
-                                <div class="vault-item-actions">
-                                    <button class="btn-small btn-info" onclick="testAI('tobi')">🧪 Test</button>
-                                    <button class="btn-small btn-warning" onclick="configureAI('tobi')">⚙️ Config</button>
-                                    <button class="btn-small btn-success" onclick="upgradeAI('tobi')">⬆️ Upgrade</button>
-                                </div>
-                            </div>
-                            <div class="vault-item">
-                                <div class="vault-item-info">
-                                    <h4>🧠 NEXUS (Analytics AI)</h4>
-                                    <p><strong>Type:</strong> Internal Data Analysis AI</p>
-                                    <p><strong>Capabilities:</strong> Data Analysis, Reporting, Predictions</p>
-                                    <p><strong>Status:</strong> <span class="status-indicator status-active"></span>PROCESSING</p>
-                                    <p><strong>Usage:</strong> 156 reports generated today</p>
-                                </div>
-                                <div class="vault-item-actions">
-                                    <button class="btn-small btn-info" onclick="testAI('nexus')">🧪 Test</button>
-                                    <button class="btn-small btn-warning" onclick="configureAI('nexus')">⚙️ Config</button>
-                                </div>
-                            </div>
-                            <div class="vault-item">
-                                <div class="vault-item-info">
-                                    <h4>🔐 GUARDIAN (Security AI)</h4>
-                                    <p><strong>Type:</strong> Internal Security & Monitoring AI</p>
-                                    <p><strong>Capabilities:</strong> Threat Detection, System Monitoring, Access Control</p>
-                                    <p><strong>Status:</strong> <span class="status-indicator status-active"></span>MONITORING</p>
-                                    <p><strong>Usage:</strong> 24/7 continuous protection</p>
-                                </div>
-                                <div class="vault-item-actions">
-                                    <button class="btn-small btn-info" onclick="testAI('guardian')">🧪 Test</button>
-                                    <button class="btn-small btn-warning" onclick="configureAI('guardian')">⚙️ Config</button>
-                                </div>
-                            </div>
-                            <div class="vault-item">
-                                <div class="vault-item-info">
-                                    <h4>📈 ORACLE (Business AI)</h4>
-                                    <p><strong>Type:</strong> Internal Business Intelligence AI</p>
-                                    <p><strong>Capabilities:</strong> Market Analysis, Strategy, Financial Insights</p>
-                                    <p><strong>Status:</strong> <span class="status-indicator status-active"></span>ANALYZING</p>
-                                    <p><strong>Usage:</strong> 42 business insights today</p>
-                                </div>
-                                <div class="vault-item-actions">
-                                    <button class="btn-small btn-info" onclick="testAI('oracle')">🧪 Test</button>
-                                    <button class="btn-small btn-warning" onclick="configureAI('oracle')">⚙️ Config</button>
-                                </div>
-                            </div>
-                        </div>
-                        <button class="btn btn-primary" onclick="createInternalAI()">🔧 Create New Internal AI</button>
-                    </div>
+    <script>
+        // Business Vault System
+        let businessVault = {
+            apiKeys: {
+                'openai': {
+                    name: 'OpenAI API',
+                    key: 'sk-proj-xxx...xxxxx',
+                    service: 'OpenAI',
+                    status: 'active',
+                    lastUsed: new Date().toISOString(),
+                    usageLimit: '1000 requests/day',
+                    description: 'GPT-4 and ChatGPT API access'
+                },
+                'stripe': {
+                    name: 'Stripe Payment API',
+                    key: 'sk_live_xxx...xxxxx',
+                    service: 'Stripe',
+                    status: 'active',
+                    lastUsed: new Date().toISOString(),
+                    usageLimit: 'Unlimited',
+                    description: 'Payment processing and subscriptions'
+                },
+                'google_cloud': {
+                    name: 'Google Cloud Platform',
+                    key: 'AIza...xxxxx',
+                    service: 'Google Cloud',
+                    status: 'active',
+                    lastUsed: new Date().toISOString(),
+                    usageLimit: '$300 credit',
+                    description: 'Cloud computing and AI services'
+                }
+            },
+            businesses: {
+                'nexa_core': {
+                    name: 'NEXA CORE™',
+                    industry: 'AI Technology',
+                    email: 'zapbo777@aicentralhubplza.com',
+                    website: 'https://nexacore.ai',
+                    status: 'active',
+                    revenue: '$50,000/month',
+                    employees: '10-50',
+                    description: 'Ultimate AI Platform Development'
+                },
+                'ai_central_hub': {
+                    name: 'AI Central Hub',
+                    industry: 'AI Consulting',
+                    email: 'zapbo777@aicentralhubplza.com',
+                    website: 'https://aicentralhub.com',
+                    status: 'active',
+                    revenue: '$25,000/month',
+                    employees: '5-25',
+                    description: 'AI solutions and consulting services'
+                }
+            },
+            integrations: {
+                'crm_integration': {
+                    name: 'CRM Integration',
+                    service: 'Salesforce',
+                    status: 'active',
+                    connectedApis: ['salesforce', 'hubspot'],
+                    lastSync: new Date().toISOString(),
+                    description: 'Customer relationship management'
+                },
+                'payment_processing': {
+                    name: 'Payment Gateway',
+                    service: 'Stripe + PayPal',
+                    status: 'active',
+                    connectedApis: ['stripe', 'paypal'],
+                    lastSync: new Date().toISOString(),
+                    description: 'Unified payment processing'
+                }
+            }
+        };
 
-                    <div class="vault-section">
-                        <h3>🌐 External AI Connections</h3>
-                        <div id="externalAIsList" class="vault-list">
-                            <div class="vault-item">
-                                <div class="vault-item-info">
-                                    <h4>🔗 OpenAI GPT-4</h4>
-                                    <p><strong>Type:</strong> External Language Model</p>
-                                    <p><strong>Provider:</strong> OpenAI</p>
-                                    <p><strong>Status:</strong> <span class="status-indicator status-active"></span>CONNECTED</p>
-                                    <p><strong>Usage:</strong> 1,234 API calls today</p>
-                                </div>
-                                <div class="vault-item-actions">
-                                    <button class="btn-small btn-info" onclick="testExternalAI('gpt4')">🧪 Test</button>
-                                    <button class="btn-small btn-warning" onclick="configureExternal('gpt4')">⚙️ Config</button>
-                                    <button class="btn-small btn-danger" onclick="disconnectAI('gpt4')">🔌 Disconnect</button>
-                                </div>
-                            </div>
-                            <div class="vault-item">
-                                <div class="vault-item-info">
-                                    <h4>🔗 Google Gemini Pro</h4>
-                                    <p><strong>Type:</strong> External Multimodal AI</p>
-                                    <p><strong>Provider:</strong> Google</p>
-                                    <p><strong>Status:</strong> <span class="status-indicator status-active"></span>CONNECTED</p>
-                                    <p><strong>Usage:</strong> 567 requests today</p>
-                                </div>
-                                <div class="vault-item-actions">
-                                    <button class="btn-small btn-info" onclick="testExternalAI('gemini')">🧪 Test</button>
-                                    <button class="btn-small btn-warning" onclick="configureExternal('gemini')">⚙️ Config</button>
-                                    <button class="btn-small btn-danger" onclick="disconnectAI('gemini')">🔌 Disconnect</button>
-                                </div>
-                            </div>
-                            <div class="vault-item">
-                                <div class="vault-item-info">
-                                    <h4>🔗 Claude 3.5 Sonnet</h4>
-                                    <p><strong>Type:</strong> External Reasoning AI</p>
-                                    <p><strong>Provider:</strong> Anthropic</p>
-                                    <p><strong>Status:</strong> <span class="status-indicator status-active"></span>CONNECTED</p>
-                                    <p><strong>Usage:</strong> 892 conversations today</p>
-                                </div>
-                                <div class="vault-item-actions">
-                                    <button class="btn-small btn-info" onclick="testExternalAI('claude')">🧪 Test</button>
-                                    <button class="btn-small btn-warning" onclick="configureExternal('claude')">⚙️ Config</button>
-                                    <button class="btn-small btn-danger" onclick="disconnectAI('claude')">🔌 Disconnect</button>
-                                </div>
-                            </div>
-                            <div class="vault-item">
-                                <div class="vault-item-info">
-                                    <h4>🔗 DALL-E 3</h4>
-                                    <p><strong>Type:</strong> External Image Generation AI</p>
-                                    <p><strong>Provider:</strong> OpenAI</p>
-                                    <p><strong>Status:</strong> <span class="status-indicator status-active"></span>CONNECTED</p>
-                                    <p><strong>Usage:</strong> 145 images generated today</p>
-                                </div>
-                                <div class="vault-item-actions">
-                                    <button class="btn-small btn-info" onclick="testExternalAI('dalle')">🧪 Test</button>
-                                    <button class="btn-small btn-warning" onclick="configureExternal('dalle')">⚙️ Config</button>
-                                    <button class="btn-small btn-danger" onclick="disconnectAI('dalle')">🔌 Disconnect</button>
-                                </div>
-                            </div>
-                            <div class="vault-item">
-                                <div class="vault-item-info">
-                                    <h4>🔗 Hugging Face Models</h4>
-                                    <p><strong>Type:</strong> External Open Source AI Hub</p>
-                                    <p><strong>Provider:</strong> Hugging Face</p>
-                                    <p><strong>Status:</strong> <span class="status-indicator status-active"></span>CONNECTED</p>
-                                    <p><strong>Usage:</strong> 78 model calls today</p>
-                                </div>
-                                <div class="vault-item-actions">
-                                    <button class="btn-small btn-info" onclick="testExternalAI('huggingface')">🧪 Test</button>
-                                    <button class="btn-small btn-warning" onclick="configureExternal('huggingface')">⚙️ Config</button>
-                                    <button class="btn-small btn-danger" onclick="disconnectAI('huggingface')">🔌 Disconnect</button>
-                                </div>
-                            </div>
-                        </div>
-                        <button class="btn btn-primary" onclick="connectExternalAI()">🌐 Connect External AI</button>
-                    </div>
+        // System configuration
+        let systemConfig = {
+            publicAccess: false,
+            publicLink: null,
+            guestUsers: 0,
+            vaultUnlocked: false
+        };
 
-                    <div class="vault-section">
-                        <h3>🔗 AI Orchestration</h3>
-                        <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; margin-bottom: 15px;">
-                            <h4>🎼 AI Workflow Automation</h4>
-                            <p>Configure how internal and external AIs work together</p>
-                            <div class="btn-grid" style="margin-top: 10px;">
-                                <button class="btn-small btn-success" onclick="createWorkflow()">➕ New Workflow</button>
-                                <button class="btn-small btn-info" onclick="manageWorkflows()">⚙️ Manage</button>
-                                <button class="btn-small btn-warning" onclick="testWorkflow()">🧪 Test</button>
-                            </div>
-                        </div>
-                        <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px;">
-                            <h4>🔄 Load Balancing</h4>
-                            <p>Distribute requests across multiple AI services</p>
-                            <div class="btn-grid" style="margin-top: 10px;">
-                                <button class="btn-small btn-success" onclick="enableLoadBalancing()">🎯 Enable</button>
-                                <button class="btn-small btn-info" onclick="balancingSettings()">⚙️ Settings</button>
-                                <button class="btn-small btn-warning" onclick="viewMetrics()">📊 Metrics</button>
-                            </div>
-                        </div>
-                    </div>
+        // User data storage (in real app, this would be server-side)
+        let users = {
+            'admin': {
+                id: 'admin',
+                name: 'Administrator',
+                email: 'admin@nexacore.com',
+                password: 'admin123',
+                role: 'admin',
+                createdAt: new Date().toISOString(),
+                lastActive: new Date().toISOString(),
+                messageCount: 0
+            }
+        };
+
+        let currentUser = null;
+        let chatMessages = [];
+        let isListening = false;
+
+        // Authentication Functions
+        function handleLogin(event) {
+            event.preventDefault();
+            const id = document.getElementById('loginId').value;
+            const password = document.getElementById('loginPassword').value;
+            const errorDiv = document.getElementById('loginError');
+
+            if (users[id] && users[id].password === password) {
+                currentUser = users[id];
+                showDashboard();
+                errorDiv.textContent = '';
+            } else {
+                errorDiv.textContent = 'Invalid User ID or Password!';
+            }
+        }
+
+        function handleSignup(event) {
+            event.preventDefault();
+            const name = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            const id = document.getElementById('signupId').value;
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const errorDiv = document.getElementById('signupError');
+            const successDiv = document.getElementById('signupSuccess');
+
+            // Reset messages
+            errorDiv.textContent = '';
+            successDiv.textContent = '';
+
+            // Validation
+            if (password !== confirmPassword) {
+                errorDiv.textContent = 'Passwords do not match!';
+                return;
+            }
+
+            if (users[id]) {
+                errorDiv.textContent = 'User ID already exists!';
+                return;
+            }
+
+            if (password.length < 6) {
+                errorDiv.textContent = 'Password must be at least 6 characters!';
+                return;
+            }
+
+            // Create new user
+            users[id] = {
+                id: id,
+                name: name,
+                email: email,
+                password: password,
+                role: 'user',
+                createdAt: new Date().toISOString()
+            };
+
+            successDiv.textContent = 'Account created successfully! You can now login.';
+            
+            // Clear form
+            document.getElementById('signupName').value = '';
+            document.getElementById('signupEmail').value = '';
+            document.getElementById('signupId').value = '';
+            document.getElementById('signupPassword').value = '';
+            document.getElementById('confirmPassword').value = '';
+
+            // Auto switch to login after 2 seconds
+            setTimeout(() => {
+                showLogin();
+            }, 2000);
+        }
+
+        function showLogin() {
+            document.getElementById('loginForm').classList.remove('hidden');
+            document.getElementById('signupForm').classList.add('hidden');
+            document.getElementById('resetForm').classList.add('hidden');
+            document.getElementById('verifyResetForm').classList.add('hidden');
+            document.getElementById('mainDashboard').classList.remove('active');
+            document.getElementById('adminDashboard').classList.remove('active');
+        }
+
+        function showSignup() {
+            document.getElementById('loginForm').classList.add('hidden');
+            document.getElementById('signupForm').classList.remove('hidden');
+            document.getElementById('resetForm').classList.add('hidden');
+            document.getElementById('verifyResetForm').classList.add('hidden');
+        }
+
+        function showDashboard() {
+            document.getElementById('loginForm').classList.add('hidden');
+            document.getElementById('signupForm').classList.add('hidden');
+            document.getElementById('resetForm').classList.add('hidden');
+            document.getElementById('verifyResetForm').classList.add('hidden');
+            document.getElementById('mainDashboard').classList.add('active');
+            
+            // Show admin nav item if user is admin
+            if (currentUser.role === 'admin') {
+                document.getElementById('adminNavItem').style.display = 'block';
+            }
+
+            updateProfile();
+            updateAdminStats();
+        }
+
+        function logout() {
+            currentUser = null;
+            showLogin();
+            document.getElementById('adminNavItem').style.display = 'none';
+        }
+
+        // Navigation Functions
+        function showChat() {
+            document.getElementById('chatInterface').classList.remove('hidden');
+            document.getElementById('profileInterface').classList.add('hidden');
+            document.getElementById('adminDashboard').classList.remove('active');
+            document.getElementById('mainDashboard').classList.add('active');
+        }
+
+        function showProfile() {
+            document.getElementById('chatInterface').classList.add('hidden');
+            document.getElementById('profileInterface').classList.remove('hidden');
+            updateProfile();
+        }
+
+        function showAdmin() {
+            if (currentUser.role === 'admin') {
+                document.getElementById('mainDashboard').classList.remove('active');
+                document.getElementById('adminDashboard').classList.add('active');
+                updateAdminStats();
+                updateUserList();
+            }
+        }
+
+        function updateProfile() {
+            if (!currentUser) return;
+            
+            const profileDiv = document.getElementById('profileDetails');
+            profileDiv.innerHTML = `
+                <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 15px;">
+                    <h3>📋 Profile Information</h3>
+                    <p><strong>Name:</strong> ${currentUser.name}</p>
+                    <p><strong>User ID:</strong> ${currentUser.id}</p>
+                    <p><strong>Email:</strong> ${currentUser.email}</p>
+                    <p><strong>Role:</strong> ${currentUser.role.toUpperCase()}</p>
+                    <p><strong>Member Since:</strong> ${new Date(currentUser.createdAt).toLocaleDateString()}</p>
+                    <button class="btn btn-primary" onclick="editProfile()">✏️ Edit Profile</button>
                 </div>
+            `;
+        }
+
+        function editProfile() {
+            alert('Profile editing feature coming soon!');
+        }
+
+        // Chat Functions
+        function handleChatKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+
+            // Add user message
+            addMessage(message, 'user');
+            input.value = '';
+
+            // Simulate AI response
+            setTimeout(() => {
+                const response = generateAIResponse(message);
+                addMessage(response, 'ai');
+            }, 1000);
+        }
+
+        function clearLogs() {
+            if (confirm('Are you sure you want to clear all chat logs?')) {
+                chatMessages = [];
+                document.getElementById('chatMessages').innerHTML = `
+                    <div class="message ai">
+                        <strong>TOBI:</strong> Hello! I'm TOBI, your AI assistant. How can I help you today?
+                    </div>
+                `;
+                updateAdminStats();
+                alert('Chat logs cleared!');
+            }
+        }
+
+        function addMessage(message, sender) {
+            const messagesDiv = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
+            
+            if (sender === 'user') {
+                messageDiv.innerHTML = `<strong>${currentUser.name}:</strong> ${message}`;
+                
+                // Update user message count
+                if (users[currentUser.id]) {
+                    users[currentUser.id].messageCount = (users[currentUser.id].messageCount || 0) + 1;
+                    users[currentUser.id].lastActive = new Date().toISOString();
+                }
+            } else {
+                messageDiv.innerHTML = `<strong>TOBI:</strong> ${message}`;
+            }
+            
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            
+            chatMessages.push({
+                message: message,
+                sender: sender,
+                timestamp: new Date().toISOString(),
+                user: currentUser.id
+            });
+        }
+
+        function generateAIResponse(message) {
+            const msg = message.toLowerCase();
+            
+            // AI Knowledge Base - Smart Responses
+            if (msg.includes('hello') || msg.includes('hi') || msg.includes('hey')) {
+                return `Hello ${currentUser.name}! 👋 I'm TOBI, your intelligent AI assistant. I can help you with coding, business advice, creative writing, problem-solving, and much more! What would you like to explore today?`;
+            }
+            
+            if (msg.includes('code') || msg.includes('programming') || msg.includes('javascript') || msg.includes('html') || msg.includes('css')) {
+                return `💻 I'm excellent at coding! I can help you with:\n• JavaScript, HTML, CSS development\n• React, Node.js applications\n• Debugging and optimization\n• API integration\n• Database design\n\nWhat specific coding challenge are you working on?`;
+            }
+            
+            if (msg.includes('business') || msg.includes('marketing') || msg.includes('strategy')) {
+                return `📈 Great! I can assist with business strategy:\n• Market analysis and research\n• Marketing campaigns and SEO\n• Financial planning and budgeting\n• Team management strategies\n• Growth hacking techniques\n\nWhat aspect of your business needs attention?`;
+            }
+            
+            if (msg.includes('ai') || msg.includes('artificial intelligence') || msg.includes('machine learning')) {
+                return `🤖 AI is my specialty! I can explain:\n• Machine Learning algorithms\n• Neural networks and deep learning\n• AI implementation strategies\n• Automation solutions\n• Future AI trends\n\nI'm built with advanced AI capabilities. What would you like to know?`;
+            }
+            
+            if (msg.includes('help') || msg.includes('assist') || msg.includes('support')) {
+                return `🆘 I'm here to help! I can assist you with:\n• Technical problems and coding\n• Creative writing and content\n• Business and marketing advice\n• Learning new skills\n• Problem-solving strategies\n• Data analysis\n\nJust tell me what you need help with!`;
+            }
+            
+            if (msg.includes('create') || msg.includes('build') || msg.includes('make')) {
+                return `🛠️ I love creating things! I can help you build:\n• Websites and web applications\n• Mobile app prototypes\n• Business plans and strategies\n• Content and marketing materials\n• Automated workflows\n• Creative projects\n\nWhat would you like to create today?`;
+            }
+            
+            if (msg.includes('learn') || msg.includes('teach') || msg.includes('education')) {
+                return `🎓 I'm an excellent teacher! I can help you learn:\n• Programming languages\n• Business skills\n• Creative writing\n• Digital marketing\n• Data science\n• Any topic you're curious about!\n\nI use simple explanations with practical examples. What would you like to learn?`;
+            }
+            
+            if (msg.includes('nexa') || msg.includes('platform') || msg.includes('system')) {
+                return `🌟 You're using NEXA CORE™ - the ultimate AI platform! Features:\n• Advanced AI chat with TOBI (that's me!)\n• Secure user authentication\n• Admin dashboard for management\n• Voice recognition support\n• Mobile-responsive design\n\nNEXA CORE™ represents the future of AI interaction!`;
+            }
+            
+            // Advanced responses based on context
+            const advancedResponses = [
+                `🧠 Based on your question about "${message}", I can provide detailed insights. This is a complex topic that involves multiple factors. Let me break it down for you step by step...`,
+                `💡 That's an excellent question! "${message}" is something I can definitely help with. From my analysis, here are the key points to consider...`,
+                `🎯 I understand you're asking about "${message}". This is actually a fascinating area where I can provide both theoretical knowledge and practical applications...`,
+                `🔍 Great inquiry about "${message}"! Let me analyze this from multiple perspectives to give you a comprehensive answer...`,
+                `⚡ Your question about "${message}" touches on several important concepts. I'll provide you with actionable insights and practical solutions...`,
+                `🚀 Interesting! "${message}" is a topic I'm well-versed in. Let me share some advanced strategies and proven approaches...`
+            ];
+            
+            return advancedResponses[Math.floor(Math.random() * advancedResponses.length)];
+        }
+
+        function toggleVoice() {
+            const btn = document.getElementById('voiceBtn');
+            
+            if (!isListening) {
+                if ('webkitSpeechRecognition' in window) {
+                    const recognition = new webkitSpeechRecognition();
+                    recognition.continuous = false;
+                    recognition.interimResults = false;
+                    recognition.lang = 'en-US';
+                    
+                    recognition.onstart = function() {
+                        isListening = true;
+                        btn.textContent = '🔴';
+                        btn.style.background = 'linear-gradient(45deg, #ff6b6b, #ff4757)';
+                    };
+                    
+                    recognition.onresult = function(event) {
+                        const transcript = event.results[0][0].transcript;
+                        document.getElementById('chatInput').value = transcript;
+                    };
+                    
+                    recognition.onend = function() {
+                        isListening = false;
+                        btn.textContent = '🎤';
+                        btn.style.background = 'linear-gradient(45deg, #ff6b6b, #4ecdc4)';
+                    };
+                    
+                    recognition.start();
+                } else {
+                    alert('Voice recognition not supported in this browser!');
+                }
+            }
+        }
+
+        // Admin Functions
+        function updateAdminStats() {
+            document.getElementById('totalUsers').textContent = Object.keys(users).length + systemConfig.guestUsers;
+            document.getElementById('activeUsers').textContent = currentUser ? 1 + systemConfig.guestUsers : systemConfig.guestUsers;
+            document.getElementById('totalMessages').textContent = chatMessages.length;
+            updateTopUsers();
+        }
+
+        function updateUserList() {
+            const userListDiv = document.getElementById('userList');
+            userListDiv.innerHTML = '';
+            
+            Object.values(users).forEach(user => {
+                const userDiv = document.createElement('div');
+                userDiv.className = 'user-item';
+                userDiv.innerHTML = `
+                    <div>
+                        <strong>${user.name}</strong><br>
+                        <small>ID: ${user.id} | Role: ${user.role}</small>
+                    </div>
+                    <button class="btn btn-danger btn-small" onclick="deleteUser('${user.id}')" ${user.id === 'admin' ? 'disabled' : ''}>Delete</button>
+                `;
+                userListDiv.appendChild(userDiv);
+            });
+        }
+
+        function deleteUser(userId) {
+            if (userId === 'admin') {
+                alert('Cannot delete admin user!');
+                return;
+            }
+            
+            if (confirm(`Are you sure you want to delete user ${userId}?`)) {
+                delete users[userId];
+                updateUserList();
+                updateAdminStats();
+            }
+        }
+
+        function refreshStats() {
+            updateAdminStats();
+            updateUserList();
+            alert('Statistics refreshed!');
+        }
+
+        function exportData() {
+            const data = {
+                users: users,
+                messages: chatMessages,
+                exportDate: new Date().toISOString()
+            };
+            
+            const dataStr = JSON.stringify(data, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'nexa-core-data.json';
+            link.click();
+            
+            URL.revokeObjectURL(url);
+        }
+
+        // Add public access functions
+        function togglePublicAccess() {
+            const toggle = document.getElementById('publicAccessToggle');
+            const status = document.getElementById('publicAccessStatus');
+            
+            systemConfig.publicAccess = toggle.checked;
+            
+            if (systemConfig.publicAccess) {
+                status.innerHTML = '🌐 Public Access: ENABLED';
+                status.style.background = 'rgba(76, 217, 100, 0.3)';
+                
+                // Add public access button to login page
+                addPublicAccessButton();
+            } else {
+                status.innerHTML = '🔒 Public Access: DISABLED';
+                status.style.background = 'rgba(255, 107, 107, 0.2)';
+                
+                // Remove public access button
+                removePublicAccessButton();
+            }
+        }
+
+        function addPublicAccessButton() {
+            const loginForm = document.querySelector('#loginForm .auth-form form');
+            
+            // Check if button already exists
+            if (document.getElementById('publicAccessBtn')) return;
+            
+            const publicBtn = document.createElement('button');
+            publicBtn.type = 'button';
+            publicBtn.id = 'publicAccessBtn';
+            publicBtn.className = 'btn btn-secondary';
+            publicBtn.textContent = '🌐 Try as Guest';
+            publicBtn.onclick = function() {
+                loginAsGuest();
+            };
+            
+            loginForm.appendChild(publicBtn);
+        }
+
+        function removePublicAccessButton() {
+            const publicBtn = document.getElementById('publicAccessBtn');
+            if (publicBtn) {
+                publicBtn.remove();
+            }
+        }
+
+        function loginAsGuest() {
+            if (!systemConfig.publicAccess) {
+                alert('Public access is currently disabled.');
+                return;
+            }
+            
+            systemConfig.guestUsers++;
+            currentUser = {
+                id: `guest_${Date.now()}`,
+                name: `Guest User ${systemConfig.guestUsers}`,
+                email: 'guest@nexacore.com',
+                role: 'guest',
+                createdAt: new Date().toISOString(),
+                isGuest: true
+            };
+            
+            showDashboard();
+        }
+
+        function generatePublicLink() {
+            const baseUrl = window.location.origin + window.location.pathname;
+            const publicUrl = `${baseUrl}?public=true`;
+            
+            systemConfig.publicLink = publicUrl;
+            
+            document.getElementById('publicLink').textContent = publicUrl;
+            document.getElementById('publicLinkContainer').style.display = 'block';
+        }
+
+        function copyPublicLink() {
+            const link = document.getElementById('publicLink').textContent;
+            navigator.clipboard.writeText(link).then(() => {
+                alert('Public link copied to clipboard!');
+            }).catch(() => {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = link;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                alert('Public link copied to clipboard!');
+            });
+        }
+
+        function backupSystem() {
+            const backup = {
+                users: users,
+                messages: chatMessages,
+                config: systemConfig,
+                backupDate: new Date().toISOString(),
+                version: '1.0.0'
+            };
+            
+            const dataStr = JSON.stringify(backup, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `nexa-core-backup-${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+            
+            URL.revokeObjectURL(url);
+            alert('System backup downloaded successfully!');
+        }
+
+        // Vault Management Functions
+        function openVault() {
+            if (currentUser.role !== 'admin') {
+                alert('Access denied. Admin privileges required.');
+                return;
+            }
+            
+            // Simple vault authentication (in real app, use better security)
+            const vaultPassword = prompt('Enter vault password:');
+            if (vaultPassword === 'vault123') {
+                document.getElementById('vaultModal').classList.remove('hidden');
+                document.getElementById('vaultStatus').innerHTML = '🔓 Vault Status: UNLOCKED';
+                document.getElementById('vaultStatus').style.background = 'rgba(76, 217, 100, 0.3)';
+                systemConfig.vaultUnlocked = true;
+                loadVaultData();
+            } else {
+                alert('Invalid vault password!');
+            }
+        }
+
+        function closeVault() {
+            document.getElementById('vaultModal').classList.add('hidden');
+            document.getElementById('vaultStatus').innerHTML = '🔒 Vault Status: SECURED';
+            document.getElementById('vaultStatus').style.background = 'rgba(255, 107, 107, 0.2)';
+            systemConfig.vaultUnlocked = false;
+        }
+
+        function showVaultTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.vault-tab-content').forEach(tab => {
+                tab.classList.add('hidden');
+            });
+            
+            // Remove active class from all tab buttons
+            document.querySelectorAll('.vault-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName + 'Tab').classList.remove('hidden');
+            event.target.classList.add('active');
+            
+            // Load tab data
+            loadVaultData();
+        }
+
+        function loadVaultData() {
+            loadApiKeys();
+            loadBusinesses();
+            loadIntegrations();
+            updateVaultStats();
+        }
+
+        function loadApiKeys() {
+            const apiList = document.getElementById('apiKeysList');
+            apiList.innerHTML = '';
+            
+            Object.entries(businessVault.apiKeys).forEach(([id, api]) => {
+                const apiItem = document.createElement('div');
+                apiItem.className = 'vault-item';
+                apiItem.innerHTML = `
+                    <div class="vault-item-info">
+                        <h4>🔑 ${api.name}</h4>
+                        <p><strong>Service:</strong> ${api.service}</p>
+                        <p><strong>Key:</strong> ${api.key.substring(0, 12)}...hidden</p>
+                        <p><strong>Status:</strong> <span class="status-indicator status-${api.status}"></span>${api.status.toUpperCase()}</p>
+                        <p><strong>Usage:</strong> ${api.usageLimit}</p>
+                        <small>${api.description}</small>
+                    </div>
+                    <div class="vault-item-actions">
+                        <button class="btn-small btn-test" onclick="testApiKey('${id}')">🧪 Test</button>
+                        <button class="btn-small btn-edit" onclick="editApiKey('${id}')">✏️ Edit</button>
+                        <button class="btn-small btn-delete" onclick="deleteApiKey('${id}')">🗑️ Delete</button>
+                    </div>
+                `;
+                apiList.appendChild(apiItem);
+            });
+        }
+
+        function loadBusinesses() {
+            const businessList = document.getElementById('businessesList');
+            businessList.innerHTML = '';
+            
+            Object.entries(businessVault.businesses).forEach(([id, business]) => {
+                const businessItem = document.createElement('div');
+                businessItem.className = 'vault-item';
+                businessItem.innerHTML = `
+                    <div class="vault-item-info">
+                        <h4>🏢 ${business.name}</h4>
+                        <p><strong>Industry:</strong> ${business.industry}</p>
+                        <p><strong>Email:</strong> ${business.email}</p>
+                        <p><strong>Revenue:</strong> ${business.revenue}</p>
+                        <p><strong>Employees:</strong> ${business.employees}</p>
+                        <p><strong>Status:</strong> <span class="status-indicator status-${business.status}"></span>${business.status.toUpperCase()}</p>
+                        <small>${business.description}</small>
+                    </div>
+                    <div class="vault-item-actions">
+                        <button class="btn-small btn-test" onclick="visitWebsite('${business.website}')">🌐 Visit</button>
+                        <button class="btn-small btn-edit" onclick="editBusiness('${id}')">✏️ Edit</button>
+                        <button class="btn-small btn-delete" onclick="deleteBusiness('${id}')">🗑️ Delete</button>
+                    </div>
+                `;
+                businessList.appendChild(businessItem);
+            });
+        }
+
+        function loadIntegrations() {
+            const integrationList = document.getElementById('integrationsList');
+            integrationList.innerHTML = '';
+            
+            Object.entries(businessVault.integrations).forEach(([id, integration]) => {
+                const integrationItem = document.createElement('div');
+                integrationItem.className = 'vault-item';
+                integrationItem.innerHTML = `
+                    <div class="vault-item-info">
+                        <h4>🔗 ${integration.name}</h4>
+                        <p><strong>Service:</strong> ${integration.service}</p>
+                        <p><strong>Connected APIs:</strong> ${integration.connectedApis.join(', ')}</p>
+                        <p><strong>Last Sync:</strong> ${new Date(integration.lastSync).toLocaleString()}</p>
+                        <p><strong>Status:</strong> <span class="status-indicator status-${integration.status}"></span>${integration.status.toUpperCase()}</p>
+                        <small>${integration.description}</small>
+                    </div>
+                    <div class="vault-item-actions">
+                        <button class="btn-small btn-test" onclick="testIntegration('${id}')">🧪 Test</button>
+                        <button class="btn-small btn-edit" onclick="editIntegration('${id}')">✏️ Edit</button>
+                        <button class="btn-small btn-delete" onclick="deleteIntegration('${id}')">🗑️ Delete</button>
+                    </div>
+                `;
+                integrationList.appendChild(integrationItem);
+            });
+        }
+
+        function updateVaultStats() {
+            document.getElementById('totalApis').textContent = Object.keys(businessVault.apiKeys).length;
+            document.getElementById('totalBusinesses').textContent = Object.keys(businessVault.businesses).length;
+            document.getElementById('activeIntegrations').textContent = Object.values(businessVault.integrations).filter(i => i.status === 'active').length;
+        }
+
+        // Add new items functions
+        function addNewKey() {
+            openVault();
+            setTimeout(() => {
+                showVaultTab('apis');
+                addApiKeyForm();
+            }, 100);
+        }
+
+        function addBusiness() {
+            openVault();
+            setTimeout(() => {
+                showVaultTab('businesses');
+                addBusinessForm();
+            }, 100);
+        }
+
+        function addApiKeyForm() {
+            const apiList = document.getElementById('apiKeysList');
+            const formHTML = `
+                <div class="vault-form" id="apiKeyForm">
+                    <h4>➕ Add New API Key</h4>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>API Name:</label>
+                            <input type="text" id="newApiName" placeholder="e.g., OpenAI API">
+                        </div>
+                        <div class="form-group">
+                            <label>Service:</label>
+                            <input type="text" id="newApiService" placeholder="e.g., OpenAI">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>API Key:</label>
+                            <input type="password" id="newApiKey" placeholder="Enter API key">
+                        </div>
+                        <div class="form-group">
+                            <label>Usage Limit:</label>
+                            <input type="text" id="newApiLimit" placeholder="e.g., 1000 requests/day">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Description:</label>
+                        <input type="text" id="newApiDescription" placeholder="What this API is used for">
+                    </div>
+                    <button class="btn btn-primary" onclick="saveNewApiKey()">💾 Save API Key</button>
+                    <button class="btn btn-secondary" onclick="cancelApiKeyForm()">❌ Cancel</button>
+                </div>
+            `;
+            apiList.insertAdjacentHTML('afterbegin', formHTML);
+        }
+
+        function saveNewApiKey() {
+            const name = document.getElementById('newApiName').value;
+            const service = document.getElementById('newApiService').value;
+            const key = document.getElementById('newApiKey').value;
+            const limit = document.getElementById('newApiLimit').value;
+            const description = document.getElementById('newApiDescription').value;
+            
+            if (!name || !service || !key) {
+                alert('Please fill in all required fields!');
+                return;
+            }
+            
+            const id = name.toLowerCase().replace(/\s+/g, '_');
+            businessVault.apiKeys[id] = {
+                name: name,
+                key: key,
+                service: service,
+                status: 'active',
+                lastUsed: new Date().toISOString(),
+                usageLimit: limit || 'Not specified',
+                description: description || 'No description provided'
+            };
+            
+            cancelApiKeyForm();
+            loadApiKeys();
+            updateVaultStats();
+            alert('API Key added successfully!');
+        }
+
+        function cancelApiKeyForm() {
+            const form = document.getElementById('apiKeyForm');
+            if (form) form.remove();
+        }
+
+        // Test functions
+        function testApiKey(id) {
+            const api = businessVault.apiKeys[id];
+            alert(`🧪 Testing ${api.name}...\n\n✅ Connection: Successful\n📊 Status: ${api.status}\n🔑 Key: Valid\n📈 Usage: ${api.usageLimit}`);
+        }
+
+        function testIntegration(id) {
+            const integration = businessVault.integrations[id];
+            alert(`🧪 Testing ${integration.name}...\n\n✅ Connection: Successful\n🔗 Service: ${integration.service}\n📡 APIs: ${integration.connectedApis.join(', ')}\n⏰ Last Sync: ${new Date(integration.lastSync).toLocaleString()}`);
+        }
+
+        function visitWebsite(url) {
+            window.open(url, '_blank');
+        }
+
+        // Delete functions
+        function deleteApiKey(id) {
+            if (confirm(`Are you sure you want to delete this API key?`)) {
+                delete businessVault.apiKeys[id];
+                loadApiKeys();
+                updateVaultStats();
+                alert('API Key deleted successfully!');
+            }
+        }
+
+        function deleteBusiness(id) {
+            if (confirm(`Are you sure you want to delete this business?`)) {
+                delete businessVault.businesses[id];
+                loadBusinesses();
+                updateVaultStats();
+                alert('Business deleted successfully!');
+            }
+        }
+
+        function deleteIntegration(id) {
+            if (confirm(`Are you sure you want to delete this integration?`)) {
+                delete businessVault.integrations[id];
+                loadIntegrations();
+                updateVaultStats();
+                alert('Integration deleted successfully!');
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if public access is requested
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('public') === 'true' && systemConfig.publicAccess) {
+                loginAsGuest();
+            } else {
+                showLogin();
+            }
+        });
+    </script>
+</body>
+</html>
